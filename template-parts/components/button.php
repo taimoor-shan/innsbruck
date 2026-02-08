@@ -20,10 +20,10 @@ $type = $args['type'] ?? 'button';
 $attr = $args['attr'] ?? '';
 
 // Base Classes
-$base_classes = 'inline-flex flex-1 items-center justify-center font-medium transition-colors hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md appearance-none cursor-pointer';
+$base_classes = 'inline-flex items-center justify-center font-medium no-underline transition-colors hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md appearance-none cursor-pointer';
 
 // Size Classes (default is 'h-10 px-8 py-2')
-$size_classes = 'h-10 px-8 py-2 text-[18px] leading-[28px]';
+$size_classes = 'h-10 px-8 py-3 text-[18px] leading-[28px]';
 
 // Variant Styles
 $styles = [

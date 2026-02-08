@@ -34,19 +34,15 @@
                         <span class="block font-light text-neutral-50 text-[14px] leading-[20px]">City Apartments</span>
                     </a>
                     <div class="items-center flex">
-                        <a href="<?php echo home_url('/'); ?>"
-                            class="block font-medium text-[rgb(48,_171,_232)] text-[14px] leading-[20px]">Home</a>
-                        <a href="<?php echo home_url('/luxury'); ?>"
-                            class="block font-medium ml-[32px] text-neutral-50 text-[14px] leading-[20px]">Luxury
-                            Units</a>
-                        <a href="<?php echo home_url('/premium'); ?>"
-                            class="block font-medium ml-[32px] text-neutral-50 text-[14px] leading-[20px]">Premium
-                            Units</a>
-                        <a href="<?php echo home_url('/blog'); ?>"
-                            class="block font-medium ml-[32px] text-neutral-50 text-[14px] leading-[20px]">Tirol
-                            Region</a>
-                        <a href="<?php echo home_url('/contact'); ?>"
-                            class="block font-medium ml-[32px] text-neutral-50 text-[14px] leading-[20px]">Contact</a>
+                        <?php
+                        wp_nav_menu([
+                            'theme_location' => 'primary',
+                            'menu_class' => 'items-center flex',
+                            'container' => false,
+                            'fallback_cb' => false,
+                            'menu_type' => 'header', // Custom arg for filter
+                        ]);
+                        ?>
                         <a href="<?php echo home_url('/contact'); ?>" class="block ml-[32px]">
                             <button
                                 class="items-center inline-flex font-medium justify-center text-center whitespace-nowrap h-10 bg-[rgb(48,_171,_232)] text-[14px] gap-[8px] leading-[20px] pt-2 pr-4 pb-2 pl-4 rounded-md appearance-none">Request

@@ -104,5 +104,14 @@
         }
       ]
     }
+  },
+  "styles": {
+    "elements": {
+      "link": {
+        "typography": {
+          "textDecoration": "none"
+        }
+      }
+    }
   }
 }

@@ -12,43 +12,43 @@ $hero_bg_url = get_field('hero_background_image') ?: 'https://storage.googleapis
 $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full') ?: $hero_bg_url;
 ?>
 
-<section class="items-center flex h-screen justify-center overflow-hidden relative">
-    <div class="bg-center bg-cover absolute left-0 top-0 right-0 bottom-0"
-        style="background-image: url('<?php echo esc_url($featured_image); ?>');">
-        <div class="absolute left-0 top-0 right-0 bottom-0"
-            style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));">
-        </div>
-    </div>
-    <div class="ml-auto mr-auto relative text-center max-w-4xl pt-0 pr-4 pb-0 pl-4 z-[10]">
-        <h1 class="font-bold text-center mb-[24px] text-light text-[72px] leading-[72px]">
-            <?php echo wp_kses_post($hero_title); ?>
-        </h1>
-        <p class="font-light text-center mb-[32px] text-light/90 text-[24px] leading-[32px] pt-0 pr-2 pb-0 pl-2">
-            <?php echo esc_html($hero_subtitle); ?>
-        </p>
-        <div class="flex justify-center text-center gap-[16px] pt-0 pr-4 pb-0 pl-4">
-            <?php get_template_part('template-parts/components/button', null, [
-                'href' => home_url('/luxury'),
-                'text' => 'Explore Luxury Units',
-                'style' => 'primary'
-            ]); ?>
-            <?php get_template_part('template-parts/components/button', null, [
-                'href' => home_url('/premium'),
-                'text' => 'View Premium Units',
-                'style' => 'white-solid',
-                'class' => 'border-light font-medium' // Extra styling to match previous look
-            ]); ?>
-        </div>
-    </div>
-</section>
+<?php
+// Capture buttons for Hero component
+ob_start();
+?>
+<?php get_template_part('template-parts/components/button', null, [
+    'href' => home_url('/luxury-units'),
+    'text' => 'Explore Luxury Units',
+    'style' => 'primary'
+]); ?>
+<?php get_template_part('template-parts/components/button', null, [
+    'href' => home_url('/premium-units'),
+    'text' => 'View Premium Units',
+    'style' => 'white-solid',
+    'class' => 'border-light font-medium' // Extra styling to match previous look
+]); ?>
+<?php
+$hero_buttons = ob_get_clean();
+
+// Render Hero Component
+get_template_part('template-parts/components/hero', null, [
+    'image' => $featured_image,
+    'title' => $hero_title,
+    'subtitle' => $hero_subtitle,
+    'height' => 'h-screen',
+    'content' => $hero_buttons
+]);
+?>
 
 <section class="bg-white pt-20 pr-0 pb-20 pl-0">
     <div class="ml-auto mr-auto w-full pt-0 pr-4 pb-0 pl-4 container">
         <div class="text-center mb-[64px]">
             <h2 class="font-bold text-center mb-[16px] text-[36px] leading-[40px]">
-                <?php echo get_field('benefits_title') ?: 'Benefits of Innsbruck City Apartments'; ?></h2>
+                <?php echo get_field('benefits_title') ?: 'Benefits of Innsbruck City Apartments'; ?>
+            </h2>
             <p class="ml-auto mr-auto text-center text-gray text-[18px] leading-[28px] max-w-2xl">
-                <?php echo get_field('benefits_subtitle') ?: 'Discover our Luxury and Premium apartments'; ?></p>
+                <?php echo get_field('benefits_subtitle') ?: 'Discover our Luxury and Premium apartments'; ?>
+            </p>
         </div>
 
         <div class="grid gap-[32px] grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
@@ -88,7 +88,8 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full') ?: $hero_bg_u
     <div class="ml-auto mr-auto w-full pt-0 pr-4 pb-0 pl-4 container">
         <div class="text-center mb-[64px]">
             <h2 class="font-bold text-center mb-[16px] text-[36px] leading-[40px]">
-                <?php echo get_field('accommodations_title') ?: 'Our Accommodations'; ?></h2>
+                <?php echo get_field('accommodations_title') ?: 'Our Accommodations'; ?>
+            </h2>
             <p class="text-center text-gray text-[18px] leading-[28px]">
                 <?php echo get_field('accommodations_subtitle') ?: 'Choose from our Premium and Luxury apartments'; ?>
             </p>

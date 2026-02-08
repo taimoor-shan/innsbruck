@@ -13,7 +13,7 @@
 <?php do_action('tailpress_content_after'); ?>
 
 <footer class="bg-[rgb(29,_32,_37)] text-neutral-50">
-    <div class="ml-auto mr-auto w-full pt-12 pr-4 pb-12 pl-4">
+    <div class="ml-auto mr-auto w-full pt-12 pr-4 pb-12 pl-4 container">
         <div class="grid gap-[32px]" style="grid-template-columns: repeat(3, minmax(0px, 1fr));">
             <div>
                 <h3 class="font-bold mb-[16px] text-[rgb(48,_171,_232)] text-[20px] leading-[28px]">Innsbruck City
@@ -24,25 +24,22 @@
             </div>
             <div>
                 <h4 class="font-semibold mb-[16px] text-[18px] leading-[28px]">Quick Links</h4>
-                <ul>
-                    <li class="list-none text-left">
-                        <a href="<?php echo home_url('/luxury'); ?>" class="text-left text-[14px] leading-[20px]">Luxury
-                            Units</a>
-                    </li>
-                    <li class="list-none text-left mt-[8px]">
-                        <a href="<?php echo home_url('/premium'); ?>"
-                            class="text-left text-[14px] leading-[20px]">Premium Units</a>
-                    </li>
-                    <li class="list-none text-left mt-[8px]">
-                        <a href="<?php echo home_url('/blog'); ?>" class="text-left text-[14px] leading-[20px]">Tirol
-                            Region</a>
-                    </li>
-                    <li class="list-none text-left mt-[8px]">
-                        <a href="<?php echo home_url('/contact'); ?>"
-                            class="text-left text-[14px] leading-[20px]">Contact Us</a>
-                    </li>
-                </ul>
+                <?php
+                wp_nav_menu([
+                    'theme_location' => 'primary',
+                    'menu_class' => '',
+                    'container' => false,
+                    'fallback_cb' => false,
+                    'menu_type' => 'footer', // Custom arg for filter
+                ]);
+                ?>
             </div>
+            <?php
+            $contact_address = get_theme_mod('contact_address', 'Heiliggeiststrasse 2/2a/2b, 6020 Innsbruck, Austria');
+            $contact_phone = get_theme_mod('contact_phone', '+43 660 478 47 12');
+            $contact_whatsapp_label = get_theme_mod('contact_whatsapp_label', 'WhatsApp Preferred');
+            $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
+            ?>
             <div>
                 <h4 class="font-semibold mb-[16px] text-[18px] leading-[28px]">Contact Info</h4>
                 <ul>
@@ -53,8 +50,8 @@
                             <img src="https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2Fb9f65246b7034767fc11ea611be60edcbab724d3.svg?generation=1770502588613710&amp;alt=media"
                                 class="block size-full" />
                         </div>
-                        <span class="block text-left ml-[12px] text-[14px] leading-[20px]">Heiliggeiststrasse 2/2a/2b,
-                            6020 Innsbruck, Austria</span>
+                        <span
+                            class="block text-left ml-[12px] text-[14px] leading-[20px]"><?php echo nl2br(esc_html($contact_address)); ?></span>
                     </li>
                     <li class="items-start flex text-left mt-[12px]">
                         <div
@@ -63,9 +60,11 @@
                                 class="block size-full" />
                         </div>
                         <div class="text-left ml-[12px] text-[14px] leading-[20px]">
-                            <span class="block text-left text-[rgb(48,_171,_232)] text-[12px] leading-[16px]">WhatsApp
-                                Preferred</span>
-                            <span class="text-left">+43 660 478 47 12</span>
+                            <?php if ($contact_whatsapp_label): ?>
+                                <span
+                                    class="block text-left text-[rgb(48,_171,_232)] text-[12px] leading-[16px]"><?php echo esc_html($contact_whatsapp_label); ?></span>
+                            <?php endif; ?>
+                            <span class="text-left"><?php echo esc_html($contact_phone); ?></span>
                         </div>
                     </li>
                     <li class="items-start flex text-left mt-[12px]">
@@ -75,7 +74,7 @@
                                 class="block size-full" />
                         </div>
                         <span
-                            class="block text-left ml-[12px] text-[14px] leading-[20px]">ibk.cityapartments@gmail.com</span>
+                            class="block text-left ml-[12px] text-[14px] leading-[20px]"><?php echo esc_html($contact_email); ?></span>
                     </li>
                 </ul>
             </div>

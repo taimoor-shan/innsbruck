@@ -40,6 +40,9 @@ function tailpress(): TailPress\Framework\Theme
 // Load ACF Fields
 require_once get_template_directory() . '/inc/class-tailpress-acf.php';
 
+// Load Customizer Settings
+require_once get_template_directory() . '/inc/customizer.php';
+
 tailpress();
 
 /**
@@ -158,3 +161,41 @@ function fix_svg_display()
 }
 add_action('admin_head', 'fix_svg_display');
 
+
+/**
+ * Add Tailwind classes to menu items
+ */
+function tailpress_nav_menu_add_li_class($classes, $item, $args, $depth)
+{
+    if (isset($args->theme_location) && 'primary' === $args->theme_location) {
+        if (isset($args->menu_type) && 'footer' === $args->menu_type) {
+            $classes[] = 'list-none text-left mt-[8px] first:mt-0';
+        } else {
+            // Default to header styles
+            $classes[] = 'ml-[32px] first:ml-0';
+        }
+    }
+    return $classes;
+}
+add_filter('nav_menu_css_class', 'tailpress_nav_menu_add_li_class', 10, 4);
+
+/**
+ * Add Tailwind classes to menu links
+ */
+function tailpress_nav_menu_add_link_class($atts, $item, $args, $depth)
+{
+    if (isset($args->theme_location) && 'primary' === $args->theme_location) {
+        if (isset($args->menu_type) && 'footer' === $args->menu_type) {
+            $atts['class'] = 'text-left text-[14px] leading-[20px]';
+        } else {
+            // Default to header styles
+            // Check if current item is active
+            $is_active = in_array('current-menu-item', $item->classes) || in_array('current-menu-ancestor', $item->classes);
+            $text_color = $is_active ? 'text-[rgb(48,_171,_232)]' : 'text-neutral-50';
+
+            $atts['class'] = "block font-medium {$text_color} text-[14px] leading-[20px]";
+        }
+    }
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'tailpress_nav_menu_add_link_class', 10, 4);

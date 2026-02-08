@@ -8,7 +8,7 @@
 
 $post_id = $args['post_id'] ?? get_the_ID();
 $title = get_the_title($post_id);
-$gallery = get_field('gallery', $post_id);
+
 $size = get_field('size', $post_id);
 $bedrooms = get_field('bedrooms', $post_id);
 $livingroom = get_field('livingroom', $post_id);
@@ -21,11 +21,21 @@ $floor_plan = get_field('floor_plan', $post_id);
 $terms = get_the_terms($post_id, 'unit_type');
 $badge_label = !empty($terms) ? $terms[0]->name : '';
 
-// Fallback Gallery if empty (for dev/demo)
-if (!$gallery) {
-    $gallery = [
-        get_the_post_thumbnail_url($post_id, 'full') ?: 'https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2F9ed7d824b867c563836fa0e11722551307a341e2.jpg?generation=1770502588609302&amp;alt=media'
-    ];
+$gallery_images = [];
+if (function_exists('tailpress_get_gallery_images')) {
+    $gallery_images = tailpress_get_gallery_images($post_id);
+}
+
+// Convert to array of URLs for Swiper loop
+$gallery = array_map(function ($img) {
+    return $img['url'];
+}, $gallery_images);
+
+// Fallback Gallery if empty (for dev/demo or if no gallery selected)
+if (empty($gallery)) {
+    // Try ACF gallery if old field still there, or just featured image
+    $fallback_img = get_the_post_thumbnail_url($post_id, 'large') ?: 'https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2F9ed7d824b867c563836fa0e11722551307a341e2.jpg?generation=1770502588609302&amp;alt=media';
+    $gallery = [$fallback_img];
 }
 $carousel_id = 'carousel-' . $post_id;
 ?>
@@ -33,48 +43,44 @@ $carousel_id = 'carousel-' . $post_id;
 <div class="rounded-lg border bg-white text-dark shadow-sm overflow-hidden transition-all h-full flex flex-col">
 
     <!-- Carousel Section -->
-    <div class="relative w-full group" id="<?php echo esc_attr($carousel_id); ?>" data-carousel>
-        <div class="overflow-hidden">
-            <div class="flex transition-transform duration-300 ease-in-out" data-carousel-track>
-                <?php foreach ($gallery as $image_url): ?>
-                    <div class="min-w-full shrink-0 grow-0 basis-full">
-                        <div class="relative h-64 md:h-60">
-                            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>"
-                                class="w-full h-full object-cover">
-                            <?php if ($badge_label): ?>
-                                <div class="absolute top-2 right-2 md:top-4 md:right-4">
-                                    <span
-                                        class="bg-white/90 text-dark px-2 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-semibold shadow-sm backdrop-blur-sm">
-                                        <?php echo esc_html($badge_label); ?>
-                                    </span>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+    <div class="relative w-full group">
+        <?php if ($badge_label): ?>
+            <div class="absolute top-2 right-2 md:top-4 md:right-4 z-10">
+                <span
+                    class="bg-white/90 text-dark px-2 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-semibold shadow-sm backdrop-blur-sm">
+                    <?php echo esc_html($badge_label); ?>
+                </span>
             </div>
-        </div>
+        <?php endif; ?>
 
-        <!-- Navigation Buttons -->
-        <?php if (count($gallery) > 1): ?>
-            <button
-                class="absolute top-1/2 left-2 md:left-4 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white text-dark shadow-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none"
-                data-carousel-prev>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                    <path d="m12 19-7-7 7-7" />
-                    <path d="M19 12H5" />
-                </svg>
-            </button>
-            <button
-                class="absolute top-1/2 right-2 md:right-4 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white text-dark shadow-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none"
-                data-carousel-next>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                </svg>
-            </button>
+        <?php if (!empty($gallery)): ?>
+            <div class="swiper card-swiper rounded-t-lg overflow-hidden">
+                <div class="swiper-wrapper">
+                    <?php foreach ($gallery as $image_url): ?>
+                        <div class="swiper-slide">
+                            <div class="relative h-48 sm:h-64 md:h-80">
+                                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>"
+                                    class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <!-- Navigation Buttons -->
+                <div class="flex items-center">
+                    <div
+                        class="swiper-button-next !w-8 !h-8 !bg-white/80 !text-dark !rounded-full !after:text-xs hover:!bg-white transition-colors">
+                    </div>
+                    <div
+                        class="swiper-button-prev !w-8 !h-8 !bg-white/80 !text-dark !rounded-full !after:text-xs hover:!bg-white transition-colors">
+                    </div>
+                </div>
+
+            </div>
+        <?php else: ?>
+            <div class="relative h-48 sm:h-64 md:h-80">
+                <img src="<?php echo esc_url($gallery[0] ?? ''); ?>" alt="<?php echo esc_attr($title); ?>"
+                    class="w-full h-full object-cover">
+            </div>
         <?php endif; ?>
     </div>
 
@@ -141,7 +147,7 @@ $carousel_id = 'carousel-' . $post_id;
             <?php get_template_part('template-parts/components/button', null, [
                 'href' => home_url('/contact'),
                 'text' => 'Request Info',
-                'class' => 'w-full text-xs md:text-sm',
+                'class' => 'flex-1 text-xs md:text-sm',
                 'style' => 'primary'
             ]); ?>
             <?php if ($floor_plan): ?>

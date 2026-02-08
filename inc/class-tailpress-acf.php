@@ -156,7 +156,59 @@ class TailPress_ACF
             ),
         ));
 
-        // 2. Unit Type Taxonomy Fields
+        // 2. Listing Landing Page Fields
+        acf_add_local_field_group(array(
+            'key' => 'group_listing_landing_page',
+            'title' => 'Listing Landing Page Settings',
+            'fields' => array(
+
+
+                // Features Tab
+                array(
+                    'key' => 'field_landing_tab_features',
+                    'label' => 'Features Section',
+                    'type' => 'tab',
+                ),
+                array(
+                    'key' => 'field_landing_features_content',
+                    'label' => 'Features Content',
+                    'name' => 'features_content',
+                    'type' => 'wysiwyg',
+                ),
+
+
+
+                // Grid Tab
+                array(
+                    'key' => 'field_landing_tab_grid',
+                    'label' => 'Units Grid',
+                    'type' => 'tab',
+                ),
+                array(
+                    'key' => 'field_unit_type_filter',
+                    'label' => 'Filter by Unit Type',
+                    'name' => 'unit_type_filter',
+                    'type' => 'taxonomy',
+                    'taxonomy' => 'unit_type',
+                    'field_type' => 'select',
+                    'return_format' => 'id',
+                    'allow_null' => 1,
+                    'multiple' => 0,
+                    'instructions' => 'Select a Unit Type to display only those units. Leave empty to show all.',
+                ),
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'page-templates/listing-landing.php',
+                    ),
+                ),
+            ),
+        ));
+
+        // 3. Unit Type Taxonomy Fields
         acf_add_local_field_group(array(
             'key' => 'group_unit_type',
             'title' => 'Unit Type Settings',
@@ -201,6 +253,8 @@ class TailPress_ACF
             'key' => 'group_accommodation_details',
             'title' => 'Accommodation Details',
             'fields' => array(
+                /*
+                // Old Gallery Field - Replaced by TailPress Gallery Plugin
                 array(
                     'key' => 'field_gallery',
                     'label' => 'Photo Gallery',
@@ -208,6 +262,7 @@ class TailPress_ACF
                     'type' => 'gallery',
                     'return_format' => 'url',
                 ),
+                */
                 array(
                     'key' => 'field_size',
                     'label' => 'Size (m²)',
