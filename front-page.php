@@ -1,5 +1,7 @@
 <?php
 /**
+ * Template Name: Home Page
+ *
  * Front Page Template
  *
  * @package TailPress

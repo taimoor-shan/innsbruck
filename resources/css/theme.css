@@ -7,9 +7,10 @@
     --breakpoint-2xl: 1440px;
 
     --color-primary: var(--wp--preset--color--primary);
-    --color-secondary: var(--wp--preset--color--secondary);
     --color-dark: var(--wp--preset--color--dark);
+    --color-gray: var(--wp--preset--color--gray);
     --color-light: var(--wp--preset--color--light);
+    --color-accent: var(--wp--preset--color--accent);
 
     --text-xs: var(--wp--preset--font-size--xs, 0.75rem);
     --text-sm: var(--wp--preset--font-size--sm, 0.875rem);
