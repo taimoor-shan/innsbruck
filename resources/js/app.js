@@ -1,11 +1,5 @@
-window.addEventListener('load', function () {
-    let mainNavigation = document.getElementById('primary-navigation')
-    let mainNavigationToggle = document.getElementById('primary-menu-toggle')
+import Alpine from 'alpinejs'
 
-    if(mainNavigation && mainNavigationToggle) {
-        mainNavigationToggle.addEventListener('click', function (e) {
-            e.preventDefault()
-            mainNavigation.classList.toggle('hidden')
-        })
-    }
-})
+window.Alpine = Alpine
+
+Alpine.start()

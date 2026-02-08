@@ -170,6 +170,8 @@ function tailpress_nav_menu_add_li_class($classes, $item, $args, $depth)
     if (isset($args->theme_location) && 'primary' === $args->theme_location) {
         if (isset($args->menu_type) && 'footer' === $args->menu_type) {
             $classes[] = 'list-none text-left mt-[8px] first:mt-0';
+        } elseif (isset($args->menu_type) && 'mobile' === $args->menu_type) {
+            $classes[] = 'list-none w-full';
         } else {
             // Default to header styles
             $classes[] = 'ml-[32px] first:ml-0';
@@ -187,6 +189,8 @@ function tailpress_nav_menu_add_link_class($atts, $item, $args, $depth)
     if (isset($args->theme_location) && 'primary' === $args->theme_location) {
         if (isset($args->menu_type) && 'footer' === $args->menu_type) {
             $atts['class'] = 'text-left text-[14px] leading-[20px]';
+        } elseif (isset($args->menu_type) && 'mobile' === $args->menu_type) {
+            $atts['class'] = 'block w-full text-left text-neutral-50 font-medium text-[16px] py-2';
         } else {
             // Default to header styles
             // Check if current item is active
@@ -199,3 +203,20 @@ function tailpress_nav_menu_add_link_class($atts, $item, $args, $depth)
     return $atts;
 }
 add_filter('nav_menu_link_attributes', 'tailpress_nav_menu_add_link_class', 10, 4);
+
+/**
+ * Add type="module" and defer to the app script
+ */
+function tailpress_add_module_type_to_script($tag, $handle, $src)
+{
+    // Check if it's the main app script.
+    // Matches:
+    // 1. Handle 'tailpress-app' or 'app'
+    // 2. Src contains 'app' and '.js' and is within a theme's assets folder (flexible check)
+    // 3. Src matches Vite build pattern '/assets/app-'
+    if ('tailpress-app' === $handle || 'app' === $handle || (strpos($src, 'app') !== false && strpos($src, '.js') !== false && (strpos($src, '/themes/') !== false || strpos($src, '/assets/') !== false))) {
+        $tag = '<script type="module" src="' . esc_url($src) . '" defer id="' . esc_attr($handle) . '-js"></script>';
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tailpress_add_module_type_to_script', 10, 3);

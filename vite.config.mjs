@@ -5,7 +5,7 @@ export default defineConfig(({ command }) => {
     const isBuild = command === 'build';
 
     return {
-        base: isBuild ? '/wp-content/themes/tailpress/dist/' : '/',
+        base: isBuild ? './' : '/',
         server: {
             port: 3000,
             cors: true,
