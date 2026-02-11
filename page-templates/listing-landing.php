@@ -64,42 +64,40 @@ if (empty($features)) {
 </section>
 
 <?php
-// 4. Units Grid
-// Get selected unit type term ID to filter
-// 4. Units Grid
-// Get selected unit type term ID to filter
-$unit_type_term_id = get_field('unit_type_filter');
-$unit_type_name = '';
+// 4. Properties Grid
+// Get selected property type term ID to filter
+$property_type_term_id = get_field('property_type_filter');
+$property_type_name = '';
 
 $args = [
     'post_type' => 'accommodation',
     'posts_per_page' => -1,
 ];
 
-if ($unit_type_term_id) {
-    $term = get_term($unit_type_term_id, 'unit_type');
+if ($property_type_term_id) {
+    $term = get_term($property_type_term_id, 'property_type');
     if ($term && !is_wp_error($term)) {
-        $unit_type_name = $term->name;
+        $property_type_name = $term->name;
     }
 
     $args['tax_query'] = [
         [
-            'taxonomy' => 'unit_type',
+            'taxonomy' => 'property_type',
             'field' => 'term_id',
-            'terms' => $unit_type_term_id,
+            'terms' => $property_type_term_id,
         ]
     ];
 }
 
-$units_query = new WP_Query($args);
+$properties_query = new WP_Query($args);
 ?>
 
 <section class="py-12 md:py-20 bg-white">
     <div class="container mx-auto px-4">
         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-12 text-center">Available
-            <?php echo $unit_type_name ? esc_html($unit_type_name) : ''; ?> Units
+            <?php echo $property_type_name ? esc_html($property_type_name) : ''; ?> Properties
         </h2>
-        <?php get_template_part('template-parts/components/units-loop', null, ['query' => $units_query]); ?>
+        <?php get_template_part('template-parts/components/properties-loop', null, ['query' => $properties_query]); ?>
     </div>
 </section>
 

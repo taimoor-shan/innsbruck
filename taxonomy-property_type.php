@@ -1,8 +1,8 @@
 <?php
 /**
  * 
- * Template Name: Unit Type Archive
- * The template for displaying Unit Type archive pages.
+ * Template Name: Property Type Archive
+ * The template for displaying Property Type archive pages.
  *
  * @package TailPress
  */
@@ -14,10 +14,9 @@ $hero_bg = get_field('hero_image', $term) ?: 'https://storage.googleapis.com/dow
 ?>
 
 <!-- Hero Section (Editable via Term Archive) -->
-<!-- Hero Section (Editable via Term Archive) -->
 <?php get_template_part('template-parts/components/hero', null, [
     'image' => $hero_bg,
-    'title' => get_query_var('term') ? single_term_title('', false) : single_month_title('', false), // Handle potential non-term queries if any, though this is a taxonomy template. single_term_title echoes by default so we need false. Wait, single_term_title() returns string if display is false? Yes.
+    'title' => single_term_title('', false),
     'subtitle' => term_description(),
     'height' => 'h-[50vh]'
 ]); ?>
@@ -33,7 +32,10 @@ $hero_bg = get_field('hero_image', $term) ?: 'https://storage.googleapis.com/dow
             </div>
         <?php endif; ?>
 
-        <?php get_template_part('template-parts/components/units-loop'); ?>
+        <?php
+        global $wp_query;
+        get_template_part('template-parts/components/properties-loop', null, ['query' => $wp_query]);
+        ?>
 
     </div>
 </section>

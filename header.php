@@ -22,15 +22,23 @@
     <div id="page" class="min-h-screen flex flex-col">
         <?php do_action('tailpress_header'); ?>
 
-        <nav
-            class="border-b fixed left-0 top-0 right-0 backdrop-blur-xs bg-[rgba(29,_32,_37,_0.95)]/95 border-[rgba(48,_171,_232,_0.2)]/20 z-[50]">
+        <nav class="border-b fixed left-0 top-0 right-0 backdrop-blur-xs z-[50]">
             <div class="ml-auto mr-auto w-full p-4 container">
                 <div x-data="{ open: false }" class="items-center flex justify-between w-full">
-                    <a href="<?php echo home_url('/'); ?>" class="flex flex-col">
+                    <!-- <a href="<?php echo home_url('/'); ?>" class="flex flex-col">
                         <span
-                            class="block font-bold text-[rgb(48,_171,_232)] text-[24px] leading-[30px]">Innsbruck</span>
+                            class="block font-bold text-primary text-[24px] leading-[30px]">Innsbruck</span>
                         <span class="block font-light text-neutral-50 text-[14px] leading-[20px]">City Apartments</span>
-                    </a>
+                    </a> -->
+                    <?php
+
+                    if (has_custom_logo()) {
+
+                        the_custom_logo();
+                    } else {
+                        echo "<h3>" . get_bloginfo("name") . "</h3>";
+                    }
+                    ?>
 
                     <!-- Mobile Menu Button -->
                     <button @click="open = ! open" class="md:hidden text-white p-2">

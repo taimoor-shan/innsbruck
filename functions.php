@@ -46,42 +46,42 @@ require_once get_template_directory() . '/inc/customizer.php';
 tailpress();
 
 /**
- * Register Accommodation Custom Post Type.
+ * Register Property Custom Post Type.
  */
 function register_accommodation_cpt()
 {
     $labels = array(
-        'name' => _x('Accommodations', 'Post Type General Name', 'tailpress'),
-        'singular_name' => _x('Accommodation', 'Post Type Singular Name', 'tailpress'),
-        'menu_name' => __('Accommodations', 'tailpress'),
-        'name_admin_bar' => __('Accommodation', 'tailpress'),
-        'archives' => __('Accommodation Archives', 'tailpress'),
-        'attributes' => __('Accommodation Attributes', 'tailpress'),
-        'parent_item_colon' => __('Parent Accommodation:', 'tailpress'),
-        'all_items' => __('All Accommodations', 'tailpress'),
-        'add_new_item' => __('Add New Accommodation', 'tailpress'),
+        'name' => _x('Properties', 'Post Type General Name', 'tailpress'),
+        'singular_name' => _x('Property', 'Post Type Singular Name', 'tailpress'),
+        'menu_name' => __('Properties', 'tailpress'),
+        'name_admin_bar' => __('Property', 'tailpress'),
+        'archives' => __('Property Archives', 'tailpress'),
+        'attributes' => __('Property Attributes', 'tailpress'),
+        'parent_item_colon' => __('Parent Property:', 'tailpress'),
+        'all_items' => __('All Properties', 'tailpress'),
+        'add_new_item' => __('Add New Property', 'tailpress'),
         'add_new' => __('Add New', 'tailpress'),
-        'new_item' => __('New Accommodation', 'tailpress'),
-        'edit_item' => __('Edit Accommodation', 'tailpress'),
-        'update_item' => __('Update Accommodation', 'tailpress'),
-        'view_item' => __('View Accommodation', 'tailpress'),
-        'view_items' => __('View Accommodations', 'tailpress'),
-        'search_items' => __('Search Accommodation', 'tailpress'),
+        'new_item' => __('New Property', 'tailpress'),
+        'edit_item' => __('Edit Property', 'tailpress'),
+        'update_item' => __('Update Property', 'tailpress'),
+        'view_item' => __('View Property', 'tailpress'),
+        'view_items' => __('View Properties', 'tailpress'),
+        'search_items' => __('Search Property', 'tailpress'),
         'not_found' => __('Not found', 'tailpress'),
         'not_found_in_trash' => __('Not found in Trash', 'tailpress'),
         'featured_image' => __('Featured Image', 'tailpress'),
         'set_featured_image' => __('Set featured image', 'tailpress'),
         'remove_featured_image' => __('Remove featured image', 'tailpress'),
         'use_featured_image' => __('Use as featured image', 'tailpress'),
-        'insert_into_item' => __('Insert into accommodation', 'tailpress'),
-        'uploaded_to_this_item' => __('Uploaded to this accommodation', 'tailpress'),
-        'items_list' => __('Accommodations list', 'tailpress'),
-        'items_list_navigation' => __('Accommodations list navigation', 'tailpress'),
-        'filter_items_list' => __('Filter accommodations list', 'tailpress'),
+        'insert_into_item' => __('Insert into property', 'tailpress'),
+        'uploaded_to_this_item' => __('Uploaded to this property', 'tailpress'),
+        'items_list' => __('Properties list', 'tailpress'),
+        'items_list_navigation' => __('Properties list navigation', 'tailpress'),
+        'filter_items_list' => __('Filter properties list', 'tailpress'),
     );
     $args = array(
-        'label' => __('Accommodation', 'tailpress'),
-        'description' => __('Accommodation details', 'tailpress'),
+        'label' => __('Property', 'tailpress'),
+        'description' => __('Property details', 'tailpress'),
         'labels' => $labels,
         'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
         // 'taxonomies' => array('category', 'post_tag'),
@@ -102,31 +102,31 @@ function register_accommodation_cpt()
     );
     register_post_type('accommodation', $args);
 
-    // Register Unit Type Taxonomy
-    $taxonomy_labels = array(
-        'name' => _x('Unit Types', 'Taxonomy General Name', 'tailpress'),
-        'singular_name' => _x('Unit Type', 'Taxonomy Singular Name', 'tailpress'),
-        'menu_name' => __('Unit Type', 'tailpress'),
-        'all_items' => __('All Unit Types', 'tailpress'),
-        'parent_item' => __('Parent Unit Type', 'tailpress'),
-        'parent_item_colon' => __('Parent Unit Type:', 'tailpress'),
-        'new_item_name' => __('New Unit Type Name', 'tailpress'),
-        'add_new_item' => __('Add New Unit Type', 'tailpress'),
-        'edit_item' => __('Edit Unit Type', 'tailpress'),
-        'update_item' => __('Update Unit Type', 'tailpress'),
-        'view_item' => __('View Unit Type', 'tailpress'),
-        'separate_items_with_commas' => __('Separate unit types with commas', 'tailpress'),
-        'add_or_remove_items' => __('Add or remove unit types', 'tailpress'),
+    // Register Property Type Taxonomy
+    $type_labels = array(
+        'name' => _x('Property Types', 'Taxonomy General Name', 'tailpress'),
+        'singular_name' => _x('Property Type', 'Taxonomy Singular Name', 'tailpress'),
+        'menu_name' => __('Property Type', 'tailpress'),
+        'all_items' => __('All Property Types', 'tailpress'),
+        'parent_item' => __('Parent Property Type', 'tailpress'),
+        'parent_item_colon' => __('Parent Property Type:', 'tailpress'),
+        'new_item_name' => __('New Property Type Name', 'tailpress'),
+        'add_new_item' => __('Add New Property Type', 'tailpress'),
+        'edit_item' => __('Edit Property Type', 'tailpress'),
+        'update_item' => __('Update Property Type', 'tailpress'),
+        'view_item' => __('View Property Type', 'tailpress'),
+        'separate_items_with_commas' => __('Separate property types with commas', 'tailpress'),
+        'add_or_remove_items' => __('Add or remove property types', 'tailpress'),
         'choose_from_most_used' => __('Choose from the most used', 'tailpress'),
-        'popular_items' => __('Popular Unit Types', 'tailpress'),
-        'search_items' => __('Search Unit Types', 'tailpress'),
+        'popular_items' => __('Popular Property Types', 'tailpress'),
+        'search_items' => __('Search Property Types', 'tailpress'),
         'not_found' => __('Not Found', 'tailpress'),
-        'no_terms' => __('No unit types', 'tailpress'),
-        'items_list' => __('Unit types list', 'tailpress'),
-        'items_list_navigation' => __('Unit types list navigation', 'tailpress'),
+        'no_terms' => __('No property types', 'tailpress'),
+        'items_list' => __('Property types list', 'tailpress'),
+        'items_list_navigation' => __('Property types list navigation', 'tailpress'),
     );
-    $taxonomy_args = array(
-        'labels' => $taxonomy_labels,
+    $type_args = array(
+        'labels' => $type_labels,
         'hierarchical' => true,
         'public' => true,
         'show_ui' => true,
@@ -135,7 +135,42 @@ function register_accommodation_cpt()
         'show_tagcloud' => true,
         'show_in_rest' => true,
     );
-    register_taxonomy('unit_type', array('accommodation'), $taxonomy_args);
+    register_taxonomy('property_type', array('accommodation'), $type_args);
+
+    // Register Property Status Taxonomy
+    $status_labels = array(
+        'name' => _x('Property Statuses', 'Taxonomy General Name', 'tailpress'),
+        'singular_name' => _x('Property Status', 'Taxonomy Singular Name', 'tailpress'),
+        'menu_name' => __('Property Status', 'tailpress'),
+        'all_items' => __('All Property Statuses', 'tailpress'),
+        'parent_item' => __('Parent Property Status', 'tailpress'),
+        'parent_item_colon' => __('Parent Property Status:', 'tailpress'),
+        'new_item_name' => __('New Property Status Name', 'tailpress'),
+        'add_new_item' => __('Add New Property Status', 'tailpress'),
+        'edit_item' => __('Edit Property Status', 'tailpress'),
+        'update_item' => __('Update Property Status', 'tailpress'),
+        'view_item' => __('View Property Status', 'tailpress'),
+        'separate_items_with_commas' => __('Separate property statuses with commas', 'tailpress'),
+        'add_or_remove_items' => __('Add or remove property statuses', 'tailpress'),
+        'choose_from_most_used' => __('Choose from the most used', 'tailpress'),
+        'popular_items' => __('Popular Property Statuses', 'tailpress'),
+        'search_items' => __('Search Property Statuses', 'tailpress'),
+        'not_found' => __('Not Found', 'tailpress'),
+        'no_terms' => __('No property statuses', 'tailpress'),
+        'items_list' => __('Property statuses list', 'tailpress'),
+        'items_list_navigation' => __('Property statuses list navigation', 'tailpress'),
+    );
+    $status_args = array(
+        'labels' => $status_labels,
+        'hierarchical' => true,
+        'public' => true,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'show_in_nav_menus' => true,
+        'show_tagcloud' => true,
+        'show_in_rest' => true,
+    );
+    register_taxonomy('property_status', array('accommodation'), $status_args);
 }
 add_action('init', 'register_accommodation_cpt', 0);
 
@@ -195,7 +230,7 @@ function tailpress_nav_menu_add_link_class($atts, $item, $args, $depth)
             // Default to header styles
             // Check if current item is active
             $is_active = in_array('current-menu-item', $item->classes) || in_array('current-menu-ancestor', $item->classes);
-            $text_color = $is_active ? 'text-[rgb(48,_171,_232)]' : 'text-neutral-50';
+            $text_color = $is_active ? 'text-primary' : 'text-neutral-50';
 
             $atts['class'] = "block font-medium {$text_color} text-[14px] leading-[20px]";
         }
@@ -220,3 +255,47 @@ function tailpress_add_module_type_to_script($tag, $handle, $src)
     return $tag;
 }
 add_filter('script_loader_tag', 'tailpress_add_module_type_to_script', 10, 3);
+
+/**
+ * AJAX Property Filter Handler
+ */
+function tailpress_ajax_filter_properties()
+{
+    // Verify Nonce (optional but recommended, can skip for public read-only if desired but good practice)
+    // check_ajax_referer('tailpress_nonce', 'nonce');
+
+    $type = isset($_POST['property_type']) ? sanitize_text_field($_POST['property_type']) : '';
+    $status = isset($_POST['property_status']) ? sanitize_text_field($_POST['property_status']) : '';
+    $paged = isset($_POST['paged']) ? intval($_POST['paged']) : 1;
+
+    // Args for properties-loop
+    $args = [
+        'property_type' => $type,
+        'property_status' => $status,
+        'paged' => $paged,
+        'posts_per_page' => 12,
+        'show_pagination' => true, // Loop handles pagination HTML, or we can handle it separately
+    ];
+
+    // If implementing infinite scroll or load more, we might want just the items.
+    // For now, let's return the whole loop output including pagination.
+
+    // We need to pass the query args so properties-loop builds the query
+    // properties-loop expects 'query' OR args to build it.
+    // We will let properties-loop build it by passing the filter args.
+
+    ob_start();
+    get_template_part('template-parts/components/properties-loop', null, $args);
+    $html = ob_get_clean();
+
+    // Calculate max pages for JS logic if needed
+    // We'd need to rebuild the query to get max_num_pages if we want to send it separately,
+    // but properties-loop already runs the query. 
+    // Optimization: properties-loop could expose the query object if we needed it, but HTML is enough for now.
+
+    wp_send_json_success([
+        'html' => $html
+    ]);
+}
+add_action('wp_ajax_filter_properties', 'tailpress_ajax_filter_properties');
+add_action('wp_ajax_nopriv_filter_properties', 'tailpress_ajax_filter_properties');

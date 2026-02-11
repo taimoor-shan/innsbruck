@@ -47,7 +47,7 @@ if ($query->have_posts()): ?>
 <?php else: ?>
     <?php if (!$is_custom_query): ?>
         <div class="text-center py-20">
-            <h3 class="text-2xl font-bold text-dark">No accommodations found.</h3>
+            <h3 class="text-2xl font-bold text-dark">No properties found.</h3>
             <p class="text-gray mt-2">Check back later for updates.</p>
         </div>
     <?php endif; ?>

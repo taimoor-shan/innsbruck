@@ -18,7 +18,7 @@ $jacuzzi = get_field('jacuzzi', $post_id);
 $floor_plan = get_field('floor_plan', $post_id);
 
 // Get Terms for Badge
-$terms = get_the_terms($post_id, 'unit_type');
+$terms = get_the_terms($post_id, 'property_type');
 $badge_label = !empty($terms) ? $terms[0]->name : '';
 
 $gallery_images = [];
@@ -58,9 +58,9 @@ $carousel_id = 'carousel-' . $post_id;
                 <div class="swiper-wrapper">
                     <?php foreach ($gallery as $image_url): ?>
                         <div class="swiper-slide">
-                            <div class="relative h-48 sm:h-64 md:h-80">
+                            <div class="oi-aspect sixteen-nine">
                                 <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>"
-                                    class="w-full h-full object-cover">
+                                    class="oi-aspect-img">
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -77,9 +77,9 @@ $carousel_id = 'carousel-' . $post_id;
 
             </div>
         <?php else: ?>
-            <div class="relative h-48 sm:h-64 md:h-80">
+            <div class="oi-aspect sixteen-nine">
                 <img src="<?php echo esc_url($gallery[0] ?? ''); ?>" alt="<?php echo esc_attr($title); ?>"
-                    class="w-full h-full object-cover">
+                    class="oi-aspect-img">
             </div>
         <?php endif; ?>
     </div>

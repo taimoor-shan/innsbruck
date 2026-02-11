@@ -14,9 +14,9 @@
 
 <footer class="bg-[rgb(29,_32,_37)] text-neutral-50">
     <div class="ml-auto mr-auto w-full pt-12 pr-4 pb-12 pl-4 container">
-        <div class="grid gap-[32px]" style="grid-template-columns: repeat(3, minmax(0px, 1fr));">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-[32px]">
             <div>
-                <h3 class="font-bold mb-[16px] text-[rgb(48,_171,_232)] text-[20px] leading-[28px]">Innsbruck City
+                <h3 class="font-bold mb-[16px] text-primary text-[20px] leading-[28px]">Innsbruck City
                     Apartments</h3>
                 <p class="mb-[16px] text-[rgb(107,_114,_128)] text-[14px] leading-[20px]">We believe in providing
                     personalized service. By requesting information, we can ensure you get the perfect apartment for
@@ -45,7 +45,7 @@
                 <ul>
                     <li class="items-start flex text-left">
                         <div
-                            class="fill-none overflow-hidden text-left align-middle w-5 h-5 mt-[2px] text-[rgb(48,_171,_232)] shrink-[0]">
+                            class="fill-none overflow-hidden text-left align-middle w-5 h-5 mt-[2px] text-primary shrink-[0]">
                             <!-- Note: Using external URL for fidelity since local asset is missing. -->
                             <img src="https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2Fb9f65246b7034767fc11ea611be60edcbab724d3.svg?generation=1770502588613710&amp;alt=media"
                                 class="block size-full" />
@@ -55,21 +55,21 @@
                     </li>
                     <li class="items-start flex text-left mt-[12px]">
                         <div
-                            class="fill-none overflow-hidden text-left align-middle w-5 h-5 mt-[2px] text-[rgb(48,_171,_232)] shrink-[0]">
+                            class="fill-none overflow-hidden text-left align-middle w-5 h-5 mt-[2px] text-primary shrink-[0]">
                             <img src="https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2Fb0caa86e1509e75195dbf4f52e6266e757f7654d.svg?generation=1770502588646930&amp;alt=media"
                                 class="block size-full" />
                         </div>
                         <div class="text-left ml-[12px] text-[14px] leading-[20px]">
                             <?php if ($contact_whatsapp_label): ?>
                                 <span
-                                    class="block text-left text-[rgb(48,_171,_232)] text-[12px] leading-[16px]"><?php echo esc_html($contact_whatsapp_label); ?></span>
+                                    class="block text-left text-primary text-[12px] leading-[16px]"><?php echo esc_html($contact_whatsapp_label); ?></span>
                             <?php endif; ?>
                             <span class="text-left"><?php echo esc_html($contact_phone); ?></span>
                         </div>
                     </li>
                     <li class="items-start flex text-left mt-[12px]">
                         <div
-                            class="fill-none overflow-hidden text-left align-middle w-5 h-5 mt-[2px] text-[rgb(48,_171,_232)] shrink-[0]">
+                            class="fill-none overflow-hidden text-left align-middle w-5 h-5 mt-[2px] text-primary shrink-[0]">
                             <img src="https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2Fb9ef28536579510dac0407f4da4001e46535cfe7.svg?generation=1770502588640506&amp;alt=media"
                                 class="block size-full" />
                         </div>
@@ -83,6 +83,7 @@
             <p class="text-center text-[rgb(107,_114,_128)] text-[14px] leading-[20px]">&copy; <?php echo date('Y'); ?>
                 Innsbruck City Apartments. All rights reserved.</p>
         </div>
+    </div>
     </div>
 </footer>
 </div>

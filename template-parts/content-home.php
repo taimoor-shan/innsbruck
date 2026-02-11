@@ -8,8 +8,8 @@
 // Hero Section Fields
 $hero_title = get_field('hero_title') ?: 'Innsbruck City Apartments'; // Fallback for dev
 $hero_subtitle = get_field('hero_subtitle') ?: 'In the heart of the mountains and the center of Innsbruck';
-$hero_bg_url = get_field('hero_background_image') ?: 'https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2Fb4cef5120d7ca8c5d3e060b4da4044d5a07da822.jpg?generation=1770502588636374&alt=media';
-$featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full') ?: $hero_bg_url;
+$hero_video = get_field('hero_background_video') ?: '';
+$featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full') ?: 'https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2Fb4cef5120d7ca8c5d3e060b4da4044d5a07da822.jpg?generation=1770502588636374&alt=media';
 ?>
 
 <?php
@@ -17,13 +17,13 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full') ?: $hero_bg_u
 ob_start();
 ?>
 <?php get_template_part('template-parts/components/button', null, [
-    'href' => home_url('/luxury-units'),
-    'text' => 'Explore Luxury Units',
+    'href' => home_url('/all-properties'),
+    'text' => 'View Properties',
     'style' => 'primary'
 ]); ?>
 <?php get_template_part('template-parts/components/button', null, [
     'href' => home_url('/premium-units'),
-    'text' => 'View Premium Units',
+    'text' => 'Upcoming Projects',
     'style' => 'white-solid',
     'class' => 'border-light font-medium' // Extra styling to match previous look
 ]); ?>
@@ -33,9 +33,10 @@ $hero_buttons = ob_get_clean();
 // Render Hero Component
 get_template_part('template-parts/components/hero', null, [
     'image' => $featured_image,
+    'video' => $hero_video,
     'title' => $hero_title,
     'subtitle' => $hero_subtitle,
-    'height' => 'h-screen',
+    'height' => 'h-[80vh]',
     'content' => $hero_buttons
 ]);
 ?>
@@ -88,53 +89,28 @@ get_template_part('template-parts/components/hero', null, [
     <div class="ml-auto mr-auto w-full pt-0 pr-4 pb-0 pl-4 container">
         <div class="text-center mb-[64px]">
             <h2 class="font-bold text-center mb-[16px] text-[36px] leading-[40px]">
-                <?php echo get_field('accommodations_title') ?: 'Our Accommodations'; ?>
+                <?php echo get_field('accommodations_title') ?: 'Our Properties'; ?>
             </h2>
             <p class="text-center text-gray text-[18px] leading-[28px]">
                 <?php echo get_field('accommodations_subtitle') ?: 'Choose from our Premium and Luxury apartments'; ?>
             </p>
         </div>
-        <div class="grid gap-[32px] grid-cols-1 md:grid-cols-2">
-            <?php
-            $terms = get_terms(array(
-                'taxonomy' => 'unit_type',
-                'hide_empty' => false,
-            ));
+        <?php
+        get_template_part('template-parts/components/properties-loop', null, array(
+            'featured' => true,
+            'posts_per_page' => 3, // Show top 3 featured
+            'columns' => 3,
+            'class' => 'grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+        ));
+        ?>
 
-            if (!empty($terms) && !is_wp_error($terms)):
-                foreach ($terms as $term):
-                    $image = get_field('card_image', $term);
-                    $bg_image = $image ? $image : 'https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2F9ed7d824b867c563836fa0e11722551307a341e2.jpg?generation=1770502588609302&amp;alt=media';
-                    $term_link = get_term_link($term);
-                    ?>
-                    <div
-                        class="border overflow-hidden bg-white border-primary/20 shadow-sm rounded-lg group hover:shadow-lg transition-shadow duration-300">
-                        <div class="overflow-hidden relative h-80">
-                            <img alt="<?php echo esc_attr($term->name); ?>" src="<?php echo esc_url($bg_image); ?>"
-                                class="block size-full max-w-full object-cover overflow-clip align-middle transition-transform duration-500 group-hover:scale-105" />
-                            <div class="absolute left-0 top-0 right-0 bottom-0"
-                                style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));"></div>
-                            <div class="absolute left-0 right-0 bottom-0 text-light p-6">
-                                <h3 class="font-bold mb-[8px] text-[30px] leading-[36px]"><?php echo esc_html($term->name); ?>
-                                </h3>
-                                <p class="mb-[16px] text-light/90"><?php echo esc_html($term->description); ?></p>
-                                <?php get_template_part('template-parts/components/button', null, [
-                                    'href' => esc_url($term_link),
-                                    'text' => 'View Units',
-                                    'style' => 'primary',
-                                    'class' => 'text-dark text-[14px] h-9 px-3 py-0'
-                                ]); ?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                endforeach;
-            else:
-                ?>
-                <div class="col-span-2 text-center text-gray">
-                    <p>No unit types found. Please add "Luxury" and "Premium" in Accommodations > Unit Types.</p>
-                </div>
-            <?php endif; ?>
+        <div class="text-center mt-12">
+            <?php get_template_part('template-parts/components/button', null, [
+                'href' => home_url('/properties'), // Placeholder for the all-properties page we will build
+                'text' => 'View All Properties',
+                'style' => 'outline',
+                'class' => 'px-8 py-3'
+            ]); ?>
         </div>
     </div>
 </section>

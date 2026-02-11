@@ -19,34 +19,15 @@ class TailPress_ACF
             'key' => 'group_homepage',
             'title' => 'Homepage Settings',
             'fields' => array(
-                // Hero Section
+
                 array(
-                    'key' => 'field_home_tab_hero',
-                    'label' => 'Hero Section',
-                    'type' => 'tab',
-                ),
-                array(
-                    'key' => 'field_hero_title',
-                    'label' => 'Hero Title',
-                    'name' => 'hero_title',
-                    'type' => 'text',
-                    'default_value' => 'Innsbruck City Apartments',
-                ),
-                array(
-                    'key' => 'field_hero_subtitle',
-                    'label' => 'Hero Subtitle',
-                    'name' => 'hero_subtitle',
-                    'type' => 'textarea',
-                    'default_value' => 'In the heart of the mountains and the center of Innsbruck',
-                    'rows' => 2,
-                ),
-                array(
-                    'key' => 'field_hero_bg',
-                    'label' => 'Hero Background Image',
-                    'name' => 'hero_background_image',
-                    'type' => 'image',
+                    'key' => 'field_hero_video',
+                    'label' => 'Hero Background Video',
+                    'name' => 'hero_background_video',
+                    'type' => 'file',
                     'return_format' => 'url',
-                    'preview_size' => 'medium',
+                    'mime_types' => 'mp4,webm',
+                    'instructions' => 'Upload an MP4 or WebM video for the hero background. Keep under 15MB for fast loading. The page Featured Image will be used as a fallback/poster.',
                 ),
 
                 // Benefits Section
@@ -101,22 +82,22 @@ class TailPress_ACF
                     ),
                 ),
 
-                // Accommodations Section
+                // Properties Section
                 array(
                     'key' => 'field_home_tab_accommodations',
-                    'label' => 'Accommodations Section',
+                    'label' => 'Properties Section',
                     'type' => 'tab',
                 ),
                 array(
                     'key' => 'field_accommodations_title',
-                    'label' => 'Accommodations Title',
+                    'label' => 'Properties Title',
                     'name' => 'accommodations_title',
                     'type' => 'text',
-                    'default_value' => 'Our Accommodations',
+                    'default_value' => 'Our Properties',
                 ),
                 array(
                     'key' => 'field_accommodations_subtitle',
-                    'label' => 'Accommodations Subtitle',
+                    'label' => 'Properties Subtitle',
                     'name' => 'accommodations_subtitle',
                     'type' => 'textarea',
                     'default_value' => 'Choose from our Premium and Luxury apartments',
@@ -185,16 +166,15 @@ class TailPress_ACF
                     'type' => 'tab',
                 ),
                 array(
-                    'key' => 'field_unit_type_filter',
-                    'label' => 'Filter by Unit Type',
-                    'name' => 'unit_type_filter',
+                    'name' => 'property_type_filter',
+                    'label' => 'Filter by Property Type',
                     'type' => 'taxonomy',
-                    'taxonomy' => 'unit_type',
+                    'taxonomy' => 'property_type',
                     'field_type' => 'select',
                     'return_format' => 'id',
                     'allow_null' => 1,
                     'multiple' => 0,
-                    'instructions' => 'Select a Unit Type to display only those units. Leave empty to show all.',
+                    'instructions' => 'Select a Property Type to display only those properties. Leave empty to show all.',
                 ),
             ),
             'location' => array(
@@ -208,10 +188,10 @@ class TailPress_ACF
             ),
         ));
 
-        // 3. Unit Type Taxonomy Fields
+        // 3. Property Type Taxonomy Fields
         acf_add_local_field_group(array(
-            'key' => 'group_unit_type',
-            'title' => 'Unit Type Settings',
+            'key' => 'group_property_type',
+            'title' => 'Property Type Settings',
             'fields' => array(
                 array(
                     'key' => 'field_term_hero_image',
@@ -242,27 +222,25 @@ class TailPress_ACF
                     array(
                         'param' => 'taxonomy',
                         'operator' => '==',
-                        'value' => 'unit_type',
+                        'value' => 'property_type',
                     ),
                 ),
             ),
         ));
 
-        // 3. Accommodation Data Fields
+        // 3. Property Data Fields
         acf_add_local_field_group(array(
             'key' => 'group_accommodation_details',
-            'title' => 'Accommodation Details',
+            'title' => 'Property Details',
             'fields' => array(
-                /*
-                // Old Gallery Field - Replaced by TailPress Gallery Plugin
                 array(
-                    'key' => 'field_gallery',
-                    'label' => 'Photo Gallery',
-                    'name' => 'gallery',
-                    'type' => 'gallery',
-                    'return_format' => 'url',
+                    'key' => 'field_featured_property',
+                    'label' => 'Featured Property',
+                    'name' => 'featured',
+                    'type' => 'true_false',
+                    'message' => 'Show this property in the featured section',
+                    'ui' => 1,
                 ),
-                */
                 array(
                     'key' => 'field_size',
                     'label' => 'Size (m²)',

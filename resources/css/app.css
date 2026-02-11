@@ -8,8 +8,8 @@
 @source '../../**/*.php';
 
 @utility container {
-    margin-inline: auto;
-    padding-inline: 2rem;
+  margin-inline: auto;
+  padding-inline: 2rem;
 }
 
 /*
@@ -21,11 +21,52 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-zinc-200, currentColor);
+  }
+
+  h1 {
+    @apply text-4xl lg:text-5xl font-medium mb-6;
+  }
+
+  h2 {
+    @apply text-3xl lg:text-4xl font-medium mb-5;
+  }
+
+  h3 {
+    @apply text-2xl lg:text-3xl font-medium mb-4;
+  }
+
+  h4 {
+    @apply text-xl lg:text-2xl font-medium mb-4;
+  }
+
+  h5 {
+    @apply text-lg lg:text-xl font-medium mb-3;
+  }
+
+  h6 {
+    @apply text-base lg:text-lg font-medium mb-3;
+  }
+
+  p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  a {
+    @apply text-primary hover:underline;
+  }
+
+  ul {
+    @apply list-disc list-inside mb-4;
+  }
+
+  ol {
+    @apply list-decimal list-inside mb-4;
   }
 }

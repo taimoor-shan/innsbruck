@@ -99,7 +99,7 @@ export default function App() {
                     <section className="bg-white pt-20 pr-0 pb-20 pl-0">
                         <div className="ml-auto mr-auto w-full pt-0 pr-4 pb-0 pl-4">
                             <div className="text-center mb-[64px]">
-                                <h2 className="font-bold text-center mb-[16px] text-[36px] leading-[40px]">Our Accommodations</h2>
+                                <h2 className="font-bold text-center mb-[16px] text-[36px] leading-[40px]">Our Properties</h2>
                                 <p className="text-center text-[rgb(107,_114,_128)] text-[18px] leading-[28px]" style={{ "textDecoration": "rgb(107, 114, 128)" }}>Choose from our Premium and Luxury apartments</p>
                             </div>
                             <div className="grid gap-[32px]" style={{ "gridTemplateColumns": "repeat(2, minmax(0px, 1fr))" }}>
