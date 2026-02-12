@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import './theme.css';
 @import './utilities.css';
+@import 'swiper/css';
+@import 'swiper/css/navigation';
 @import './custom.css' layer(utilities);
 
 @source '../../vendor/tailpress/framework/**/*.php';
@@ -62,9 +64,7 @@
     @apply text-primary hover:underline;
   }
 
-  ul {
-    @apply list-disc list-inside mb-4;
-  }
+
 
   ol {
     @apply list-decimal list-inside mb-4;

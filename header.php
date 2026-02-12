@@ -22,7 +22,7 @@
     <div id="page" class="min-h-screen flex flex-col">
         <?php do_action('tailpress_header'); ?>
 
-        <nav class="border-b fixed left-0 top-0 right-0 backdrop-blur-xs z-[50]">
+        <nav class=" fixed left-0 top-0 right-0 bg-[rgb(29,_32,_37)] z-[50]">
             <div class="ml-auto mr-auto w-full p-4 container">
                 <div x-data="{ open: false }" class="items-center flex justify-between w-full">
                     <!-- <a href="<?php echo home_url('/'); ?>" class="flex flex-col">
@@ -62,7 +62,7 @@
                         ?>
                         <a href="<?php echo home_url('/contact'); ?>" class="block ml-[32px]">
                             <button
-                                class="items-center inline-flex font-medium justify-center text-center whitespace-nowrap h-10 bg-[rgb(48,_171,_232)] text-[14px] gap-[8px] leading-[20px] pt-2 pr-4 pb-2 pl-4 rounded-md appearance-none">Request
+                                class="items-center inline-flex font-medium justify-center text-center whitespace-nowrap h-10 bg-primary text-[14px] gap-[8px] leading-[20px] pt-2 pr-4 pb-2 pl-4 rounded-md appearance-none text-white">Request
                                 Info</button>
                         </a>
                     </div>

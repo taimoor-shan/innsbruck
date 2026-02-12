@@ -240,6 +240,36 @@ class TailPress_ACF
                     'type' => 'true_false',
                     'message' => 'Show this property in the featured section',
                     'ui' => 1,
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                 array(
+                    'key' => 'field_property_price',
+                    'label' => 'Price',
+                    'name' => 'property_price',
+                    'type' => 'number',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                 array(
+                    'key' => 'field_property_address',
+                    'label' => 'Street Address',
+                    'name' => 'property_address',
+                    'type' => 'text',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_property_city_state',
+                    'label' => 'City, State',
+                    'name' => 'property_city_state',
+                    'type' => 'text',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
                 ),
                 array(
                     'key' => 'field_size',
@@ -247,20 +277,19 @@ class TailPress_ACF
                     'name' => 'size',
                     'type' => 'number',
                     'append' => 'm²',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
                 ),
                 array(
                     'key' => 'field_bedrooms',
                     'label' => 'Bedrooms',
                     'name' => 'bedrooms',
-                    'type' => 'text',
-                    'default_value' => '1 Bedroom',
-                ),
-                array(
-                    'key' => 'field_livingroom',
-                    'label' => 'Livingroom',
-                    'name' => 'livingroom',
-                    'type' => 'text',
-                    'default_value' => '1 Livingroom (incl. pull out Bed 160cm)',
+                    'type' => 'number',
+                    'default_value' => 1,
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
                 ),
                 array(
                     'key' => 'field_bathrooms',
@@ -268,27 +297,19 @@ class TailPress_ACF
                     'name' => 'bathrooms',
                     'type' => 'number',
                     'default_value' => 1,
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
                 ),
                 array(
-                    'key' => 'field_balcony',
-                    'label' => 'Has Balcony?',
-                    'name' => 'balcony',
-                    'type' => 'true_false',
-                    'ui' => true,
-                ),
-                array(
-                    'key' => 'field_jacuzzi',
-                    'label' => 'Has Jacuzzi?',
-                    'name' => 'jacuzzi',
-                    'type' => 'true_false',
-                    'ui' => true,
-                ),
-                array(
-                    'key' => 'field_floor_plan',
-                    'label' => 'Floor Plan Image',
-                    'name' => 'floor_plan',
-                    'type' => 'image',
+                    'key' => 'field_document',
+                    'label' => 'Document',
+                    'name' => 'document',
+                    'type' => 'file',
                     'return_format' => 'url',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
                 ),
             ),
             'location' => array(
@@ -297,6 +318,221 @@ class TailPress_ACF
                         'param' => 'post_type',
                         'operator' => '==',
                         'value' => 'accommodation',
+                    ),
+                ),
+            ),
+        ));
+
+        // 4. Projects Page Fields
+        acf_add_local_field_group(array(
+            'key' => 'group_projects_page',
+            'title' => 'Projects Page Configuration',
+            'fields' => array(
+                // Tab: Philosophy
+                array(
+                    'key' => 'field_tab_philosophy',
+                    'label' => 'Philosophy',
+                    'type' => 'tab',
+                ),
+                array(
+                    'key' => 'field_projects_philosophy_title',
+                    'label' => 'Section Title',
+                    'name' => 'projects_philosophy_title',
+                    'type' => 'text',
+                    'default_value' => 'Our Philosophy',
+                ),
+                array(
+                    'key' => 'field_projects_philosophy_intro',
+                    'label' => 'Intro Text',
+                    'name' => 'projects_philosophy_intro',
+                    'type' => 'textarea',
+                    'rows' => 3,
+                ),
+                array(
+                    'key' => 'field_projects_principles',
+                    'label' => 'Principles',
+                    'name' => 'projects_principles',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Principle',
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_principle_title',
+                            'label' => 'Title',
+                            'name' => 'principle_title',
+                            'type' => 'text',
+                        ),
+                        array(
+                            'key' => 'field_principle_description',
+                            'label' => 'Description',
+                            'name' => 'principle_description',
+                            'type' => 'textarea',
+                            'rows' => 3,
+                        ),
+                    ),
+                ),
+                array(
+                    'key' => 'field_projects_philosophy_image',
+                    'label' => 'Section Image',
+                    'name' => 'projects_philosophy_image',
+                    'type' => 'image',
+                    'return_format' => 'url',
+                ),
+
+                // Tab: Trust
+                array(
+                    'key' => 'field_tab_trust',
+                    'label' => 'Trust Section',
+                    'type' => 'tab',
+                ),
+                array(
+                    'key' => 'field_projects_trust_title',
+                    'label' => 'Section Title',
+                    'name' => 'projects_trust_title',
+                    'type' => 'text',
+                    'default_value' => 'Why Invest With Us',
+                ),
+                array(
+                    'key' => 'field_projects_trust_points',
+                    'label' => 'Trust Points',
+                    'name' => 'projects_trust_points',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Point',
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_trust_point_title',
+                            'label' => 'Title',
+                            'name' => 'point_title',
+                            'type' => 'text',
+                        ),
+                        array(
+                            'key' => 'field_trust_point_description',
+                            'label' => 'Description',
+                            'name' => 'point_description',
+                            'type' => 'textarea',
+                            'rows' => 2,
+                        ),
+                    ),
+                ),
+
+                // Tab: Lead
+                array(
+                    'key' => 'field_tab_lead',
+                    'label' => 'Lead Section',
+                    'type' => 'tab',
+                ),
+                array(
+                    'key' => 'field_projects_lead_title',
+                    'label' => 'Section Title',
+                    'name' => 'projects_lead_title',
+                    'type' => 'text',
+                    'default_value' => 'Interested in Investing?',
+                ),
+                array(
+                    'key' => 'field_projects_lead_text',
+                    'label' => 'Section Text',
+                    'name' => 'projects_lead_text',
+                    'type' => 'textarea',
+                    'rows' => 3,
+                ),
+                array(
+                    'key' => 'field_projects_lead_form',
+                    'label' => 'Form Shortcode',
+                    'name' => 'projects_lead_form',
+                    'type' => 'text',
+                    'instructions' => 'Enter the Gravity Forms or CF7 shortcode here.',
+                ),
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'page-templates/projects.php',
+                    ),
+                ),
+            ),
+        ));
+
+        // 5. Project Post Fields
+        acf_add_local_field_group(array(
+            'key' => 'group_project_details',
+            'title' => 'Project Details',
+            'fields' => array(
+                array(
+                    'key' => 'field_project_address',
+                    'label' => 'Street Address',
+                    'name' => 'project_address',
+                    'type' => 'text',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_project_city_state',
+                    'label' => 'City, State',
+                    'name' => 'project_city_state',
+                    'type' => 'text',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_project_year',
+                    'label' => 'Year',
+                    'name' => 'project_year',
+                    'type' => 'text',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_project_area',
+                    'label' => 'Area / Size',
+                    'name' => 'project_area',
+                    'type' => 'text',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_project_type',
+                    'label' => 'Type',
+                    'name' => 'project_type',
+                    'type' => 'text',
+                    'instructions' => 'e.g. Residential, Commercial',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_project_timeline',
+                    'label' => 'Expected Timeline',
+                    'name' => 'project_timeline',
+                    'type' => 'text',
+                    'instructions' => 'For future projects only',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_project_cta_link',
+                    'label' => 'CTA Link',
+                    'name' => 'project_cta_link',
+                    'type' => 'url',
+                    'instructions' => 'Link for future projects (e.g. to a landing page)',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => 'project',
                     ),
                 ),
             ),

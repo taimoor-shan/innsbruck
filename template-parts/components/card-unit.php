@@ -8,7 +8,7 @@
 
 $post_id = $args['post_id'] ?? get_the_ID();
 $title = get_the_title($post_id);
-
+$price = get_field('property_price', $post_id);
 $size = get_field('size', $post_id);
 $bedrooms = get_field('bedrooms', $post_id);
 $livingroom = get_field('livingroom', $post_id);
@@ -47,14 +47,14 @@ $carousel_id = 'carousel-' . $post_id;
         <?php if ($badge_label): ?>
             <div class="absolute top-2 right-2 md:top-4 md:right-4 z-10">
                 <span
-                    class="bg-white/90 text-dark px-2 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-semibold shadow-sm backdrop-blur-sm">
+                    class="bg-white/90 text-primary px-2 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-semibold shadow-sm backdrop-blur-sm">
                     <?php echo esc_html($badge_label); ?>
                 </span>
             </div>
         <?php endif; ?>
 
         <?php if (!empty($gallery)): ?>
-            <div class="swiper card-swiper rounded-t-lg overflow-hidden">
+            <div id="<?php echo esc_attr($carousel_id); ?>" class="swiper card-swiper js-card-swiper rounded-t-lg overflow-hidden">
                 <div class="swiper-wrapper">
                     <?php foreach ($gallery as $image_url): ?>
                         <div class="swiper-slide">
@@ -66,15 +66,21 @@ $carousel_id = 'carousel-' . $post_id;
                     <?php endforeach; ?>
                 </div>
                 <!-- Navigation Buttons -->
-                <div class="flex items-center">
+                <!-- Navigation Buttons -->
+                <div class="flex items-center gap-2 absolute bottom-4 right-4 z-10">
                     <div
-                        class="swiper-button-next !w-8 !h-8 !bg-white/80 !text-dark !rounded-full !after:text-xs hover:!bg-white transition-colors">
+                        class="card-prev w-8 h-8 bg-white/80 text-dark rounded-full flex items-center justify-center hover:bg-white transition-colors cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
                     </div>
                     <div
-                        class="swiper-button-prev !w-8 !h-8 !bg-white/80 !text-dark !rounded-full !after:text-xs hover:!bg-white transition-colors">
+                        class="card-next w-8 h-8 bg-white/80 text-dark rounded-full flex items-center justify-center hover:bg-white transition-colors cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
                     </div>
                 </div>
-
             </div>
         <?php else: ?>
             <div class="oi-aspect sixteen-nine">
@@ -86,9 +92,34 @@ $carousel_id = 'carousel-' . $post_id;
 
     <!-- Details Section -->
     <div class="p-4 md:p-6 flex flex-col grow">
-        <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4">
-            <?php echo esc_html($title); ?>
-        </h3>
+        <div class="flex items-center justify-between mb-1 md:mb-2">
+            <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-0">
+                <?php echo esc_html($title); ?>
+            </h3>
+            <span class="text-primary text-lg md:text-xl lg:text-2xl font-bold">
+                €<?php echo number_format((float)$price, 0, ',', '.'); ?>
+            </span>
+        </div>
+
+        <?php
+        $address = get_field('property_address', $post_id);
+        $city_state = get_field('property_city_state', $post_id);
+        $location = array_filter([$address, $city_state]);
+        $location_string = implode(', ', $location);
+        ?>
+        <?php if ($location_string): ?>
+            <p class="text-[rgb(29,_32,_37)] text-sm md:text-base mb-3 md:mb-4 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="#ed1b25" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+                <?php echo esc_html($location_string); ?>
+            </p>
+        <?php else: ?>
+             <div class="mb-3 md:mb-4"></div>
+        <?php endif; ?>
 
         <div class="space-y-1.5 md:space-y-2 mb-4 md:mb-6 text-sm md:text-base grow">
             <?php if ($size): ?>

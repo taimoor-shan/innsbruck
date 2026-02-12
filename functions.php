@@ -174,6 +174,70 @@ function register_accommodation_cpt()
 }
 add_action('init', 'register_accommodation_cpt', 0);
 
+/**
+ * Register Project Custom Post Type.
+ */
+function register_project_cpt()
+{
+    // Project CPT
+    $labels = array(
+        'name' => _x('Projects', 'Post Type General Name', 'tailpress'),
+        'singular_name' => _x('Project', 'Post Type Singular Name', 'tailpress'),
+        'menu_name' => __('Projects', 'tailpress'),
+        'all_items' => __('All Projects', 'tailpress'),
+        'add_new_item' => __('Add New Project', 'tailpress'),
+        'edit_item' => __('Edit Project', 'tailpress'),
+        'update_item' => __('Update Project', 'tailpress'),
+        'view_item' => __('View Project', 'tailpress'),
+        'view_items' => __('View Projects', 'tailpress'),
+        'search_items' => __('Search Projects', 'tailpress'),
+    );
+    $args = array(
+        'label' => __('Project', 'tailpress'),
+        'labels' => $labels,
+        'supports' => array('title', 'thumbnail', 'editor'),
+        'hierarchical' => false,
+        'public' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'menu_position' => 6,
+        'menu_icon' => 'dashicons-portfolio',
+        'show_in_admin_bar' => true,
+        'show_in_nav_menus' => true,
+        'can_export' => true,
+        'has_archive' => false,
+        'exclude_from_search' => false,
+        'publicly_queryable' => true,
+        'capability_type' => 'post',
+        'show_in_rest' => true,
+    );
+    register_post_type('project', $args);
+
+    // Project Stage Taxonomy
+    $stage_labels = array(
+        'name' => _x('Project Stages', 'Taxonomy General Name', 'tailpress'),
+        'singular_name' => _x('Project Stage', 'Taxonomy Singular Name', 'tailpress'),
+        'menu_name' => __('Project Stage', 'tailpress'),
+        'all_items' => __('All Project Stages', 'tailpress'),
+        'edit_item' => __('Edit Project Stage', 'tailpress'),
+        'update_item' => __('Update Project Stage', 'tailpress'),
+        'add_new_item' => __('Add New Project Stage', 'tailpress'),
+        'new_item_name' => __('New Project Stage Name', 'tailpress'),
+        'menu_name' => __('Project Stage', 'tailpress'),
+    );
+    $stage_args = array(
+        'labels' => $stage_labels,
+        'hierarchical' => true,
+        'public' => true,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'show_in_nav_menus' => true,
+        'show_in_rest' => true,
+    );
+    register_taxonomy('project_stage', array('project'), $stage_args);
+}
+add_action('init', 'register_project_cpt', 0);
+
 
 // Allow SVG upload
 function allow_svg_uploads($mimes)
@@ -299,3 +363,7 @@ function tailpress_ajax_filter_properties()
 }
 add_action('wp_ajax_filter_properties', 'tailpress_ajax_filter_properties');
 add_action('wp_ajax_nopriv_filter_properties', 'tailpress_ajax_filter_properties');
+
+// Add excerpt support to pages
+add_post_type_support('page', 'excerpt');
+

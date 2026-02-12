@@ -12,11 +12,12 @@ get_header();
 // 1. Hero (reusing hero component with page data)
 $hero_title = get_the_title();
 $hero_image = get_the_post_thumbnail_url(get_the_ID(), 'full') ?: 'https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2Fb4cef5120d7ca8c5d3e060b4da4044d5a07da822.jpg?generation=1770502588636374&alt=media'; // Fallback
+$excerpt = get_the_excerpt();
 
 get_template_part('template-parts/components/hero', null, [
     'image' => $hero_image,
     'title' => $hero_title,
-    'subtitle' => 'Explore our complete collection of properties',
+    'subtitle' => $excerpt,
     'height' => 'h-[50vh]'
 ]);
 
@@ -37,24 +38,24 @@ $loop_args = [
 ];
 ?>
 
-<section class="bg-white py-12 md:py-20" x-data="propertiesFilter()">
+<section class="bg-white py-10 md:pb-20 pt-10" x-data="propertiesFilter()">
     <div class="container mx-auto px-4">
 
         <!-- Filter Bar -->
-        <div class="mb-12 space-y-6">
+        <div class="mb-12 flex flex-wrap gap-6 justify-between">
 
             <!-- Type Filter -->
             <?php if (!empty($property_types) && !is_wp_error($property_types)): ?>
                 <div class="flex flex-wrap justify-center gap-4">
                     <button @click="updateFilter('type', '')"
-                        class="px-6 py-2 rounded-full border-2 transition-all duration-300 pointer-events-auto cursor-pointer"
-                        :class="!currentType ? 'bg-primary border-primary text-white' : 'bg-white border-gray/20 text-gray hover:border-primary hover:text-primary'">
+                        class="inline-flex items-center justify-center font-medium no-underline transition-colors hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md appearance-none cursor-pointer h-9 px-3 text-[14px] leading-[20px]"
+                        :class="!currentType ? 'bg-primary text-white hover:bg-primary/90 hover:text-white' : 'border border-gray/20 bg-white hover:bg-accent/90 hover:text-dark text-dark'">
                         All Types
                     </button>
                     <?php foreach ($property_types as $term): ?>
                         <button @click="updateFilter('type', '<?php echo esc_js($term->slug); ?>')"
-                            class="px-6 py-2 rounded-full border-2 transition-all duration-300 pointer-events-auto cursor-pointer"
-                            :class="currentType === '<?php echo esc_js($term->slug); ?>' ? 'bg-primary border-primary text-white' : 'bg-white border-gray/20 text-gray hover:border-primary hover:text-primary'">
+                            class="inline-flex items-center justify-center font-medium no-underline transition-colors hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md appearance-none cursor-pointer h-9 px-3 text-[14px] leading-[20px]"
+                            :class="currentType === '<?php echo esc_js($term->slug); ?>' ? 'bg-primary text-white hover:bg-primary/90 hover:text-white' : 'border border-gray/20 bg-white hover:bg-accent/90 hover:text-dark text-dark'">
                             <?php echo esc_html($term->name); ?>
                         </button>
                     <?php endforeach; ?>
@@ -63,17 +64,17 @@ $loop_args = [
 
             <!-- Status Filter -->
             <?php if (!empty($property_statuses) && !is_wp_error($property_statuses)): ?>
-                <div class="flex flex-wrap justify-center gap-4 border-t border-gray/10 pt-6">
-                    <span class="text-gray self-center mr-2">Status:</span>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="text-primay self-center mr-2">Status:</span>
                     <button @click="updateFilter('status', '')"
-                        class="px-4 py-1 text-sm rounded-md border transition-all duration-300 pointer-events-auto cursor-pointer"
-                        :class="!currentStatus ? 'bg-dark border-dark text-white' : 'bg-white border-gray/20 text-gray hover:border-dark hover:text-dark'">
+                        class="inline-flex items-center justify-center font-medium no-underline transition-colors hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md appearance-none cursor-pointer h-9 px-3 text-[14px] leading-[20px]"
+                        :class="!currentStatus ? 'bg-primary text-white hover:bg-primary/90 hover:text-white' : 'border border-gray/20 bg-white hover:bg-accent/90 hover:text-dark text-dark'">
                         Any
                     </button>
                     <?php foreach ($property_statuses as $term): ?>
                         <button @click="updateFilter('status', '<?php echo esc_js($term->slug); ?>')"
-                            class="px-4 py-1 text-sm rounded-md border transition-all duration-300 pointer-events-auto cursor-pointer"
-                            :class="currentStatus === '<?php echo esc_js($term->slug); ?>' ? 'bg-dark border-dark text-white' : 'bg-white border-gray/20 text-gray hover:border-dark hover:text-dark'">
+                            class="inline-flex items-center justify-center font-medium no-underline transition-colors hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md appearance-none cursor-pointer h-9 px-3 text-[14px] leading-[20px]"
+                            :class="currentStatus === '<?php echo esc_js($term->slug); ?>' ? 'bg-primary text-white hover:bg-primary/90 hover:text-white' : 'border border-gray/20 bg-white hover:bg-accent/90 hover:text-dark text-dark'">
                             <?php echo esc_html($term->name); ?>
                         </button>
                     <?php endforeach; ?>
@@ -114,7 +115,7 @@ $loop_args = [
                 // Initial fetch
                 this.fetchProperties();
 
-                // Handle browser back/forward if needed, but for now simple state
+                // Handle browser back/forward
                 window.addEventListener('popstate', (event) => {
                     if (event.state) {
                         this.currentType = event.state.type || '';
@@ -191,11 +192,17 @@ $loop_args = [
                     .then(data => {
                         if (data.success) {
                             this.propertiesHtml = data.data.html;
+                            // Re-init Swipers after DOM update
+                            this.$nextTick(() => {
+                                if (window.initCardSwipers) {
+                                    window.initCardSwipers();
+                                }
+                            });
                         }
                     })
                     .catch(error => console.error('Error:', error))
                     .finally(() => {
-                        // Small delay to prevent flickering if fast response, and to show off skeleton
+                        // Small delay to prevent flickering if fast response
                         setTimeout(() => {
                             this.isLoading = false;
                         }, 300);
@@ -203,6 +210,29 @@ $loop_args = [
             }
         }
     }
+    
+    // Global Swiper Init Function for AJAX and Initial Load
+    window.initCardSwipers = function() {
+        if (typeof Swiper === 'undefined') return;
+        
+        document.querySelectorAll('.js-card-swiper:not(.swiper-initialized)').forEach(el => {
+            const id = el.id;
+            if (id) {
+                new Swiper('#' + id, {
+                    loop: true,
+                    navigation: {
+                        nextEl: '#' + id + ' .card-next',
+                        prevEl: '#' + id + ' .card-prev',
+                    },
+                });
+            }
+        });
+    };
+    
+    // Init on load for server-rendered content
+    document.addEventListener('DOMContentLoaded', () => {
+         if (window.initCardSwipers) window.initCardSwipers();
+    });
 </script>
 
 <?php

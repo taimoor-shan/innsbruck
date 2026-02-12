@@ -16,9 +16,18 @@
     <div class="ml-auto mr-auto w-full pt-12 pr-4 pb-12 pl-4 container">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-[32px]">
             <div>
-                <h3 class="font-bold mb-[16px] text-primary text-[20px] leading-[28px]">Innsbruck City
-                    Apartments</h3>
-                <p class="mb-[16px] text-[rgb(107,_114,_128)] text-[14px] leading-[20px]">We believe in providing
+
+             <?php
+
+                    if (has_custom_logo()) {
+
+                        the_custom_logo();
+                    } else {
+                        echo "<h3 class='font-bold mb-[16px] text-primary text-[20px] leading-[28px]'>" . get_bloginfo("name") . "</h3>";
+                    }
+                    ?>
+
+                <p class="mb-[16px] text-[rgb(107,_114,_128)] text-[14px] leading-[20px] mt-8">We believe in providing
                     personalized service. By requesting information, we can ensure you get the perfect apartment for
                     your needs and answer any questions you may have.</p>
             </div>
@@ -81,7 +90,7 @@
         </div>
         <div class="border-t text-center mt-[32px] border-[rgba(48,_171,_232,_0.2)]/20 pt-8 pr-0 pb-0 pl-0">
             <p class="text-center text-[rgb(107,_114,_128)] text-[14px] leading-[20px]">&copy; <?php echo date('Y'); ?>
-                Innsbruck City Apartments. All rights reserved.</p>
+                Delta Livings. All rights reserved.</p>
         </div>
     </div>
     </div>

@@ -67,7 +67,7 @@ if ($video) {
 
 <style>
     .hero-content h1 {
-        font-size: min(max(48px, 10vw), 72px);
+        font-size: min(max(48px, 10vw), 62px);
         line-height: 1.1;
     }
 
