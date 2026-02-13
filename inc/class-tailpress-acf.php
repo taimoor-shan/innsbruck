@@ -311,6 +311,28 @@ class TailPress_ACF
                         'width' => '50',
                     ),
                 ),
+                array(
+                    'key' => 'field_property_latitude',
+                    'label' => 'Latitude',
+                    'name' => 'property_latitude',
+                    'type' => 'number',
+                    'instructions' => 'e.g. 47.2692',
+                    'step' => 'any',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_property_longitude',
+                    'label' => 'Longitude',
+                    'name' => 'property_longitude',
+                    'type' => 'number',
+                    'instructions' => 'e.g. 11.4041',
+                    'step' => 'any',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
             ),
             'location' => array(
                 array(
@@ -352,25 +374,9 @@ class TailPress_ACF
                     'key' => 'field_projects_principles',
                     'label' => 'Principles',
                     'name' => 'projects_principles',
-                    'type' => 'repeater',
-                    'layout' => 'block',
-                    'button_label' => 'Add Principle',
-                    'sub_fields' => array(
-                        array(
-                            'key' => 'field_principle_title',
-                            'label' => 'Title',
-                            'name' => 'principle_title',
-                            'type' => 'text',
-                        ),
-                        array(
-                            'key' => 'field_principle_description',
-                            'label' => 'Description',
-                            'name' => 'principle_description',
-                            'type' => 'textarea',
-                            'rows' => 3,
-                        ),
-                    ),
+                    'type' => 'wysiwyg',
                 ),
+
                 array(
                     'key' => 'field_projects_philosophy_image',
                     'label' => 'Section Image',
@@ -492,6 +498,15 @@ class TailPress_ACF
                     'label' => 'Area / Size',
                     'name' => 'project_area',
                     'type' => 'text',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_project_units',
+                    'label' => 'Units',
+                    'name' => 'project_units',
+                    'type' => 'number',
                     'wrapper' => array(
                         'width' => '50',
                     ),

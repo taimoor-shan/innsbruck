@@ -367,3 +367,44 @@ add_action('wp_ajax_nopriv_filter_properties', 'tailpress_ajax_filter_properties
 // Add excerpt support to pages
 add_post_type_support('page', 'excerpt');
 
+/**
+ * Enqueue Leaflet.js + Fancybox on single property pages.
+ */
+function tailpress_enqueue_single_property_assets()
+{
+    if (!is_singular('accommodation')) {
+        return;
+    }
+
+    // Leaflet CSS + JS
+    wp_enqueue_style(
+        'leaflet',
+        'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+        [],
+        '1.9.4'
+    );
+    wp_enqueue_script(
+        'leaflet',
+        'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+        [],
+        '1.9.4',
+        true
+    );
+
+    // Fancybox CSS + JS
+    wp_enqueue_style(
+        'fancybox',
+        'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css',
+        [],
+        '5.0'
+    );
+    wp_enqueue_script(
+        'fancybox',
+        'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js',
+        [],
+        '5.0',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'tailpress_enqueue_single_property_assets');
+
