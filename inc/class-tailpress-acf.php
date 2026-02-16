@@ -115,7 +115,7 @@ class TailPress_ACF
                     'label' => 'CTA Title',
                     'name' => 'cta_title',
                     'type' => 'text',
-                    'default_value' => 'Request your luxury or premium apartment in the center of Innsbruck',
+                    'default_value' => 'Request your luxury or premium apartment in the center of Budapest',
                 ),
                 array(
                     'key' => 'field_cta_subtitle',
@@ -391,12 +391,22 @@ class TailPress_ACF
                     'label' => 'Trust Section',
                     'type' => 'tab',
                 ),
+               
                 array(
                     'key' => 'field_projects_trust_title',
                     'label' => 'Section Title',
                     'name' => 'projects_trust_title',
                     'type' => 'text',
                     'default_value' => 'Why Invest With Us',
+                ),
+                
+                array(
+                    'key' => 'field_projects_trust_image',
+                    'label' => 'Section Image',
+                    'name' => 'projects_trust_image',
+                    'type' => 'image',
+                    'return_format' => 'url',
+                    'instructions' => 'Image displayed on the left side of the section.',
                 ),
                 array(
                     'key' => 'field_projects_trust_points',

@@ -408,3 +408,7 @@ function tailpress_enqueue_single_property_assets()
 }
 add_action('wp_enqueue_scripts', 'tailpress_enqueue_single_property_assets');
 
+// Remove autop from contact form 7
+add_filter('wpcf7_autop_or_not', '__return_false');
+
+

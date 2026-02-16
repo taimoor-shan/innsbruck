@@ -44,8 +44,7 @@ if ($video) {
     <div class="absolute inset-0"
         style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.7) 100%);">
     </div>
-    <div
-        class="hero-content mt-20 ml-auto mr-auto relative text-center max-w-2xl pt-0 pr-4 pb-0 pl-4 z-[10] text-light">
+    <div class="hero-content mt-20 ml-auto mr-auto relative text-center pt-0 pr-4 pb-0 pl-4 z-[10] text-light">
         <!-- <h1 class="text-center mb-[24px] text-light text-[48px] leading-[56px] lg:text-[72px] lg:leading-[72px]">
             <?php echo wp_kses_post($title); ?>
         </h1>
@@ -58,7 +57,7 @@ if ($video) {
         <?php the_content(); ?>
 
         <?php if ($content): ?>
-            <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4">
+            <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 mt-10">
                 <?php echo $content; ?>
             </div>
         <?php endif; ?>
@@ -67,12 +66,14 @@ if ($video) {
 
 <style>
     .hero-content h1 {
-        font-size: min(max(48px, 10vw), 62px);
+        font-size: min(max(34px, 10vw), 60px);
         line-height: 1.1;
     }
 
-    .hero-content p {
-        font-size: 20px;
-        line-height: 28px;
+    @media (min-width: 1199px) {
+        .hero-content p {
+            font-size: 20px;
+            line-height: 28px;
+        }
     }
 </style>

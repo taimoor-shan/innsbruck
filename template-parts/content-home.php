@@ -43,8 +43,8 @@ get_template_part('template-parts/components/hero', null, [
 
 <section class="bg-white pt-20 pr-0 pb-20 pl-0">
     <div class="ml-auto mr-auto w-full pt-0 pr-4 pb-0 pl-4 container">
-        <div class="text-center mb-[64px]">
-            <h2 class="font-bold text-center mb-[16px] text-[36px] leading-[40px]">
+        <div class="text-center mb-[64px] secTitle">
+            <h2 class="text-center mb-[16px] text-[36px] leading-[40px]">
                 <?php echo get_field('benefits_title') ?: 'Benefits of Innsbruck City Apartments'; ?>
             </h2>
             <p class="ml-auto mr-auto text-center text-gray text-[18px] leading-[28px] max-w-2xl">
@@ -87,8 +87,8 @@ get_template_part('template-parts/components/hero', null, [
 
 <section class="bg-white pt-20 pr-0 pb-20 pl-0">
     <div class="ml-auto mr-auto w-full pt-0 pr-4 pb-0 pl-4 container">
-        <div class="text-center mb-[64px]">
-            <h2 class="font-bold text-center mb-[16px] text-[36px] leading-[40px]">
+        <div class="text-center mb-[64px] secTitle">
+            <h2 class="text-center mb-[16px] text-[36px] leading-[40px]">
                 <?php echo get_field('accommodations_title') ?: 'Our Properties'; ?>
             </h2>
             <p class="text-center text-gray text-[18px] leading-[28px]">
@@ -106,7 +106,7 @@ get_template_part('template-parts/components/hero', null, [
 
         <div class="text-center mt-12">
             <?php get_template_part('template-parts/components/button', null, [
-                'href' => home_url('/properties'), // Placeholder for the all-properties page we will build
+                'href' => home_url('/all-properties'), // Placeholder for the all-properties page we will build
                 'text' => 'View All Properties',
                 'style' => 'outline',
                 'class' => 'px-8 py-3'
@@ -115,14 +115,14 @@ get_template_part('template-parts/components/hero', null, [
     </div>
 </section>
 
-<section class="overflow-hidden relative bg-dark text-light pt-20 pr-0 pb-20 pl-0">
-    <div class="absolute left-0 top-0 right-0 bottom-0 container"
-        style="background-image: linear-gradient(rgba(29, 32, 37, 0.4), rgba(29, 32, 37, 0.8), rgb(29, 32, 37));"></div>
-    <div class="ml-auto mr-auto relative text-center w-full pt-0 pr-4 pb-0 pl-4 z-[10]">
-        <h2 class="font-bold text-center mb-[24px] text-[36px] leading-[40px] pt-0 pr-2 pb-0 pl-2">
+<section class="overflow-hidden relative bg-accent text-dark pt-20 pr-0 pb-20 pl-0 border-b">
+    <!-- <div class="absolute left-0 top-0 right-0 bottom-0 container"
+        style="background-image: linear-gradient(rgba(29, 32, 37, 0.4), rgba(29, 32, 37, 0.8), rgb(29, 32, 37));"></div> -->
+    <div class="ml-auto mr-auto relative text-center w-full pt-0 pr-4 pb-0 pl-4 z-[10] max-w-3xl">
+        <h2 class=" text-center mb-[24px] text-[36px] leading-[50px] pt-0 pr-2 pb-0 pl-2">
             <?php echo get_field('cta_title') ?: 'Request your luxury or premium apartment in the center of Innsbruck'; ?>
         </h2>
-        <p class="ml-auto mr-auto text-center mb-[32px] text-light/90 text-[20px] leading-[28px] max-w-2xl">
+        <p class="ml-auto mr-auto text-center mb-[32px] text-gray text-lg max-w-2xl">
             <?php echo get_field('cta_subtitle') ?: 'Contact us today to request information about availability'; ?>
         </p>
         <div class="text-center">
