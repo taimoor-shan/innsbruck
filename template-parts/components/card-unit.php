@@ -47,11 +47,11 @@ $carousel_id = 'carousel-' . $post_id;
 <div class="rounded-lg border bg-white text-dark shadow-sm overflow-hidden transition-all h-full flex flex-col">
 
     <!-- Carousel Section -->
-    <div class="relative w-full group<?php echo $is_sold ? ' grayscale' : ''; ?>">
+    <div class="relative w-full group">
         <?php if ($badge_label): ?>
             <div class="absolute top-2 right-2 md:top-4 md:right-4 z-10">
                 <span
-                    class="bg-white/90 text-dark px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
+                    class="bg-dark text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
                     <?php echo esc_html($badge_label); ?>
                 </span>
             </div>
@@ -59,7 +59,7 @@ $carousel_id = 'carousel-' . $post_id;
         <?php if ($status_label): ?>
             <div class="absolute top-2 left-2 md:top-4 md:left-4 z-10">
                 <span
-                    class="bg-white/90 text-primary bg-accent px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
+                    class="bg-green-700 <?php echo $is_sold ? 'bg-primary' : ''; ?> text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
                     <?php echo esc_html($status_label); ?>
                 </span>
             </div>
@@ -73,7 +73,7 @@ $carousel_id = 'carousel-' . $post_id;
                         <div class="swiper-slide">
                             <div class="oi-aspect sixteen-nine">
                                 <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>"
-                                    class="oi-aspect-img">
+                                    class="oi-aspect-img<?php echo $is_sold ? ' grayscale' : ''; ?>">
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -99,7 +99,7 @@ $carousel_id = 'carousel-' . $post_id;
         <?php else: ?>
             <div class="oi-aspect sixteen-nine">
                 <img src="<?php echo esc_url($gallery[0] ?? ''); ?>" alt="<?php echo esc_attr($title); ?>"
-                    class="oi-aspect-img">
+                    class="oi-aspect-img<?php echo $is_sold ? ' grayscale' : ''; ?>">
             </div>
         <?php endif; ?>
     </div>
@@ -110,7 +110,7 @@ $carousel_id = 'carousel-' . $post_id;
             <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-0">
                 <?php echo esc_html($title); ?>
             </h3>
-            <span class="text-primary text-lg md:text-xl lg:text-2xl font-bold">
+            <span class="text-dark text-lg md:text-xl lg:text-2xl font-bold">
                 <?php if ($price): ?>
                     €<?php echo number_format((float) $price, 0, ',', '.'); ?>
                 <?php else: ?>
@@ -188,13 +188,13 @@ $carousel_id = 'carousel-' . $post_id;
                 'href' => home_url('/contact'),
                 'text' => 'Request Info',
                 'class' => 'flex-1 text-xs md:text-sm',
-                'style' => 'primary'
+                'style' => 'dark-solid'
             ]); ?>
 
             <?php get_template_part('template-parts/components/button', null, [
                 'href' => get_permalink($post_id),
                 'text' => 'View Details',
-                'style' => 'outline-card',
+                'style' => 'outline',
                 'class' => 'flex-1 text-xs md:text-sm',
             ]); ?>
         </div>

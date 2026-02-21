@@ -40,6 +40,7 @@ if (!$query) {
         'post_status' => 'publish',
         'orderby' => 'menu_order date',
         'order' => 'ASC',
+        'sort_sold_last' => true,
     ];
 
     $tax_query = [];

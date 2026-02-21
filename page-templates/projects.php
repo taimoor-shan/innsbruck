@@ -82,7 +82,7 @@ $past_projects = new WP_Query([
         [
             'taxonomy' => 'project_stage',
             'field' => 'slug',
-            'terms' => ['completed', 'delivered', 'sold'],
+            'terms' => ['completed', 'sold'],
         ]
     ]
 ]);
@@ -109,7 +109,8 @@ $past_projects = new WP_Query([
                     $area = get_field('project_area');
                     $zigzag_class = ($past_index % 2 !== 0) ? 'md:flex-row-reverse' : 'md:flex-row';
                     ?>
-                    <div class="flex flex-col <?php echo $zigzag_class; ?> items-center gap-0 border-b border-gray-200 last:border-b-0 pb-8 mb-8 last:pb-0 last:mb-0">
+                    <div
+                        class="flex flex-col <?php echo $zigzag_class; ?> gap-8 items-center justify-center gap-0 border-b border-gray-200 last:border-b-0 pb-8 mb-8 last:pb-0 last:mb-0">
                         <!-- Featured Image (Left) -->
                         <?php if (has_post_thumbnail()): ?>
                             <div class="md:w-1/2 shrink-0 overflow-hidden rounded-lg self-start">
@@ -118,19 +119,24 @@ $past_projects = new WP_Query([
                         <?php endif; ?>
 
                         <!-- Details (Right) -->
-                        <div class="flex-1 p-6 md:p-8 flex flex-col justify-center">
+                        <div class="flex-1 justify-start items-start flex flex-col justify-center">
                             <div class="mb-3">
                                 <?php if ($year): ?>
-                                    <span class="bg-primary/5 text-primary text-xs font-semibold px-3 py-1 rounded shrink-0">Completed: <?php echo esc_html($year); ?></span>
+                                    <span class="bg-accent text-dark text-xs font-semibold px-3 py-1 rounded shrink-0">Completed:
+                                        <?php echo esc_html($year); ?></span>
                                 <?php endif; ?>
+
                                 <h3 class="mb-0 mt-4"><?php the_title(); ?></h3>
+
                             </div>
 
                             <?php if ($location_string): ?>
                                 <p class=" flex items-start gap-1 mb-4">
-                                    <svg class="w-4 h-4 shrink-0 mt-1" fill="none" stroke="var(--color-primary)" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 shrink-0 mt-1" fill="none" stroke="var(--color-primary)"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                        </path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     </svg>
@@ -158,9 +164,32 @@ $past_projects = new WP_Query([
                                     </div>
                                 <?php endif; ?>
                             </div>
+                            <?php
+                            $document_url = get_field('project_document');
+                            if ($document_url):
+                                ?>
+
+                                <?php get_template_part('template-parts/components/button', null, [
+                                    'href' => $document_url,
+                                    'text' => 'Investment Document',
+                                    'style' => 'dark-solid',
+                                    'class' => 'mt-6 text-sm',
+                                    'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.792 21.25h8.416a3.5 3.5 0 0 0 3.5-3.5v-5.53a3.5 3.5 0 0 0-1.024-2.475l-5.969-5.97A3.5 3.5 0 0 0 10.24 2.75H7.792a3.5 3.5 0 0 0-3.5 3.5v11.5a3.5 3.5 0 0 0 3.5 3.5"/><path fill="currentColor" fill-rule="evenodd" d="M10.437 7.141c-.239.078-.392.236-.436.411c-.09.352 0 .73.253 1.203c.126.234.28.471.45.725l.092.137l.145.215l.019-.068l.086-.306q.148-.503.23-1.02c.089-.642-.011-1.018-.309-1.26c-.08-.065-.278-.119-.53-.037m.055 4.152l-.27-.362l-.032-.048c-.115-.19-.243-.38-.382-.585l-.1-.149a10 10 0 0 1-.512-.828c-.31-.578-.558-1.286-.358-2.067c.17-.664.698-1.081 1.227-1.254c.517-.168 1.174-.147 1.66.247c.792.644.848 1.573.739 2.357a9 9 0 0 1-.261 1.174l-.096.34q-.112.382-.208.769l-.067.194l1.392 1.864c.65-.078 1.364-.125 2.03-.077c.769.054 1.595.242 2.158.776a1.56 1.56 0 0 1 .395 1.441c-.117.48-.454.88-.919 1.123c-.985.515-1.902.105-2.583-.416c-.533-.407-1.045-.975-1.476-1.453l-.104-.114c-.37.057-.72.121-1.004.175c-.305.057-.684.128-1.096.22l-.151.443q-.125.288-.238.58l-.122.303a8 8 0 0 1-.427.91c-.33.578-.857 1.192-1.741 1.241c-1.184.066-1.986-.985-1.756-2.108l.006-.027c.2-.791.894-1.31 1.565-1.653c.597-.306 1.294-.532 1.941-.701zm.87 1.165l-.287.843l.421-.08l.004-.001l.38-.07zm2.84 1.604c.274.29.547.56.831.777c.55.42.94.493 1.299.305c.2-.105.284-.241.309-.342a.35.35 0 0 0-.08-.309c-.257-.228-.722-.38-1.392-.428a8 8 0 0 0-.967-.003m-5.005.947c-.318.109-.62.23-.89.368c-.587.3-.87.604-.944.867c-.078.415.192.673.516.655c.27-.015.506-.184.766-.639q.204-.372.358-.767l.107-.266z" clip-rule="evenodd"/></g></svg>',
+                                    'icon_position' => 'left',
+                                ]); ?>
+
+                            <?php else: ?>
+                                <?php get_template_part('template-parts/components/button', null, [
+                                    'href' => home_url('/contact'), // Placeholder for the all-properties page we will build
+                                    'text' => 'Inquire Now',
+                                    'style' => 'dark-solid',
+                                    'class' => 'mt-6 text-sm',
+                                ]); ?>
+                            <?php endif; ?>
+
                         </div>
                     </div>
-                <?php
+                    <?php
                     $past_index++;
                 endwhile;
                 wp_reset_postdata(); ?>
@@ -179,7 +208,7 @@ $future_projects = new WP_Query([
         [
             'taxonomy' => 'project_stage',
             'field' => 'slug',
-            'terms' => ['feasibility', 'design', 'permits'],
+            'terms' => ['coming-soon'],
         ]
     ]
 ]);
@@ -214,7 +243,8 @@ $future_projects = new WP_Query([
                     $location_string = implode(', ', array_filter($location));
                     $zigzag_class = ($future_index % 2 !== 0) ? 'md:flex-row-reverse' : 'md:flex-row';
                     ?>
-                    <div class="flex flex-col <?php echo $zigzag_class; ?> items-center gap-8 border-b border-gray-200 last:border-b-0 pb-8 mb-8 lg:pb-16 lg:mb-16 last:pb-0 last:mb-0">
+                    <div
+                        class="flex flex-col <?php echo $zigzag_class; ?> items-center gap-8 border-b border-gray-200 last:border-b-0 pb-8 mb-8 lg:pb-16 lg:mb-16 last:pb-0 last:mb-0">
                         <!-- Featured Image (Left) -->
                         <?php if (has_post_thumbnail()): ?>
                             <div class="md:w-1/2 shrink-0 overflow-hidden rounded-lg self-start">
@@ -226,16 +256,20 @@ $future_projects = new WP_Query([
                         <div class="flex-1 flex flex-col justify-center items-start">
                             <div class="mb-3">
                                 <?php if ($stage_name): ?>
-                                    <span class="bg-primary/5 text-primary text-xs font-semibold px-3 py-1 rounded shrink-0"><?php echo esc_html($stage_name); ?></span>
+                                    <span
+                                        class="bg-accent text-dark text-xs font-semibold px-2 py-1 rounded shrink-0"><?php echo esc_html($stage_name); ?></span>
                                 <?php endif; ?>
                                 <h3 class="mb-0 mt-4"><?php the_title(); ?></h3>
+
                             </div>
 
                             <?php if ($location_string): ?>
                                 <p class="flex gap-1 mb-4">
-                                    <svg class="w-4 h-4 shrink-0 mt-1" fill="none" stroke="var(--color-primary)" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 shrink-0 mt-1" fill="none" stroke="var(--color-primary)"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                        </path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     </svg>
@@ -276,14 +310,30 @@ $future_projects = new WP_Query([
                                 <?php endif; ?>
                             </div>
 
-                            <a href="<?php echo get_bloginfo('url') . '/contact'; ?>"
-                                class="inline-block mt-6 px-6 py-2 border border-primary text-primary rounded hover:bg-primary hover:text-white transition-colors text-sm font-medium">
-                                Inquire Now
-                            </a>
+                            <?php
+                            $document_url = get_field('project_document');
+                            if ($document_url):
+                                ?>
+                                <?php get_template_part('template-parts/components/button', null, [
+                                    'href' => $document_url,
+                                    'text' => 'Investment Document',
+                                    'style' => 'dark-solid',
+                                    'class' => 'mt-6 text-sm',
+                                    'icon' => '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>',
+                                    'icon_position' => 'left',
+                                ]); ?>
+                            <?php else: ?>
+                                <?php get_template_part('template-parts/components/button', null, [
+                                    'href' => home_url('/contact'), // Placeholder for the all-properties page we will build
+                                    'text' => 'Inquire Now',
+                                    'style' => 'dark-solid',
+                                    'class' => 'mt-6 text-sm',
+                                ]); ?>
+                            <?php endif; ?>
 
                         </div>
                     </div>
-                <?php
+                    <?php
                     $future_index++;
                 endwhile;
                 wp_reset_postdata(); ?>
@@ -292,65 +342,7 @@ $future_projects = new WP_Query([
     </section>
 <?php endif; ?>
 
-<?php
-// 4. Investor Trust Section
-$trust_title = get_field('projects_trust_title');
-$trust_subtitle = get_field('projects_trust_subtitle');
-$trust_title_highlighted = get_field('projects_trust_title_highlighted');
-$trust_image = get_field('projects_trust_image');
-?>
-<?php if (have_rows('projects_trust_points')): ?>
-    <section class="py-20 bg-gray-50 border-t border-b">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-16 items-start">
-                <!-- Left Column: Subtitle + Image -->
-                <div class="lg:col-span-1 hidden md:block">
-                   
 
-                    <?php if ($trust_image): ?>
-                        <div class="mt-8">
-                            <img src="<?php echo esc_url($trust_image); ?>" alt="<?php echo esc_attr($trust_title); ?>"
-                                class="w-full max-w-md rounded-lg object-cover aspect-[3/4]">
-                        </div>
-                    <?php endif; ?>
-                </div>
-
-                <!-- Right Column: Heading + Numbered Points -->
-                <div class="lg:col-span-3 secTitle left">
-                    <?php if ($trust_title || $trust_title_highlighted): ?>
-                        <h2 class="font-semibold leading-tight mb-12">
-                            <?php if ($trust_title): ?>
-                                <?php echo esc_html($trust_title); ?><?php if ($trust_title_highlighted): ?>,<?php endif; ?>
-                            <?php endif; ?>
-                            <?php if ($trust_title_highlighted): ?>
-                                <span class="text-gray-400"><?php echo esc_html($trust_title_highlighted); ?></span>
-                            <?php endif; ?>
-                        </h2>
-                    <?php endif; ?>
-
-                    <div class="space-y-0">
-                        <?php
-                        $index = 1;
-                        while (have_rows('projects_trust_points')):
-                            the_row(); ?>
-                            <div class="grid lg:grid-cols-3 gap-x-6 items-start border-t border-gray-200 py-6">
-                                <div class="col-span-2 lg:col-span-1 flex items-start gap-6 mb-6 mb-lg-4">
-                                    <span class="text-gray-400 leading-snug"><?php echo str_pad($index, 2, '0', STR_PAD_LEFT); ?></span>
-                                    <h3 class="text-lg font-semibold leading-snug mb-0"><?php echo esc_html(get_sub_field('point_title')); ?></h3>
-                                </div>
-                                <p class="text text-gray leading-relaxed col-span-2 mb-0">
-                                    <?php echo esc_html(get_sub_field('point_description')); ?>
-                                </p>
-                            </div>
-                        <?php
-                            $index++;
-                        endwhile; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-<?php endif; ?>
 
 <?php
 // 5. Investor Lead Section

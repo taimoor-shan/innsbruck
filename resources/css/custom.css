@@ -448,3 +448,12 @@ div.wpcf7 img.ajax-loader {
 .contact_info p {
   margin-bottom: 6px;
 }
+
+/* Footer Menu */
+footer a{
+  color: var(--color-white);
+  transition: all 0.3s ease;
+}
+footer a:hover{
+  color: var(--color-primary);
+}
