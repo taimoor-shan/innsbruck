@@ -29,48 +29,17 @@ get_template_part('template-parts/components/hero', null, [
     'title' => $hero_title,
     'subtitle' => $hero_subtitle,
     'height' => 'h-[60vh]', // Slightly shorter than home
+    'width' => 'max-w-5xl',
 ]);
 ?>
 
-<?php
-// 1. Philosophy Section
-$philosophy_title = get_field('projects_philosophy_title');
-$philosophy_intro = get_field('projects_philosophy_intro');
-$philosophy_principles = get_field('projects_principles');
-$philosophy_image = get_field('projects_philosophy_image');
-?>
-<?php if ($philosophy_title || $philosophy_intro || $philosophy_principles || $philosophy_image): ?>
-    <section class="py-10 lg:py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center secTitle left">
-                <div>
-                    <?php if ($philosophy_title): ?>
-                        <h2 class="mb-4"><?php echo esc_html($philosophy_title); ?></h2>
-                    <?php endif; ?>
 
-                    <?php if ($philosophy_intro): ?>
-                        <div class="prose max-w-none text-dark font-medium mb-6">
-                            <?php echo wp_kses_post($philosophy_intro); ?>
-                        </div>
-                    <?php endif; ?>
+<section class="py-10 lg:py-20 bg-white">
+    <div class="container mx-auto px-4 max-w-5xl text-center">
+        <?php the_content(); ?>
+    </div>
+</section>
 
-                    <?php if ($philosophy_principles): ?>
-                        <div class="secTitle">
-                            <?php echo wp_kses_post($philosophy_principles); ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-
-                <?php if ($philosophy_image): ?>
-                    <div class="relative h-full">
-                        <img src="<?php echo esc_url($philosophy_image); ?>" alt="<?php echo esc_attr($philosophy_title); ?>"
-                            class="">
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </section>
-<?php endif; ?>
 
 <?php
 // 2. Past Projects Section
@@ -90,9 +59,9 @@ $past_projects = new WP_Query([
 <?php if ($past_projects->have_posts()): ?>
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-8 secTitle">
+            <!-- <div class="text-center mb-8 secTitle">
                 <h2 class="mb-4">Past Projects</h2>
-            </div>
+            </div> -->
 
             <div class="space-y-0">
                 <?php
@@ -122,7 +91,8 @@ $past_projects = new WP_Query([
                         <div class="flex-1 justify-start items-start flex flex-col justify-center">
                             <div class="mb-3">
                                 <?php if ($year): ?>
-                                    <span class="bg-accent text-dark text-xs font-semibold px-3 py-1 rounded shrink-0">Completed:
+                                    <span
+                                        class="bg-accent text-dark text-xs font-semibold px-3 py-1 rounded shrink-0 border border-primary/20">Completed:
                                         <?php echo esc_html($year); ?></span>
                                 <?php endif; ?>
 
@@ -145,7 +115,7 @@ $past_projects = new WP_Query([
                             <?php endif; ?>
 
                             <?php if ($scope): ?>
-                                <div class="">
+                                <div class="text-gray">
                                     <?php echo $scope; ?>
                                 </div>
                             <?php endif; ?>
@@ -170,11 +140,11 @@ $past_projects = new WP_Query([
                                 ?>
 
                                 <?php get_template_part('template-parts/components/button', null, [
-                                    'href' => $document_url,
+                                    'attr' => 'x-data @click.prevent="$dispatch(\'open-download-modal\', \'' . esc_js($document_url) . '\')"',
                                     'text' => 'Investment Document',
                                     'style' => 'dark-solid',
                                     'class' => 'mt-6 text-sm',
-                                    'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.792 21.25h8.416a3.5 3.5 0 0 0 3.5-3.5v-5.53a3.5 3.5 0 0 0-1.024-2.475l-5.969-5.97A3.5 3.5 0 0 0 10.24 2.75H7.792a3.5 3.5 0 0 0-3.5 3.5v11.5a3.5 3.5 0 0 0 3.5 3.5"/><path fill="currentColor" fill-rule="evenodd" d="M10.437 7.141c-.239.078-.392.236-.436.411c-.09.352 0 .73.253 1.203c.126.234.28.471.45.725l.092.137l.145.215l.019-.068l.086-.306q.148-.503.23-1.02c.089-.642-.011-1.018-.309-1.26c-.08-.065-.278-.119-.53-.037m.055 4.152l-.27-.362l-.032-.048c-.115-.19-.243-.38-.382-.585l-.1-.149a10 10 0 0 1-.512-.828c-.31-.578-.558-1.286-.358-2.067c.17-.664.698-1.081 1.227-1.254c.517-.168 1.174-.147 1.66.247c.792.644.848 1.573.739 2.357a9 9 0 0 1-.261 1.174l-.096.34q-.112.382-.208.769l-.067.194l1.392 1.864c.65-.078 1.364-.125 2.03-.077c.769.054 1.595.242 2.158.776a1.56 1.56 0 0 1 .395 1.441c-.117.48-.454.88-.919 1.123c-.985.515-1.902.105-2.583-.416c-.533-.407-1.045-.975-1.476-1.453l-.104-.114c-.37.057-.72.121-1.004.175c-.305.057-.684.128-1.096.22l-.151.443q-.125.288-.238.58l-.122.303a8 8 0 0 1-.427.91c-.33.578-.857 1.192-1.741 1.241c-1.184.066-1.986-.985-1.756-2.108l.006-.027c.2-.791.894-1.31 1.565-1.653c.597-.306 1.294-.532 1.941-.701zm.87 1.165l-.287.843l.421-.08l.004-.001l.38-.07zm2.84 1.604c.274.29.547.56.831.777c.55.42.94.493 1.299.305c.2-.105.284-.241.309-.342a.35.35 0 0 0-.08-.309c-.257-.228-.722-.38-1.392-.428a8 8 0 0 0-.967-.003m-5.005.947c-.318.109-.62.23-.89.368c-.587.3-.87.604-.944.867c-.078.415.192.673.516.655c.27-.015.506-.184.766-.639q.204-.372.358-.767l.107-.266z" clip-rule="evenodd"/></g></svg>',
+                                    'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M8 10V7c0-2.21 1.79-4 4-4s4 1.79 4 4v3m-4 5a1 1 0 1 0 0-2a1 1 0 0 0 0 2m0 0v3m-5.4-8h10.8c.88 0 1.6.72 1.6 1.6v7c0 1.32-1.08 2.4-2.4 2.4H7.4C6.08 21 5 19.92 5 18.6v-7c0-.88.72-1.6 1.6-1.6"/></svg>',
                                     'icon_position' => 'left',
                                 ]); ?>
 
@@ -216,10 +186,10 @@ $future_projects = new WP_Query([
 <?php if ($future_projects->have_posts()): ?>
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-8 secTitle">
+            <!-- <div class="text-center mb-8 secTitle">
                 <h2 class="mb-4">Upcoming Projects</h2>
                 <p class="text-gray">Sneak peek into our future developments</p>
-            </div>
+            </div> -->
 
             <div class="space-y-0">
                 <?php
@@ -257,7 +227,7 @@ $future_projects = new WP_Query([
                             <div class="mb-3">
                                 <?php if ($stage_name): ?>
                                     <span
-                                        class="bg-accent text-dark text-xs font-semibold px-2 py-1 rounded shrink-0"><?php echo esc_html($stage_name); ?></span>
+                                        class="bg-green-100 text-dark text-xs font-semibold px-2 py-1 rounded shrink-0 border border-green-200"><?php echo esc_html($stage_name); ?></span>
                                 <?php endif; ?>
                                 <h3 class="mb-0 mt-4"><?php the_title(); ?></h3>
 
@@ -315,11 +285,11 @@ $future_projects = new WP_Query([
                             if ($document_url):
                                 ?>
                                 <?php get_template_part('template-parts/components/button', null, [
-                                    'href' => $document_url,
+                                    'attr' => 'x-data @click.prevent="$dispatch(\'open-download-modal\', \'' . esc_js($document_url) . '\')"',
                                     'text' => 'Investment Document',
                                     'style' => 'dark-solid',
                                     'class' => 'mt-6 text-sm',
-                                    'icon' => '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>',
+                                    'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M8 10V7c0-2.21 1.79-4 4-4s4 1.79 4 4v3m-4 5a1 1 0 1 0 0-2a1 1 0 0 0 0 2m0 0v3m-5.4-8h10.8c.88 0 1.6.72 1.6 1.6v7c0 1.32-1.08 2.4-2.4 2.4H7.4C6.08 21 5 19.92 5 18.6v-7c0-.88.72-1.6 1.6-1.6"/></svg>',
                                     'icon_position' => 'left',
                                 ]); ?>
                             <?php else: ?>
@@ -377,6 +347,67 @@ $lead_form = get_field('projects_lead_form');
         </div>
     </section>
 <?php endif; ?>
+
+<!-- Document Download Modal (Alpine.js) -->
+<div x-data="{ 
+        showModal: false, 
+        documentUrl: '',
+        init() {
+            // Listen for Contact Form 7 successful submission
+            document.addEventListener('wpcf7mailsent', (event) => {
+                // Check if the form is inside this modal
+                if (this.$el.contains(event.target) && this.documentUrl) {
+                    // Open document in new tab
+                    window.open(this.documentUrl, '_blank');
+                    
+                    // Wait a bit then close modal and reset
+                    setTimeout(() => {
+                        this.showModal = false;
+                        this.documentUrl = '';
+                    }, 1000);
+                }
+            });
+        }
+    }" @open-download-modal.window="showModal = true; documentUrl = $event.detail" x-show="showModal"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" style="display: none;" x-cloak>
+
+    <!-- Backdrop -->
+    <div x-show="showModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+
+    <!-- Modal Box -->
+    <div class="relative w-full max-w-2xl transform rounded-xl bg-white p-6 sm:p-10 shadow-2xl transition-all"
+        @click.outside="showModal = false" x-show="showModal" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+        <!-- Close Button -->
+        <button @click="showModal = false" type="button"
+            class="absolute right-4 top-4 rounded-md text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors">
+            <span class="sr-only">Close modal</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <div class="mb-6 border-b border-gray-100 pb-4">
+            <h3 class="text-2xl font-bold text-dark mb-2">Download Document</h3>
+            <p class="text-gray-600 text-sm">Please provide your details below to access the investment document.</p>
+        </div>
+
+        <!-- Form Placeholder -->
+        <div class="lead-form-wrapper mt-4">
+            <!-- IMPORTANT: Replace the ID with your actual Contact Form 7 ID -->
+            <?php echo do_shortcode('[contact-form-7 id="a218341" title="Investor Form"]'); ?>
+        </div>
+    </div>
+</div>
 
 <?php
 get_footer();

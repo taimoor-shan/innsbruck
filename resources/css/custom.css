@@ -254,7 +254,10 @@ img.custom-logo {
 
 /* Textarea needs auto height instead of fixed */
 .wpcf7-form textarea {
-  height: 200px;
+  height: 100px;
+}
+.accommodation .wpcf7-form textarea {
+  height: 100px;
 }
 
 /* Focus ring */

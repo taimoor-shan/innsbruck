@@ -32,7 +32,7 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             <div class="lg:col-span-2">
-                <div class="rounded-lg border bg-card text-card-foreground border-primary/50">
+                <div class="rounded-lg bg-card text-card-foreground">
                     <div class="p-4 md:p-6 lg:p-8 pb-0" style="padding-bottom: 0px;">
                         <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6">Request Information</h2>
                         <!-- <form class="space-y-4 md:space-y-6">
@@ -107,6 +107,11 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
                 </div>
             </div>
             <div class="space-y-4 md:space-y-6">
+                <div class="rounded-lg bg-primary/5 text-primary-foreground">
+                    <div class="p-4 md:p-6">
+                        <?php the_content(); ?>
+                    </div>
+                </div>
                 <div class="rounded-lg border bg-card text-card-foreground border-primary contact_info">
                     <div class="p-4 md:p-6">
                         <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4">Contact Information</h3>
@@ -143,7 +148,8 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
                                         </p>
                                     <?php endif; ?>
                                     <p class="text-xs md:text-sm text-muted-foreground">
-                                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_phone)); ?>" class="text-inherit no-underline hover:text-primary transition-colors"><?php echo esc_html($contact_phone); ?></a>
+                                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_phone)); ?>"
+                                            class="text-inherit no-underline hover:text-primary transition-colors"><?php echo esc_html($contact_phone); ?></a>
                                     </p>
                                 </div>
                             </div>
@@ -157,21 +163,15 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
                                 <div>
                                     <p class="font-semibold text-sm md:text-base">Email</p>
                                     <p class="text-xs md:text-sm text-muted-foreground break-all">
-                                        <a href="mailto:<?php echo esc_attr($contact_email); ?>" class="text-inherit no-underline hover:text-primary transition-colors"><?php echo esc_html($contact_email); ?></a>
+                                        <a href="mailto:<?php echo esc_attr($contact_email); ?>"
+                                            class="text-inherit no-underline hover:text-primary transition-colors"><?php echo esc_html($contact_email); ?></a>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="rounded-lg border border-primary/50 bg-primary/5 text-primary-foreground">
-                    <div class="p-4 md:p-6">
-                        <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Why Request?</h3>
-                        <p class="text-xs md:text-sm">We believe in providing personalized service. By requesting
-                            information instead of booking online, we can ensure you get the perfect apartment for your
-                            needs and answer any questions you may have.</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
