@@ -14,10 +14,10 @@
 
 $image = $args['image'] ?? '';
 $video = $args['video'] ?? '';
-// $title = $args['title'] ?? '';
+$title = $args['title'] ?? '';
 // $subtitle = $args['subtitle'] ?? '';
 $height_class = $args['height'] ?? 'h-[50vh]';
-$content = $args['content'] ?? '';
+$width_class = $args['width'] ?? 'max-w-5xl';
 
 // Determine video mime type from extension
 $video_type = '';
@@ -44,35 +44,23 @@ if ($video) {
     <div class="absolute inset-0"
         style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.7) 100%);">
     </div>
-    <div
-        class="hero-content mt-20 ml-auto mr-auto relative text-center max-w-2xl pt-0 pr-4 pb-0 pl-4 z-[10] text-light">
-        <!-- <h1 class="text-center mb-[24px] text-light text-[48px] leading-[56px] lg:text-[72px] lg:leading-[72px]">
-            <?php echo wp_kses_post($title); ?>
+    <div class="hero-content mt-20 ml-auto mr-auto relative text-center pt-0 pr-4 pb-0 pl-4 z-[10] text-light">
+        <h1 class="text-center <?php echo esc_attr($width_class); ?>">
+            <?php echo esc_html($title); ?>
         </h1>
-        <?php if ($subtitle): ?>
-            <div
-                class="font-light text-center mb-[32px] text-light/90 text-[20px] leading-[28px] lg:text-[24px] lg:leading-[32px] max-w-2xl mx-auto">
-                <?php echo wp_kses_post($subtitle); ?>
-            </div>
-        <?php endif; ?> -->
-        <?php the_content(); ?>
-
-        <?php if ($content): ?>
-            <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4">
-                <?php echo $content; ?>
-            </div>
-        <?php endif; ?>
     </div>
 </section>
 
 <style>
     .hero-content h1 {
-        font-size: min(max(48px, 10vw), 62px);
+        font-size: min(max(34px, 10vw), 60px);
         line-height: 1.1;
     }
 
-    .hero-content p {
-        font-size: 20px;
-        line-height: 28px;
+    @media (min-width: 1199px) {
+        .hero-content p {
+            font-size: 20px;
+            line-height: 28px;
+        }
     }
 </style>

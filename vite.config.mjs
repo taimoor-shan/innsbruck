@@ -20,6 +20,11 @@ export default defineConfig(({ command }) => {
                     'resources/css/app.css',
                     'resources/css/editor-style.css'
                 ],
+                output: {
+                    entryFileNames: `assets/[name].js`,
+                    chunkFileNames: `assets/[name].js`,
+                    assetFileNames: `assets/[name].[ext]`,
+                },
             },
         },
         plugins: [

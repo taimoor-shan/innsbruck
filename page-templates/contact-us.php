@@ -32,10 +32,10 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             <div class="lg:col-span-2">
-                <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
-                    <div class="p-4 md:p-6 lg:p-8">
+                <div class="rounded-lg bg-card text-card-foreground">
+                    <div class="p-4 md:p-6 lg:p-8 pb-0" style="padding-bottom: 0px;">
                         <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6">Request Information</h2>
-                        <form class="space-y-4 md:space-y-6">
+                        <!-- <form class="space-y-4 md:space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                                 <div><label
                                         class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm md:text-base"
@@ -101,12 +101,18 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
                                     rows="4"></textarea></div><button
                                 class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm md:text-base"
                                 type="submit">Send Request</button>
-                        </form>
+                        </form> -->
+                        <?php echo do_shortcode('[contact-form-7 id="c7535bc" title="Contact Form"]'); ?>
                     </div>
                 </div>
             </div>
             <div class="space-y-4 md:space-y-6">
-                <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                <div class="rounded-lg bg-primary/5 text-primary-foreground">
+                    <div class="p-4 md:p-6">
+                        <?php the_content(); ?>
+                    </div>
+                </div>
+                <div class="rounded-lg border bg-card text-card-foreground border-primary contact_info">
                     <div class="p-4 md:p-6">
                         <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4">Contact Information</h3>
                         <div class="space-y-3 md:space-y-4">
@@ -142,7 +148,8 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
                                         </p>
                                     <?php endif; ?>
                                     <p class="text-xs md:text-sm text-muted-foreground">
-                                        <?php echo esc_html($contact_phone); ?>
+                                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_phone)); ?>"
+                                            class="text-inherit no-underline hover:text-primary transition-colors"><?php echo esc_html($contact_phone); ?></a>
                                     </p>
                                 </div>
                             </div>
@@ -156,21 +163,15 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
                                 <div>
                                     <p class="font-semibold text-sm md:text-base">Email</p>
                                     <p class="text-xs md:text-sm text-muted-foreground break-all">
-                                        <?php echo esc_html($contact_email); ?>
+                                        <a href="mailto:<?php echo esc_attr($contact_email); ?>"
+                                            class="text-inherit no-underline hover:text-primary transition-colors"><?php echo esc_html($contact_email); ?></a>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="rounded-lg border shadow-sm bg-primary text-primary-foreground">
-                    <div class="p-4 md:p-6">
-                        <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Why Request?</h3>
-                        <p class="text-xs md:text-sm">We believe in providing personalized service. By requesting
-                            information instead of booking online, we can ensure you get the perfect apartment for your
-                            needs and answer any questions you may have.</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

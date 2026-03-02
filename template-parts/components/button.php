@@ -10,6 +10,9 @@
  *  - class: (string) Additional classes.
  *  - type: (string) Button type attribute (e.g. 'submit', 'button'). Default 'button'.
  *  - attr: (string) Additional attributes (e.g. 'onclick="..."').
+ *  - icon: (string) SVG or HTML string for the icon. Raw markup, not escaped.
+ *  - icon_position: (string) 'left' or 'right'. Default 'left'.
+ *  - icon_class: (string) Additional classes for the icon wrapper span.
  */
 
 $href = $args['href'] ?? '';
@@ -18,21 +21,26 @@ $style = $args['style'] ?? 'primary';
 $class = $args['class'] ?? '';
 $type = $args['type'] ?? 'button';
 $attr = $args['attr'] ?? '';
+$icon = $args['icon'] ?? '';
+$icon_position = $args['icon_position'] ?? 'left';
+$icon_class = $args['icon_class'] ?? '';
 
 // Base Classes
-$base_classes = 'inline-flex items-center justify-center font-medium no-underline transition-colors hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md appearance-none cursor-pointer';
+$base_classes = 'inline-flex items-center justify-center gap-2 font-semibold no-underline transition-colors hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md appearance-none cursor-pointer';
 
 // Size Classes (default is 'h-10 px-8 py-2')
-$size_classes = 'h-10 px-8 py-3 text-[18px] leading-[28px]';
+$size_classes = 'py-1 px-6 py-3 text-[18px] leading-[18px]';
 
 // Variant Styles
 $styles = [
     'primary' => 'bg-primary text-white hover:bg-primary/90 hover:text-white', // Added hover:text-white to ensure transparency
-    'outline' => 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white',
-    'white-outline' => 'bg-transparent border-2 border-white text-dark hover:bg-white/10 hover:text-dark',
-    'white-solid' => 'bg-white text-dark border-2 border-white hover:bg-white/90',
+    'outline' => 'bg-transparent border-1 border-primary text-primary hover:bg-primary hover:text-white',
+    'white-outline' => 'bg-transparent border-1 border-white text-dark hover:bg-white/10 hover:text-dark',
+    'white-solid' => 'bg-white text-dark border-1 border-white hover:bg-primary/90 hover:text-white hover:border-primary',
+    'dark-outline' => 'bg-transparent border-1 border-dark text-dark hover:bg-primary hover:text-white',
+    'dark-solid' => 'bg-dark text-white border-1 border-dark hover:bg-primary hover:text-white hover:border-primary',
     'ghost' => 'bg-transparent hover:bg-gray/10 text-dark',
-    'outline-card' => 'border border-gray/20 bg-white hover:bg-accent/90 hover:text-dark text-dark', // Matches "border border-input bg-background hover:bg-accent" mapping
+    'outline-card' => 'border border-gray/20 bg-white hover:bg-primary/90 hover:text-dark text-dark',
 ];
 
 // Specific overrides for small buttons (like in cards)
@@ -42,8 +50,25 @@ if (strpos($class, 'text-xs') !== false || strpos($class, 'text-sm') !== false) 
 
 $classes = $base_classes . ' ' . $size_classes . ' ' . ($styles[$style] ?? $styles['primary']) . ' ' . $class;
 
-if ($href) {
-    echo '<a href="' . esc_url($href) . '" class="' . esc_attr($classes) . '" ' . $attr . '>' . esc_html($text) . '</a>';
+// Build icon HTML
+$icon_html = '';
+if ($icon) {
+    $icon_wrapper_class = 'inline-flex items-center shrink-0' . ($icon_class ? ' ' . $icon_class : '');
+    $icon_html = '<span class="' . esc_attr($icon_wrapper_class) . '">' . $icon . '</span>';
+}
+
+// Build inner content (icon + text)
+$content = '';
+if ($icon && $icon_position === 'left') {
+    $content = $icon_html . esc_html($text);
+} elseif ($icon && $icon_position === 'right') {
+    $content = esc_html($text) . $icon_html;
 } else {
-    echo '<button type="' . esc_attr($type) . '" class="' . esc_attr($classes) . '" ' . $attr . '>' . esc_html($text) . '</button>';
+    $content = esc_html($text);
+}
+
+if ($href) {
+    echo '<a href="' . esc_url($href) . '" class="' . esc_attr($classes) . '" ' . $attr . '>' . $content . '</a>';
+} else {
+    echo '<button type="' . esc_attr($type) . '" class="' . esc_attr($classes) . '" ' . $attr . '>' . $content . '</button>';
 }

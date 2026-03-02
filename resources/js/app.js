@@ -1,4 +1,5 @@
 import Alpine from 'alpinejs'
+import collapse from '@alpinejs/collapse'
 import Swiper from 'swiper';
 import { Navigation } from 'swiper/modules';
 
@@ -8,4 +9,5 @@ Swiper.use([Navigation]);
 window.Alpine = Alpine
 window.Swiper = Swiper;
 
+Alpine.plugin(collapse)
 Alpine.start()

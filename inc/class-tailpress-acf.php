@@ -31,51 +31,106 @@ class TailPress_ACF
                 ),
 
                 // Benefits Section
+                // array(
+                //     'key' => 'field_home_tab_benefits',
+                //     'label' => 'Benefits Section',
+                //     'type' => 'tab',
+                // ),
+                // array(
+                //     'key' => 'field_benefits_title',
+                //     'label' => 'Benefits Title',
+                //     'name' => 'benefits_title',
+                //     'type' => 'text',
+                //     'default_value' => 'Benefits of Innsbruck City Apartments',
+                // ),
+                // array(
+                //     'key' => 'field_benefits_subtitle',
+                //     'label' => 'Benefits Subtitle',
+                //     'name' => 'benefits_subtitle',
+                //     'type' => 'textarea',
+                //     'default_value' => 'Discover our Luxury and Premium apartments',
+                //     'rows' => 2,
+                // ),
+                // array(
+                //     'key' => 'field_benefits_list',
+                //     'label' => 'Benefits List',
+                //     'name' => 'benefits_list',
+                //     'type' => 'repeater',
+                //     'layout' => 'block',
+                //     'button_label' => 'Add Benefit',
+                //     'sub_fields' => array(
+                //         array(
+                //             'key' => 'field_benefit_icon',
+                //             'label' => 'Icon',
+                //             'name' => 'icon',
+                //             'type' => 'image',
+                //             'return_format' => 'url',
+                //         ),
+                //         array(
+                //             'key' => 'field_benefit_title',
+                //             'label' => 'Title',
+                //             'name' => 'title',
+                //             'type' => 'text',
+                //         ),
+                //         array(
+                //             'key' => 'field_benefit_description',
+                //             'label' => 'Description',
+                //             'name' => 'description',
+                //             'type' => 'textarea',
+                //             'rows' => 2,
+                //         ),
+                //     ),
+                // ),
+
+                // Tab: Trust
                 array(
-                    'key' => 'field_home_tab_benefits',
-                    'label' => 'Benefits Section',
+                    'key' => 'field_tab_trust',
+                    'label' => 'Trust Section',
                     'type' => 'tab',
                 ),
+
                 array(
-                    'key' => 'field_benefits_title',
-                    'label' => 'Benefits Title',
-                    'name' => 'benefits_title',
+                    'key' => 'field_projects_trust_title',
+                    'label' => 'Section Title',
+                    'name' => 'projects_trust_title',
                     'type' => 'text',
-                    'default_value' => 'Benefits of Innsbruck City Apartments',
+                    'default_value' => 'Why Invest With Us',
                 ),
                 array(
-                    'key' => 'field_benefits_subtitle',
-                    'label' => 'Benefits Subtitle',
-                    'name' => 'benefits_subtitle',
+                    'key' => 'field_projects_trust_subtitle',
+                    'label' => 'Section Subtitle',
+                    'name' => 'projects_trust_subtitle',
                     'type' => 'textarea',
+                    'rows' => 4,
                     'default_value' => 'Discover our Luxury and Premium apartments',
-                    'rows' => 2,
+                ),
+
+                array(
+                    'key' => 'field_projects_trust_image',
+                    'label' => 'Section Image',
+                    'name' => 'projects_trust_image',
+                    'type' => 'image',
+                    'return_format' => 'url',
+                    'instructions' => 'Image displayed on the left side of the section.',
                 ),
                 array(
-                    'key' => 'field_benefits_list',
-                    'label' => 'Benefits List',
-                    'name' => 'benefits_list',
+                    'key' => 'field_projects_trust_points',
+                    'label' => 'Trust Points',
+                    'name' => 'projects_trust_points',
                     'type' => 'repeater',
                     'layout' => 'block',
-                    'button_label' => 'Add Benefit',
+                    'button_label' => 'Add Point',
                     'sub_fields' => array(
                         array(
-                            'key' => 'field_benefit_icon',
-                            'label' => 'Icon',
-                            'name' => 'icon',
-                            'type' => 'image',
-                            'return_format' => 'url',
-                        ),
-                        array(
-                            'key' => 'field_benefit_title',
+                            'key' => 'field_trust_point_title',
                             'label' => 'Title',
-                            'name' => 'title',
+                            'name' => 'point_title',
                             'type' => 'text',
                         ),
                         array(
-                            'key' => 'field_benefit_description',
+                            'key' => 'field_trust_point_description',
                             'label' => 'Description',
-                            'name' => 'description',
+                            'name' => 'point_description',
                             'type' => 'textarea',
                             'rows' => 2,
                         ),
@@ -115,7 +170,7 @@ class TailPress_ACF
                     'label' => 'CTA Title',
                     'name' => 'cta_title',
                     'type' => 'text',
-                    'default_value' => 'Request your luxury or premium apartment in the center of Innsbruck',
+                    'default_value' => 'Request your luxury or premium apartment in the center of Budapest',
                 ),
                 array(
                     'key' => 'field_cta_subtitle',
@@ -244,7 +299,7 @@ class TailPress_ACF
                         'width' => '50',
                     ),
                 ),
-                 array(
+                array(
                     'key' => 'field_property_price',
                     'label' => 'Price',
                     'name' => 'property_price',
@@ -253,7 +308,7 @@ class TailPress_ACF
                         'width' => '50',
                     ),
                 ),
-                 array(
+                array(
                     'key' => 'field_property_address',
                     'label' => 'Street Address',
                     'name' => 'property_address',
@@ -385,42 +440,7 @@ class TailPress_ACF
                     'return_format' => 'url',
                 ),
 
-                // Tab: Trust
-                array(
-                    'key' => 'field_tab_trust',
-                    'label' => 'Trust Section',
-                    'type' => 'tab',
-                ),
-                array(
-                    'key' => 'field_projects_trust_title',
-                    'label' => 'Section Title',
-                    'name' => 'projects_trust_title',
-                    'type' => 'text',
-                    'default_value' => 'Why Invest With Us',
-                ),
-                array(
-                    'key' => 'field_projects_trust_points',
-                    'label' => 'Trust Points',
-                    'name' => 'projects_trust_points',
-                    'type' => 'repeater',
-                    'layout' => 'block',
-                    'button_label' => 'Add Point',
-                    'sub_fields' => array(
-                        array(
-                            'key' => 'field_trust_point_title',
-                            'label' => 'Title',
-                            'name' => 'point_title',
-                            'type' => 'text',
-                        ),
-                        array(
-                            'key' => 'field_trust_point_description',
-                            'label' => 'Description',
-                            'name' => 'point_description',
-                            'type' => 'textarea',
-                            'rows' => 2,
-                        ),
-                    ),
-                ),
+
 
                 // Tab: Lead
                 array(
@@ -527,6 +547,17 @@ class TailPress_ACF
                     'name' => 'project_timeline',
                     'type' => 'text',
                     'instructions' => 'For future projects only',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_project_document',
+                    'label' => 'Investment Document',
+                    'name' => 'project_document',
+                    'type' => 'file',
+                    'return_format' => 'url',
+                    'instructions' => 'Upload the investment document (PDF).',
                     'wrapper' => array(
                         'width' => '50',
                     ),

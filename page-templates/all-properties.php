@@ -45,6 +45,7 @@ $loop_args = [
         <div class="mb-12 flex flex-wrap gap-6 justify-between">
 
             <!-- Type Filter -->
+             <?php if(false):?>
             <?php if (!empty($property_types) && !is_wp_error($property_types)): ?>
                 <div class="flex flex-wrap justify-center gap-4">
                     <button @click="updateFilter('type', '')"
@@ -60,6 +61,7 @@ $loop_args = [
                         </button>
                     <?php endforeach; ?>
                 </div>
+            <?php endif; ?>
             <?php endif; ?>
 
             <!-- Status Filter -->

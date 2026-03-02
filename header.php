@@ -60,11 +60,12 @@
                             'menu_type' => 'header', // Custom arg for filter
                         ]);
                         ?>
-                        <a href="<?php echo home_url('/contact'); ?>" class="block ml-[32px]">
-                            <button
-                                class="items-center inline-flex font-medium justify-center text-center whitespace-nowrap h-10 bg-primary text-[14px] gap-[8px] leading-[20px] pt-2 pr-4 pb-2 pl-4 rounded-md appearance-none text-white">Request
-                                Info</button>
-                        </a>
+                        <?php get_template_part('template-parts/components/button', null, [
+                            'href' => home_url('/contact'), // Placeholder for the all-properties page we will build
+                            'text' => 'Request Info',
+                            'style' => 'white-solid',
+                            'class' => 'ml-[32px] text-sm border-primary text-primary',
+                        ]); ?>
                     </div>
 
                     <!-- Mobile Menu Dropdown -->
@@ -84,11 +85,12 @@
                             'menu_type' => 'mobile', // Use specific mobile type
                         ]);
                         ?>
-                        <a href="<?php echo home_url('/contact'); ?>" class="block w-full">
-                            <button
-                                class="w-full justify-center items-center inline-flex font-medium text-center whitespace-nowrap h-10 bg-[rgb(48,_171,_232)] text-[14px] gap-[8px] leading-[20px] pt-2 pr-4 pb-2 pl-4 rounded-md appearance-none">Request
-                                Info</button>
-                        </a>
+                        <?php get_template_part('template-parts/components/button', null, [
+                            'href' => home_url('/contact'), // Placeholder for the all-properties page we will build
+                            'text' => 'Request Info',
+                            'style' => 'white-solid',
+                            'class' => 'w-full d-block',
+                        ]); ?>
                     </div>
                 </div>
             </div>

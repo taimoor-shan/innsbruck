@@ -18,8 +18,12 @@ $jacuzzi = get_field('jacuzzi', $post_id);
 $floor_plan = get_field('floor_plan', $post_id);
 
 // Get Terms for Badge
-$terms = get_the_terms($post_id, 'property_type');
-$badge_label = !empty($terms) ? $terms[0]->name : '';
+$type = get_the_terms($post_id, 'property_type');
+$badge_label = !empty($type) ? $type[0]->name : '';
+// Get Terms for Badge
+$status = get_the_terms($post_id, 'property_status');
+$status_label = !empty($status) ? $status[0]->name : '';
+$is_sold = !empty($status) && $status[0]->slug === 'sold';
 
 $gallery_images = [];
 if (function_exists('tailpress_get_gallery_images')) {
@@ -47,36 +51,46 @@ $carousel_id = 'carousel-' . $post_id;
         <?php if ($badge_label): ?>
             <div class="absolute top-2 right-2 md:top-4 md:right-4 z-10">
                 <span
-                    class="bg-white/90 text-primary px-2 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-semibold shadow-sm backdrop-blur-sm">
+                    class="bg-dark text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
                     <?php echo esc_html($badge_label); ?>
+                </span>
+            </div>
+        <?php endif; ?>
+        <?php if ($status_label): ?>
+            <div class="absolute top-2 left-2 md:top-4 md:left-4 z-10">
+                <span
+                    class="bg-green-700 <?php echo $is_sold ? 'bg-primary' : ''; ?> text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
+                    <?php echo esc_html($status_label); ?>
                 </span>
             </div>
         <?php endif; ?>
 
         <?php if (!empty($gallery)): ?>
-            <div id="<?php echo esc_attr($carousel_id); ?>" class="swiper card-swiper js-card-swiper rounded-t-lg overflow-hidden">
+            <div id="<?php echo esc_attr($carousel_id); ?>"
+                class="swiper card-swiper js-card-swiper rounded-t-lg overflow-hidden">
                 <div class="swiper-wrapper">
                     <?php foreach ($gallery as $image_url): ?>
                         <div class="swiper-slide">
                             <div class="oi-aspect sixteen-nine">
                                 <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>"
-                                    class="oi-aspect-img">
+                                    class="oi-aspect-img<?php echo $is_sold ? ' grayscale' : ''; ?>">
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
                 <!-- Navigation Buttons -->
-                <!-- Navigation Buttons -->
                 <div class="flex items-center gap-2 absolute bottom-4 right-4 z-10">
                     <div
                         class="card-prev w-8 h-8 bg-white/80 text-dark rounded-full flex items-center justify-center hover:bg-white transition-colors cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                         </svg>
                     </div>
                     <div
                         class="card-next w-8 h-8 bg-white/80 text-dark rounded-full flex items-center justify-center hover:bg-white transition-colors cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
                     </div>
@@ -85,19 +99,23 @@ $carousel_id = 'carousel-' . $post_id;
         <?php else: ?>
             <div class="oi-aspect sixteen-nine">
                 <img src="<?php echo esc_url($gallery[0] ?? ''); ?>" alt="<?php echo esc_attr($title); ?>"
-                    class="oi-aspect-img">
+                    class="oi-aspect-img<?php echo $is_sold ? ' grayscale' : ''; ?>">
             </div>
         <?php endif; ?>
     </div>
 
     <!-- Details Section -->
     <div class="p-4 md:p-6 flex flex-col grow">
-        <div class="flex items-center justify-between mb-1 md:mb-2">
+        <div class="flex flex-wrap items-center justify-between mb-2 md:mb-2">
             <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-0">
                 <?php echo esc_html($title); ?>
             </h3>
-            <span class="text-primary text-lg md:text-xl lg:text-2xl font-bold">
-                €<?php echo number_format((float)$price, 0, ',', '.'); ?>
+            <span class="text-dark text-lg md:text-xl lg:text-2xl font-bold">
+                <?php if ($price): ?>
+                    €<?php echo number_format((float) $price, 0, ',', '.'); ?>
+                <?php else: ?>
+                    <span class="text-sm md:text-base font-medium">Price on request<sup>*</sup></span>
+                <?php endif; ?>
             </span>
         </div>
 
@@ -108,9 +126,9 @@ $carousel_id = 'carousel-' . $post_id;
         $location_string = implode(', ', $location);
         ?>
         <?php if ($location_string): ?>
-            <p class="text-[rgb(29,_32,_37)] text-sm md:text-base mb-3 md:mb-4 flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="#ed1b25" class="w-4 h-4">
+            <p class="text-[rgb(29,_32,_37)] text-sm md:text-base mb-3 md:mb-4 flex gap-1 leading-relaxed">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ed1b25"
+                    class="w-4 h-4 mt-1">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
@@ -118,7 +136,7 @@ $carousel_id = 'carousel-' . $post_id;
                 <?php echo esc_html($location_string); ?>
             </p>
         <?php else: ?>
-             <div class="mb-3 md:mb-4"></div>
+            <div class="mb-3 md:mb-4"></div>
         <?php endif; ?>
 
         <div class="space-y-1.5 md:space-y-2 mb-4 md:mb-6 text-sm md:text-base grow">
@@ -140,15 +158,6 @@ $carousel_id = 'carousel-' . $post_id;
                 </div>
             <?php endif; ?>
 
-            <?php if ($livingroom): ?>
-                <div class="flex justify-between border-b border-gray/10 pb-1">
-                    <span class="text-gray">Livingroom:</span>
-                    <span class="font-semibold text-right text-xs md:text-sm max-w-[60%]">
-                        <?php echo esc_html($livingroom); ?>
-                    </span>
-                </div>
-            <?php endif; ?>
-
             <?php if ($bathrooms): ?>
                 <div class="flex justify-between border-b border-gray/10 pb-1">
                     <span class="text-gray">Bathrooms:</span>
@@ -158,19 +167,19 @@ $carousel_id = 'carousel-' . $post_id;
                 </div>
             <?php endif; ?>
 
-            <?php if ($balcony): ?>
-                <div class="flex justify-between border-b border-gray/10 pb-1">
-                    <span class="text-gray">Balcony:</span>
-                    <span class="font-semibold">✓</span>
-                </div>
+            <!-- <?php if ($balcony): ?>
+            <div class="flex justify-between border-b border-gray/10 pb-1">
+                <span class="text-gray">Balcony:</span>
+                <span class="font-semibold">✓</span>
+            </div>
             <?php endif; ?>
 
             <?php if ($jacuzzi): ?>
-                <div class="flex justify-between border-b border-gray/10 pb-1">
-                    <span class="text-gray">Jacuzzi:</span>
-                    <span class="font-semibold">✓</span>
-                </div>
-            <?php endif; ?>
+            <div class="flex justify-between border-b border-gray/10 pb-1">
+                <span class="text-gray">Jacuzzi:</span>
+                <span class="font-semibold">✓</span>
+            </div>
+            <?php endif; ?> -->
         </div>
 
         <!-- Buttons -->
@@ -179,16 +188,15 @@ $carousel_id = 'carousel-' . $post_id;
                 'href' => home_url('/contact'),
                 'text' => 'Request Info',
                 'class' => 'flex-1 text-xs md:text-sm',
-                'style' => 'primary'
+                'style' => 'dark-solid'
             ]); ?>
-            <?php if ($floor_plan): ?>
-                <?php get_template_part('template-parts/components/button', null, [
-                    'text' => 'View Layout',
-                    'style' => 'outline-card',
-                    'class' => 'flex-1 text-xs md:text-sm',
-                    'attr' => 'onclick="window.openModal(\'modal-' . $post_id . '\')"'
-                ]); ?>
-            <?php endif; ?>
+
+            <?php get_template_part('template-parts/components/button', null, [
+                'href' => get_permalink($post_id),
+                'text' => 'View Details',
+                'style' => 'outline',
+                'class' => 'flex-1 text-xs md:text-sm',
+            ]); ?>
         </div>
     </div>
 </div>
@@ -219,4 +227,33 @@ $carousel_id = 'carousel-' . $post_id;
             </div>
         </div>
     </div>
+<?php endif; ?>
+
+<?php if (count($gallery) > 1): ?>
+    <script>
+        (function () {
+            var carouselId = '<?php echo esc_js($carousel_id); ?>';
+            function initSwiper() {
+                if (typeof Swiper === 'undefined') {
+                    setTimeout(initSwiper, 100);
+                    return;
+                }
+                var el = document.getElementById(carouselId);
+                if (el && !el.classList.contains('swiper-initialized')) {
+                    new Swiper('#' + carouselId, {
+                        loop: true,
+                        navigation: {
+                            nextEl: '#' + carouselId + ' .card-next',
+                            prevEl: '#' + carouselId + ' .card-prev',
+                        },
+                    });
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initSwiper);
+            } else {
+                initSwiper();
+            }
+        })();
+    </script>
 <?php endif; ?>

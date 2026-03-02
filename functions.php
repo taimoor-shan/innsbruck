@@ -223,7 +223,6 @@ function register_project_cpt()
         'update_item' => __('Update Project Stage', 'tailpress'),
         'add_new_item' => __('Add New Project Stage', 'tailpress'),
         'new_item_name' => __('New Project Stage Name', 'tailpress'),
-        'menu_name' => __('Project Stage', 'tailpress'),
     );
     $stage_args = array(
         'labels' => $stage_labels,
@@ -233,6 +232,12 @@ function register_project_cpt()
         'show_admin_column' => true,
         'show_in_nav_menus' => true,
         'show_in_rest' => true,
+        'capabilities' => array(
+            'manage_terms' => 'manage_options', // Only admins can enter the taxonomy management page
+            'edit_terms' => 'do_not_allow',     // Disable creating/editing terms for ALL users (hides "Add New")
+            'delete_terms' => 'do_not_allow',   // Disable deleting terms for ALL users
+            'assign_terms' => 'edit_posts',     // Users can still assign existing terms
+        ),
     );
     register_taxonomy('project_stage', array('project'), $stage_args);
 }
@@ -408,3 +413,33 @@ function tailpress_enqueue_single_property_assets()
 }
 add_action('wp_enqueue_scripts', 'tailpress_enqueue_single_property_assets');
 
+// Remove autop from contact form 7
+add_filter('wpcf7_autop_or_not', '__return_false');
+
+/**
+ * Custom order to show 'sold' properties last.
+ * Triggered by 'sort_sold_last' query var.
+ */
+add_filter('posts_orderby', function ($orderby, $query) {
+    if ($query->get('sort_sold_last')) {
+        global $wpdb;
+        // Subquery counts if the post has the 'sold' term in 'property_status' taxonomy.
+        // If count > 0, it evaluates to 1, pushing it to the end of the ASC sort.
+        $sold_subquery = "(
+            SELECT COUNT(1)
+            FROM {$wpdb->term_relationships} tr
+            INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+            INNER JOIN {$wpdb->terms} t ON tt.term_id = t.term_id
+            WHERE tr.object_id = {$wpdb->posts}.ID
+              AND tt.taxonomy = 'property_status'
+              AND t.slug = 'sold'
+        ) ASC";
+
+        if ($orderby) {
+            $orderby = $sold_subquery . ", " . $orderby;
+        } else {
+            $orderby = $sold_subquery;
+        }
+    }
+    return $orderby;
+}, 10, 2);
