@@ -22,7 +22,7 @@ ob_start();
     'style' => 'primary'
 ]); ?>
 <?php get_template_part('template-parts/components/button', null, [
-    'href' => home_url('/premium-units'),
+    'href' => home_url('/projects'),
     'text' => 'Upcoming Projects',
     'style' => 'white-solid',
     'class' => 'border-light font-medium' // Extra styling to match previous look

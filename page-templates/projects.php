@@ -36,9 +36,10 @@ get_template_part('template-parts/components/hero', null, [
 // 1. Philosophy Section
 $philosophy_title = get_field('projects_philosophy_title');
 $philosophy_intro = get_field('projects_philosophy_intro');
+$philosophy_principles = get_field('projects_principles');
 $philosophy_image = get_field('projects_philosophy_image');
 ?>
-<?php if ($philosophy_title || have_rows('projects_principles')): ?>
+<?php if ($philosophy_title || $philosophy_intro || $philosophy_principles || $philosophy_image): ?>
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -48,39 +49,22 @@ $philosophy_image = get_field('projects_philosophy_image');
                     <?php endif; ?>
 
                     <?php if ($philosophy_intro): ?>
-                        <div class="prose max-w-none text-gray mb-6">
+                        <div class="prose max-w-none text-dark font-medium mb-6">
                             <?php echo wp_kses_post($philosophy_intro); ?>
                         </div>
                     <?php endif; ?>
 
-                    <?php if (have_rows('projects_principles')): ?>
-                        <div class="space-y-3">
-                            <?php while (have_rows('projects_principles')):
-                                the_row(); ?>
-                                <div class="flex gap-4">
-                                    <div
-                                        class="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary mt-1">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl mb-1">
-                                            <?php echo esc_html(get_sub_field('principle_title')); ?>
-                                        </h3>
-                                        <p class="text-gray"><?php echo esc_html(get_sub_field('principle_description')); ?></p>
-                                    </div>
-                                </div>
-                            <?php endwhile; ?>
+                    <?php if ($philosophy_principles): ?>
+                        <div class="secTitle">
+                            <?php echo wp_kses_post($philosophy_principles); ?>
                         </div>
                     <?php endif; ?>
                 </div>
 
                 <?php if ($philosophy_image): ?>
-                    <div class="relative h-full min-h-[400px] rounded-lg overflow-hidden shadow-lg">
+                    <div class="relative h-full">
                         <img src="<?php echo esc_url($philosophy_image); ?>" alt="<?php echo esc_attr($philosophy_title); ?>"
-                            class="absolute inset-0 w-full h-full object-cover">
+                            class="">
                     </div>
                 <?php endif; ?>
             </div>
@@ -110,7 +94,7 @@ $past_projects = new WP_Query([
                 <h2 class="mb-4">Past Projects</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="space-y-0">
                 <?php while ($past_projects->have_posts()):
                     $past_projects->the_post();
                     $address = get_field('project_address');
@@ -118,29 +102,32 @@ $past_projects = new WP_Query([
                     $location = filter_var([$address, $city_state], FILTER_CALLBACK, ['options' => 'trim']);
                     $location_string = implode(', ', array_filter($location));
                     $year = get_field('project_year');
-                    $scope = get_field('project_scope');
+                    $scope = get_the_content();
+                    $units = get_field('project_units');
+                    $area = get_field('project_area');
                     ?>
-                    <div
-                        class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row gap-0 border-b border-gray-200 last:border-b-0 pb-8 mb-8 last:pb-0 last:mb-0">
+                        <!-- Featured Image (Left) -->
                         <?php if (has_post_thumbnail()): ?>
-                            <div class="h-48 overflow-hidden">
-                                <?php the_post_thumbnail('medium_large', ['class' => 'w-full h-full object-cover']); ?>
+                            <div class="md:w-1/2 shrink-0 overflow-hidden rounded-lg">
+                                <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover aspect-[16/9]']); ?>
                             </div>
                         <?php endif; ?>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl"><?php the_title(); ?></h3>
+
+                        <!-- Details (Right) -->
+                        <div class="flex-1 p-6 md:p-8 flex flex-col justify-center">
+                            <div class="mb-3">
                                 <?php if ($year): ?>
-                                    <span
-                                        class="bg-primary/5 text-primary text-xs font-semibold px-2 py-1 rounded"><?php echo esc_html($year); ?></span>
+                                    <span class="bg-primary/5 text-primary text-xs font-semibold px-3 py-1 rounded shrink-0">Completed: <?php echo esc_html($year); ?></span>
                                 <?php endif; ?>
+                                <h3 class="text-3xl mb-0 mt-4"><?php the_title(); ?></h3>
                             </div>
+
                             <?php if ($location_string): ?>
-                                <p class="text-sm text-gray/60 mb-4 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <p class=" flex items-center gap-1 mb-4">
+                                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="var(--color-primary)" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                        </path>
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     </svg>
@@ -149,10 +136,26 @@ $past_projects = new WP_Query([
                             <?php endif; ?>
 
                             <?php if ($scope): ?>
-                                <div class="text-gray text-sm line-clamp-3">
-                                    <?php echo wp_kses_post($scope); ?>
+                                <div class="">
+                                    <span class="text-gray block mb-2">The Scope:</span>
+                                    <?php echo $scope; ?>
                                 </div>
                             <?php endif; ?>
+
+                            <div class="flex flex-wrap gap-x-8 gap-y-2 mt-6">
+                                <?php if ($units): ?>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-primary ">Units:</span>
+                                        <span class="font-medium text-dark"><?php echo esc_html($units); ?></span>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($area): ?>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-primary ">Area:</span>
+                                        <span class="font-medium text-dark"><?php echo esc_html($area); ?>m²</span>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 <?php endwhile;
@@ -197,7 +200,13 @@ $future_projects = new WP_Query([
                     $terms = get_the_terms(get_the_ID(), 'project_stage');
                     $stage_name = !empty($terms) ? $terms[0]->name : '';
                     ?>
-                    <div class="bg-white/5 border border-white/10 rounded-lg p-6 hover:bg-white/10 transition-colors">
+                    <div class="bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors overflow-hidden">
+                        <?php if (has_post_thumbnail()): ?>
+                            <div class="h-48 overflow-hidden">
+                                <?php the_post_thumbnail('medium_large', ['class' => 'w-full h-full object-cover']); ?>
+                            </div>
+                        <?php endif; ?>
+                        <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
                             <h3 class="font-semibold text-xl text-white"><?php the_title(); ?></h3>
                             <?php if ($stage_name): ?>
@@ -206,7 +215,7 @@ $future_projects = new WP_Query([
                             <?php endif; ?>
                         </div>
 
-                        <div class="space-y-2 mb-6">
+                        <div class="space-y-2">
                             <?php if ($type): ?>
                                 <div class="flex justify-between text-sm">
                                     <span class="text-gray-400">Type</span>
@@ -220,6 +229,12 @@ $future_projects = new WP_Query([
                                     <span class="font-medium text-white"><?php echo esc_html($area); ?></span>
                                 </div>
                             <?php endif; ?>
+                            <?php if ($units): ?>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-400">Units</span>
+                                    <span class="font-medium text-white"><?php echo esc_html($units); ?></span>
+                                </div>
+                            <?php endif; ?>
 
                             <?php if ($timeline): ?>
                                 <div class="flex justify-between text-sm">
@@ -231,10 +246,11 @@ $future_projects = new WP_Query([
 
                         <?php if ($cta_link): ?>
                             <a href="<?php echo esc_url($cta_link); ?>"
-                                class="block w-full py-2 text-center border border-white/20 rounded hover:bg-white hover:text-dark transition-colors text-sm font-medium">
+                                class="block w-full py-2 text-center border border-white/20 rounded hover:bg-white hover:text-dark transition-colors text-sm font-medium mt-6">
                                 Learn More
                             </a>
                         <?php endif; ?>
+                        </div>
                     </div>
                 <?php endwhile;
                 wp_reset_postdata(); ?>
