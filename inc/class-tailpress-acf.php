@@ -284,7 +284,7 @@ class TailPress_ACF
         ));
 
         // 3. Property Data Fields
-        acf_add_local_field_group(array(
+       acf_add_local_field_group(array(
             'key' => 'group_accommodation_details',
             'title' => 'Property Details',
             'fields' => array(
@@ -308,24 +308,24 @@ class TailPress_ACF
                         'width' => '50',
                     ),
                 ),
-                array(
-                    'key' => 'field_property_address',
-                    'label' => 'Street Address',
-                    'name' => 'property_address',
-                    'type' => 'text',
-                    'wrapper' => array(
-                        'width' => '50',
-                    ),
-                ),
-                array(
-                    'key' => 'field_property_city_state',
-                    'label' => 'City, State',
-                    'name' => 'property_city_state',
-                    'type' => 'text',
-                    'wrapper' => array(
-                        'width' => '50',
-                    ),
-                ),
+                // array(
+                //     'key' => 'field_property_address',
+                //     'label' => 'Street Address',
+                //     'name' => 'property_address',
+                //     'type' => 'text',
+                //     'wrapper' => array(
+                //         'width' => '50',
+                //     ),
+                // ),
+                // array(
+                //     'key' => 'field_property_city_state',
+                //     'label' => 'City, State',
+                //     'name' => 'property_city_state',
+                //     'type' => 'text',
+                //     'wrapper' => array(
+                //         'width' => '50',
+                //     ),
+                // ),
                 array(
                     'key' => 'field_size',
                     'label' => 'Size (m²)',
@@ -347,10 +347,20 @@ class TailPress_ACF
                     ),
                 ),
                 array(
+                    'key' => 'field_living-area',
+                    'label' => 'Livingroom',
+                    'name' => 'livingroom',
+                    'type' => 'text',
+                    'default_value' => 1,
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
                     'key' => 'field_bathrooms',
                     'label' => 'Bathrooms',
                     'name' => 'bathrooms',
-                    'type' => 'number',
+                    'type' => 'text',
                     'default_value' => 1,
                     'wrapper' => array(
                         'width' => '50',
@@ -367,27 +377,60 @@ class TailPress_ACF
                     ),
                 ),
                 array(
-                    'key' => 'field_property_latitude',
-                    'label' => 'Latitude',
-                    'name' => 'property_latitude',
-                    'type' => 'number',
-                    'instructions' => 'e.g. 47.2692',
-                    'step' => 'any',
+                    'key' => 'field_layout_image',
+                    'label' => 'Layout Image',
+                    'name' => 'layout_image',
+                    'type' => 'image',
+                    'return_format' => 'url',
+                    'preview_size' => 'medium',
+                    'instructions' => 'Upload a floor plan or layout image for this property.',
+                    'mime_types' => 'jpg,jpeg,png,webp',
                     'wrapper' => array(
                         'width' => '50',
                     ),
                 ),
                 array(
-                    'key' => 'field_property_longitude',
-                    'label' => 'Longitude',
-                    'name' => 'property_longitude',
-                    'type' => 'number',
-                    'instructions' => 'e.g. 11.4041',
-                    'step' => 'any',
+                    'key' => 'field_balcony',
+                    'label' => 'Balcony',
+                    'name' => 'balcony',
+                    'type' => 'true_false',
+                    'ui' => 1,
                     'wrapper' => array(
                         'width' => '50',
                     ),
                 ),
+                array(
+                    'key' => 'field_jacuzzi',
+                    'label' => 'Jacuzzi',
+                    'name' => 'jacuzzi',
+                    'type' => 'true_false',
+                    'ui' => 1,
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                // array(
+                //     'key' => 'field_property_latitude',
+                //     'label' => 'Latitude',
+                //     'name' => 'property_latitude',
+                //     'type' => 'number',
+                //     'instructions' => 'e.g. 47.2692',
+                //     'step' => 'any',
+                //     'wrapper' => array(
+                //         'width' => '50',
+                //     ),
+                // ),
+                // array(
+                //     'key' => 'field_property_longitude',
+                //     'label' => 'Longitude',
+                //     'name' => 'property_longitude',
+                //     'type' => 'number',
+                //     'instructions' => 'e.g. 11.4041',
+                //     'step' => 'any',
+                //     'wrapper' => array(
+                //         'width' => '50',
+                //     ),
+                // ),
             ),
             'location' => array(
                 array(
@@ -398,7 +441,7 @@ class TailPress_ACF
                     ),
                 ),
             ),
-        ));
+        )); 
 
         // 4. Projects Page Fields
         acf_add_local_field_group(array(

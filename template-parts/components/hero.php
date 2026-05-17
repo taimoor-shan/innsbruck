@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Component: Hero
  *
@@ -14,10 +15,11 @@
 
 $image = $args['image'] ?? '';
 $video = $args['video'] ?? '';
-$title = $args['title'] ?? '';
-// $subtitle = $args['subtitle'] ?? '';
+$content = $args['content'] ?? 'Innsbruck City Apartments';
+$buttons = $args['buttons'] ?? '';
 $height_class = $args['height'] ?? 'h-[50vh]';
-$width_class = $args['width'] ?? 'max-w-5xl';
+$width_class = $args['width'] ?? 'max-w-[40rem]';
+
 
 // Determine video mime type from extension
 $video_type = '';
@@ -27,7 +29,7 @@ if ($video) {
 }
 ?>
 
-<section class="items-center flex <?php echo esc_attr($height_class); ?> justify-center overflow-hidden relative">
+<section class="items-center flex <?php echo esc_attr($height_class); ?> justify-start overflow-hidden relative mt-20">
     <!-- Background image (always present as fallback / visible while video loads) -->
     <div class="bg-center bg-cover absolute inset-0" style="background-image: url('<?php echo esc_url($image); ?>');">
     </div>
@@ -41,20 +43,33 @@ if ($video) {
     <?php endif; ?>
 
     <!-- Gradient overlay -->
-    <div class="absolute inset-0"
-        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.7) 100%);">
-    </div>
-    <div class="hero-content mt-20 ml-auto mr-auto relative text-center pt-0 pr-4 pb-0 pl-4 z-[10] text-light">
-        <h1 class="text-center <?php echo esc_attr($width_class); ?>">
-            <?php echo esc_html($title); ?>
-        </h1>
+  <!-- <div class="absolute inset-y-0 left-0 w-[42rem]
+    bg-gradient-to-r from-black/55 via-black/20 to-transparent">
+</div> -->
+    <div class="hero-content relative z-[10] text-light container mx-auto px-4">
+        <div class="<?php echo esc_attr($width_class); ?>">
+
+            
+                <?php echo $content; ?>
+           
+               
+         
+
+            <?php if ($buttons): ?>
+                <div class="mt-6 flex gap-4">
+                    <?php echo wp_kses_post($buttons); ?>
+                </div>
+            <?php endif; ?>
+
+        </div>
+
     </div>
 </section>
 
 <style>
     .hero-content h1 {
         font-size: min(max(34px, 10vw), 60px);
-        line-height: 1.1;
+        line-height: 1;
     }
 
     @media (min-width: 1199px) {

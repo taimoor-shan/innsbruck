@@ -167,7 +167,7 @@ $carousel_id = 'carousel-' . $post_id;
                 </div>
             <?php endif; ?>
 
-            <!-- <?php if ($balcony): ?>
+            <?php if ($balcony): ?>
             <div class="flex justify-between border-b border-gray/10 pb-1">
                 <span class="text-gray">Balcony:</span>
                 <span class="font-semibold">✓</span>
@@ -179,7 +179,7 @@ $carousel_id = 'carousel-' . $post_id;
                 <span class="text-gray">Jacuzzi:</span>
                 <span class="font-semibold">✓</span>
             </div>
-            <?php endif; ?> -->
+            <?php endif; ?>
         </div>
 
         <!-- Buttons -->

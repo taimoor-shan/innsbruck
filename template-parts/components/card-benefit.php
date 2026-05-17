@@ -10,12 +10,11 @@ $icon = $args['icon'] ?? '';
 $title = $args['title'] ?? '';
 $description = $args['description'] ?? '';
 ?>
-<div class="border bg-white border-primary/20 shadow-sm rounded-lg h-full">
+<div class="border bg-white shadow-sm rounded-lg h-full transition-all hover:shadow-md">
     <div class="text-center p-6">
         <?php if ($icon): ?>
-            <div class="fill-none mx-auto overflow-hidden w-12 h-12 mb-4 text-primary">
-                <img src="<?php echo esc_url($icon); ?>" class="block w-full h-full object-contain"
-                    alt="<?php echo esc_attr($title); ?>" />
+            <div class="fill-none mx-auto overflow-hidden w-12 h-12 mb-4 text-primary  flex items-center justify-center rounded-full bg-primary/20">
+                <?php echo ($icon); ?>
             </div>
         <?php endif; ?>
 

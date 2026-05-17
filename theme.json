@@ -6,35 +6,35 @@
       "contentSize": "960px",
       "wideSize": "1280px"
     },
-    "color": {
-      "palette": [
-        {
-          "name": "Primary",
-          "slug": "primary",
-          "color": "#ed1b25"
-        },
-        {
-          "name": "Dark",
-          "slug": "dark",
-          "color": "#191919"
-        },
-        {
-          "name": "Gray",
-          "slug": "gray",
-          "color": "#6B7280"
-        },
-        {
-          "name": "Light",
-          "slug": "light",
-          "color": "#FFFFFF"
-        },
-        {
-          "name": "Accent",
-          "slug": "accent",
-          "color": "#fef2ee"
-        }
-      ]
+  "color": {
+  "palette": [
+    {
+      "name": "Primary",
+      "slug": "primary",
+      "color": "#4884ff"
     },
+    {
+      "name": "Dark",
+      "slug": "dark",
+      "color": "#16181D"
+    },
+    {
+      "name": "Gray",
+      "slug": "gray",
+      "color": "#6B7280"
+    },
+    {
+      "name": "Light",
+      "slug": "light",
+      "color": "#FAFAF8"
+    },
+    {
+      "name": "Accent",
+      "slug": "accent",
+      "color": "#EEF3F6"
+    }
+  ]
+},
     "typography": {
       "fontSizes": [
         {

@@ -25,20 +25,15 @@
         <nav class=" fixed left-0 top-0 right-0 bg-[rgb(29,_32,_37)] z-[50]">
             <div class="ml-auto mr-auto w-full p-4 container">
                 <div x-data="{ open: false }" class="items-center flex justify-between w-full">
-                    <!-- <a href="<?php echo home_url('/'); ?>" class="flex flex-col">
-                        <span
-                            class="block font-bold text-primary text-[24px] leading-[30px]">Innsbruck</span>
-                        <span class="block font-light text-neutral-50 text-[14px] leading-[20px]">City Apartments</span>
-                    </a> -->
-                    <?php
-
-                    if (has_custom_logo()) {
-
-                        the_custom_logo();
-                    } else {
-                        echo "<h3>" . get_bloginfo("name") . "</h3>";
-                    }
-                    ?>
+                    <?php if (has_custom_logo()): ?>
+                        <?php the_custom_logo(); ?>
+                    <?php else: ?>
+                        <a href="<?php echo home_url('/'); ?>" class="flex flex-col">
+                            <span
+                                class="block font-bold text-primary text-[30px] leading-[34px]">Innsbruck</span>
+                            <span class="block font-light text-neutral-50 text-[20px] leading-[20px]">City Apartments</span>
+                        </a>
+                    <?php endif; ?>
 
                     <!-- Mobile Menu Button -->
                     <button @click="open = ! open" class="md:hidden text-white p-2">

@@ -29,7 +29,7 @@ $icon_class = $args['icon_class'] ?? '';
 $base_classes = 'inline-flex items-center justify-center gap-2 font-semibold no-underline transition-colors hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md appearance-none cursor-pointer';
 
 // Size Classes (default is 'h-10 px-8 py-2')
-$size_classes = 'py-1 px-6 py-3 text-[18px] leading-[18px]';
+$size_classes = 'py-1 px-6 py-3 text-[16px] leading-[18px]';
 
 // Variant Styles
 $styles = [
