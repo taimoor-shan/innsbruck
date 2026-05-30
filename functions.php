@@ -14,7 +14,6 @@ function tailpress(): TailPress\Framework\Theme
                     fn($compiler) => $compiler
                         ->registerAsset('resources/css/app.css')
                         ->registerAsset('resources/js/app.js')
-                        ->editorStyleFile('resources/css/editor-style.css')
                 )
                 ->enqueueAssets()
         )
@@ -44,6 +43,27 @@ require_once get_template_directory() . '/inc/class-tailpress-acf.php';
 require_once get_template_directory() . '/inc/customizer.php';
 
 tailpress();
+
+/**
+ * Register the local compiled Tailwind stylesheet as the editor style.
+ *
+ * This allows WordPress to read the stylesheet directly from the disk
+ * instead of making unreliable HTTP loopback requests.
+ */
+function tailpress_setup_editor_styles(): void
+{
+    add_theme_support('editor-styles');
+    
+    $editorStyle = 'dist/assets/editor-style.css';
+    $filePath = get_theme_file_path($editorStyle);
+    
+    if (file_exists($filePath)) {
+        $editorStyle .= '?v=' . filemtime($filePath);
+    }
+    
+    add_editor_style($editorStyle);
+}
+add_action('after_setup_theme', 'tailpress_setup_editor_styles');
 
 /**
  * Register Property Custom Post Type.
@@ -134,6 +154,11 @@ function register_accommodation_cpt()
         'show_in_nav_menus' => true,
         'show_tagcloud' => true,
         'show_in_rest' => true,
+        'rewrite' => array(
+            'slug' => 'property_type',
+            'hierarchical' => true,
+            'with_front' => false,
+        ),
     );
     register_taxonomy('property_type', array('accommodation'), $type_args);
 
@@ -241,7 +266,7 @@ function register_project_cpt()
     );
     register_taxonomy('project_stage', array('project'), $stage_args);
 }
-add_action('init', 'register_project_cpt', 0);
+// add_action('init', 'register_project_cpt', 0);
 
 
 // Allow SVG upload
@@ -292,7 +317,7 @@ function tailpress_nav_menu_add_link_class($atts, $item, $args, $depth)
 {
     if (isset($args->theme_location) && 'primary' === $args->theme_location) {
         if (isset($args->menu_type) && 'footer' === $args->menu_type) {
-            $atts['class'] = 'text-left text-[14px] leading-[20px]';
+            $atts['class'] = 'text-left text-[16px] leading-[20px]';
         } elseif (isset($args->menu_type) && 'mobile' === $args->menu_type) {
             $atts['class'] = 'block w-full text-left text-neutral-50 font-medium text-[16px] py-2';
         } else {
@@ -301,7 +326,7 @@ function tailpress_nav_menu_add_link_class($atts, $item, $args, $depth)
             $is_active = in_array('current-menu-item', $item->classes) || in_array('current-menu-ancestor', $item->classes);
             $text_color = $is_active ? 'text-primary' : 'text-neutral-50';
 
-            $atts['class'] = "block font-medium {$text_color} text-[14px] leading-[20px]";
+            $atts['class'] = "block font-medium {$text_color} text-[16px] leading-[20px]";
         }
     }
     return $atts;
@@ -373,7 +398,7 @@ add_action('wp_ajax_nopriv_filter_properties', 'tailpress_ajax_filter_properties
 add_post_type_support('page', 'excerpt');
 
 /**
- * Enqueue Leaflet.js + Fancybox on single property pages.
+ * Enqueue scripts & styles on single property pages.
  */
 function tailpress_enqueue_single_property_assets()
 {
@@ -381,18 +406,36 @@ function tailpress_enqueue_single_property_assets()
         return;
     }
 
-    // Leaflet CSS + JS
-    wp_enqueue_style(
-        'leaflet',
-        'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-        [],
-        '1.9.4'
-    );
+    /*
+     * [BACKUP] Leaflet CSS + JS — replaced by Google Maps. Keep as reference.
+     *
+     * wp_enqueue_style(
+     *     'leaflet',
+     *     'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+     *     [],
+     *     '1.9.4'
+     * );
+     * wp_enqueue_script(
+     *     'leaflet',
+     *     'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+     *     [],
+     *     '1.9.4',
+     *     true
+     * );
+     */
+
+    // Google Maps JavaScript API
+    $gmaps_src = add_query_arg(array(
+        'key'       => 'AIzaSyBs-I0fDGA9EDgn6YEoqSRLSenCrgtC8-8',
+        'libraries' => 'places',
+        'callback'  => 'initPropertyMap',
+    ), 'https://maps.googleapis.com/maps/api/js');
+
     wp_enqueue_script(
-        'leaflet',
-        'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+        'google-maps',
+        $gmaps_src,
         [],
-        '1.9.4',
+        null,
         true
     );
 

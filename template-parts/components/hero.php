@@ -15,10 +15,13 @@
 
 $image = $args['image'] ?? '';
 $video = $args['video'] ?? '';
-$content = $args['content'] ?? 'Innsbruck City Apartments';
+$content = $args['content'] ?? '';
 $buttons = $args['buttons'] ?? '';
 $height_class = $args['height'] ?? 'h-[50vh]';
 $width_class = $args['width'] ?? 'max-w-[40rem]';
+$title = $args['title'] ?? '';
+
+
 
 
 // Determine video mime type from extension
@@ -43,20 +46,24 @@ if ($video) {
     <?php endif; ?>
 
     <!-- Gradient overlay -->
-  <!-- <div class="absolute inset-y-0 left-0 w-[42rem]
-    bg-gradient-to-r from-black/55 via-black/20 to-transparent">
-</div> -->
+    <div class="absolute inset-y-0 left-0 w-[42rem]
+    bg-gradient-to-r from-black/55 via-black/20 to-transparent md:hidden block">
+</div>
     <div class="hero-content relative z-[10] text-light container mx-auto px-4">
         <div class="<?php echo esc_attr($width_class); ?>">
 
-            
+            <?php if ($content): ?>
                 <?php echo $content; ?>
-           
-               
-         
+            <?php endif; ?>
+            <?php if ($title): ?>
+                <h1 class="text-primary">
+                    <?php echo $title; ?> Units
+
+                </h1>
+            <?php endif; ?>
 
             <?php if ($buttons): ?>
-                <div class="mt-6 flex gap-4">
+                <div class="mt-6 flex flex-wrap gap-3 md:gap-4">
                     <?php echo wp_kses_post($buttons); ?>
                 </div>
             <?php endif; ?>

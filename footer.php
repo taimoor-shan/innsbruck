@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Theme footer template.
  *
@@ -13,9 +14,9 @@
 <?php do_action('tailpress_content_after'); ?>
 
 <footer class="bg-[rgb(29,_32,_37)] text-neutral-50">
-    <div class="ml-auto mr-auto w-full pt-12 pr-4 pb-12 pl-4 container">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-[32px]">
-            <div>
+    <div class="ml-auto mr-auto w-full pt-16 pr-4 pb-6 pl-4 container">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-[32px]">
+            <div class="col-span-1 md:col-span-4">
 
                 <?php
 
@@ -23,15 +24,16 @@
 
                     the_custom_logo();
                 } else {
-                    echo "<h3 class='font-bold mb-[16px] text-[20px] leading-[28px]'>" . get_bloginfo("name") . "</h3>";
+                    echo "<h3 class='font-bold mb-[16px] text-[20px] leading-[28px] text-primary'>" . get_bloginfo("name") . "</h3>";
                 }
                 ?>
 
-                <p class="mb-[16px] text-white text-[14px] leading-[20px] mt-8">
+                <p class="mb-[16px] text-white text-[14px] leading-[20px]">
                     <?php bloginfo('description'); ?>
                 </p>
             </div>
-            <div>
+            <div class="md:col-span-2"></div>
+            <div class="col-span-1 md:col-span-3">
                 <h4 class="font-semibold mb-[16px] text-[18px] leading-[28px]">Quick Links</h4>
                 <?php
                 wp_nav_menu([
@@ -49,7 +51,7 @@
             $contact_whatsapp_label = get_theme_mod('contact_whatsapp_label', 'WhatsApp Preferred');
             $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
             ?>
-            <div>
+            <div class="col-span-1 md:col-span-3">
                 <h4 class="font-semibold mb-[16px] text-[18px] leading-[28px]">Contact Info</h4>
                 <ul>
                     <li class="items-start flex text-left">
@@ -97,12 +99,12 @@
                 </ul>
             </div>
         </div>
-        <div class="border-t text-center mt-[32px] border-[rgba(48,_171,_232,_0.2)]/20 pt-8 pr-0 pb-0 pl-0">
-            <p class="text-center text-[rgb(107,_114,_128)] text-[14px] leading-[20px]">&copy; <?php echo date('Y'); ?>
-                Delta Livings. All rights reserved.</p>
+        <div class="border-t text-center mt-12 border-[rgb(107,_114,_128)] pt-8 pr-0 pb-0 pl-0">
+            <p class="text-center text-[rgb(107,_114,_128)] text-[14px] leading-[20px] mb-0">&copy; <?php echo date('Y'); ?>
+                <?= bloginfo('name') ?>. All rights reserved.</p>
         </div>
     </div>
-    </div>
+
 </footer>
 </div>
 

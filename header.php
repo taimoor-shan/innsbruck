@@ -57,9 +57,9 @@
                         ?>
                         <?php get_template_part('template-parts/components/button', null, [
                             'href' => home_url('/contact'), // Placeholder for the all-properties page we will build
-                            'text' => 'Request Info',
-                            'style' => 'white-solid',
-                            'class' => 'ml-[32px] text-sm border-primary text-primary',
+                            'text' => 'Inquire Now',
+                            'style' => 'primary-solid',
+                            'class' => 'ml-[32px] text-sm border-primary text-white uppercase px-4',
                         ]); ?>
                     </div>
 
@@ -90,6 +90,7 @@
                 </div>
             </div>
         </nav>
+        <div id="content" class="site-content grow">
 
         <?php do_action('tailpress_content_start'); ?>
         <main>

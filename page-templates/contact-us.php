@@ -8,15 +8,14 @@
 get_header();
 
 // 1. Hero Data
-$hero_title = get_the_title();
-$hero_subtitle = get_the_excerpt();
+$content = get_the_content();
+
 $hero_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 
 // Render Hero
 get_template_part('template-parts/components/hero', null, [
     'image' => $hero_image,
-    'title' => $hero_title,
-    'subtitle' => $hero_subtitle,
+       'content' => $content,
     'height' => 'h-[60vh]'
 ]);
 
@@ -34,7 +33,7 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
             <div class="lg:col-span-2">
                 <div class="rounded-lg bg-card text-card-foreground">
                     <div class="p-4 md:p-6 lg:p-8 pb-0" style="padding-bottom: 0px;">
-                        <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6">Request Information</h2>
+                        <h2 class="text-xl md:text-3xl lg:text-3xl font-semibold mb-6 md:mb-10">Request Information</h2>
                         <!-- <form class="space-y-4 md:space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                                 <div><label
@@ -107,14 +106,14 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
                 </div>
             </div>
             <div class="space-y-4 md:space-y-6">
-                <div class="rounded-lg bg-primary/5 text-primary-foreground">
+                <!-- <div class="rounded-lg bg-primary/5 text-primary-foreground">
                     <div class="p-4 md:p-6">
-                        <?php the_content(); ?>
+                        <?php //the_content(); ?>
                     </div>
-                </div>
+                </div> -->
                 <div class="rounded-lg border bg-card text-card-foreground border-primary contact_info">
                     <div class="p-4 md:p-6">
-                        <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4">Contact Information</h3>
+                        <h2 class="text-xl md:text-2xl font-medium mb-3 md:mb-4">Contact Information</h2>
                         <div class="space-y-3 md:space-y-4">
                             <div class="flex items-start space-x-2 md:space-x-3"><svg xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"

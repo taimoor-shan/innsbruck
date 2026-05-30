@@ -10,14 +10,13 @@
 get_header();
 
 // 1. Hero (reusing hero component with page data)
-$hero_title = get_the_title();
+$content = get_the_content();
 $hero_image = get_the_post_thumbnail_url(get_the_ID(), 'full') ?: 'https://storage.googleapis.com/download/storage/v1/b/prd-shared-services.firebasestorage.app/o/h2m-assets%2Fb4cef5120d7ca8c5d3e060b4da4044d5a07da822.jpg?generation=1770502588636374&alt=media'; // Fallback
 $excerpt = get_the_excerpt();
 
 get_template_part('template-parts/components/hero', null, [
     'image' => $hero_image,
-    'title' => $hero_title,
-    'subtitle' => $excerpt,
+    'content' => $content,
     'height' => 'h-[50vh]'
 ]);
 
@@ -45,7 +44,6 @@ $loop_args = [
         <div class="mb-12 flex flex-wrap gap-6 justify-between">
 
             <!-- Type Filter -->
-             <?php if(false):?>
             <?php if (!empty($property_types) && !is_wp_error($property_types)): ?>
                 <div class="flex flex-wrap justify-center gap-4">
                     <button @click="updateFilter('type', '')"
@@ -62,9 +60,9 @@ $loop_args = [
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-            <?php endif; ?>
 
             <!-- Status Filter -->
+            <?php if(false):?>
             <?php if (!empty($property_statuses) && !is_wp_error($property_statuses)): ?>
                 <div class="flex flex-wrap justify-center gap-4">
                     <span class="text-primay self-center mr-2">Status:</span>
@@ -81,6 +79,7 @@ $loop_args = [
                         </button>
                     <?php endforeach; ?>
                 </div>
+            <?php endif; ?>
             <?php endif; ?>
 
         </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Component: Universal Unit Card
  *
@@ -20,6 +21,7 @@ $floor_plan = get_field('floor_plan', $post_id);
 // Get Terms for Badge
 $type = get_the_terms($post_id, 'property_type');
 $badge_label = !empty($type) ? $type[0]->name : '';
+$badge_slug  = !empty($type) ? $type[0]->slug : '';
 // Get Terms for Badge
 $status = get_the_terms($post_id, 'property_status');
 $status_label = !empty($status) ? $status[0]->name : '';
@@ -49,20 +51,22 @@ $carousel_id = 'carousel-' . $post_id;
     <!-- Carousel Section -->
     <div class="relative w-full group">
         <?php if ($badge_label): ?>
-            <div class="absolute top-2 right-2 md:top-4 md:right-4 z-10">
+            <div class="absolute top-2 left-2 md:top-4 md:left-4 z-10">
                 <span
-                    class="bg-dark text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
+                    class="<?php echo $badge_slug === 'luxury' ? 'bg-primary' : 'bg-dark'; ?> text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
                     <?php echo esc_html($badge_label); ?>
                 </span>
             </div>
         <?php endif; ?>
-        <?php if ($status_label): ?>
-            <div class="absolute top-2 left-2 md:top-4 md:left-4 z-10">
-                <span
-                    class="bg-green-700 <?php echo $is_sold ? 'bg-primary' : ''; ?> text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
-                    <?php echo esc_html($status_label); ?>
-                </span>
-            </div>
+        <?php if (false): ?>
+            <?php if ($status_label): ?>
+                <div class="absolute top-2 left-2 md:top-4 md:left-4 z-10">
+                    <span
+                        class="bg-green-700 <?php echo $is_sold ? 'bg-primary' : ''; ?> text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs  font-semibold shadow-sm backdrop-blur-sm">
+                        <?php echo esc_html($status_label); ?>
+                    </span>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
 
         <?php if (!empty($gallery)): ?>
@@ -106,38 +110,21 @@ $carousel_id = 'carousel-' . $post_id;
 
     <!-- Details Section -->
     <div class="p-4 md:p-6 flex flex-col grow">
-        <div class="flex flex-wrap items-center justify-between mb-2 md:mb-2">
+        <div class="mb-2 flex flex-wrap gap-1 justify-between items-start mb-4">
             <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-0">
                 <?php echo esc_html($title); ?>
             </h3>
-            <span class="text-dark text-lg md:text-xl lg:text-2xl font-bold">
-                <?php if ($price): ?>
+            <span class="text-primary text-lg md:text-xl font-bold">
+                <?php if ($is_sold): ?>
+                    <span class="text-sm md:text-base font-medium">Sold</span>
+                <?php elseif ($price): ?>
                     €<?php echo number_format((float) $price, 0, ',', '.'); ?>
-                <?php else: ?>
-                    <span class="text-sm md:text-base font-medium">Price on request<sup>*</sup></span>
+               
                 <?php endif; ?>
             </span>
         </div>
 
-        <?php
-        $address = get_field('property_address', $post_id);
-        $city_state = get_field('property_city_state', $post_id);
-        $location = array_filter([$address, $city_state]);
-        $location_string = implode(', ', $location);
-        ?>
-        <?php if ($location_string): ?>
-            <p class="text-[rgb(29,_32,_37)] text-sm md:text-base mb-3 md:mb-4 flex gap-1 leading-relaxed">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ed1b25"
-                    class="w-4 h-4 mt-1">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                </svg>
-                <?php echo esc_html($location_string); ?>
-            </p>
-        <?php else: ?>
-            <div class="mb-3 md:mb-4"></div>
-        <?php endif; ?>
+
 
         <div class="space-y-1.5 md:space-y-2 mb-4 md:mb-6 text-sm md:text-base grow">
             <?php if ($size): ?>
@@ -168,17 +155,17 @@ $carousel_id = 'carousel-' . $post_id;
             <?php endif; ?>
 
             <?php if ($balcony): ?>
-            <div class="flex justify-between border-b border-gray/10 pb-1">
-                <span class="text-gray">Balcony:</span>
-                <span class="font-semibold">✓</span>
-            </div>
+                <div class="flex justify-between border-b border-gray/10 pb-1">
+                    <span class="text-gray">Balcony:</span>
+                    <span class="font-semibold">✓</span>
+                </div>
             <?php endif; ?>
 
             <?php if ($jacuzzi): ?>
-            <div class="flex justify-between border-b border-gray/10 pb-1">
-                <span class="text-gray">Jacuzzi:</span>
-                <span class="font-semibold">✓</span>
-            </div>
+                <div class="flex justify-between border-b border-gray/10 pb-1">
+                    <span class="text-gray">Jacuzzi:</span>
+                    <span class="font-semibold">✓</span>
+                </div>
             <?php endif; ?>
         </div>
 
@@ -191,12 +178,14 @@ $carousel_id = 'carousel-' . $post_id;
                 'style' => 'dark-solid'
             ]); ?>
 
-            <?php get_template_part('template-parts/components/button', null, [
-                'href' => get_permalink($post_id),
-                'text' => 'View Details',
-                'style' => 'outline',
-                'class' => 'flex-1 text-xs md:text-sm',
-            ]); ?>
+            <?php if (!$is_sold): ?>
+                <?php get_template_part('template-parts/components/button', null, [
+                    'href' => get_permalink($post_id),
+                    'text' => 'View Details',
+                    'style' => 'outline',
+                    'class' => 'flex-1 text-xs md:text-sm',
+                ]); ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -231,8 +220,9 @@ $carousel_id = 'carousel-' . $post_id;
 
 <?php if (count($gallery) > 1): ?>
     <script>
-        (function () {
+        (function() {
             var carouselId = '<?php echo esc_js($carousel_id); ?>';
+
             function initSwiper() {
                 if (typeof Swiper === 'undefined') {
                     setTimeout(initSwiper, 100);

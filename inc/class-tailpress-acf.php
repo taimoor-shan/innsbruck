@@ -82,6 +82,28 @@ class TailPress_ACF
                 //     ),
                 // ),
 
+                // Tab: Property Types
+                array(
+                    'key' => 'field_tab_property_types',
+                    'label' => 'Property Types Section',
+                    'type' => 'tab',
+                ),
+                array(
+                    'key' => 'field_property_types_title',
+                    'label' => 'Section Title',
+                    'name' => 'property_types_title',
+                    'type' => 'text',
+                    'default_value' => 'Our Property Types',
+                ),
+                array(
+                    'key' => 'field_property_types_subtitle',
+                    'label' => 'Section Subtitle',
+                    'name' => 'property_types_subtitle',
+                    'type' => 'textarea',
+                    'default_value' => 'Choose from our selection of premium accommodations',
+                    'rows' => 2,
+                ),
+
                 // Tab: Trust
                 array(
                     'key' => 'field_tab_trust',
@@ -170,7 +192,7 @@ class TailPress_ACF
                     'label' => 'CTA Title',
                     'name' => 'cta_title',
                     'type' => 'text',
-                    'default_value' => 'Request your luxury or premium apartment in the center of Budapest',
+                    'default_value' => 'Request your luxury or premium apartment in the center of Innsbruck',
                 ),
                 array(
                     'key' => 'field_cta_subtitle',
@@ -409,28 +431,28 @@ class TailPress_ACF
                         'width' => '50',
                     ),
                 ),
-                // array(
-                //     'key' => 'field_property_latitude',
-                //     'label' => 'Latitude',
-                //     'name' => 'property_latitude',
-                //     'type' => 'number',
-                //     'instructions' => 'e.g. 47.2692',
-                //     'step' => 'any',
-                //     'wrapper' => array(
-                //         'width' => '50',
-                //     ),
-                // ),
-                // array(
-                //     'key' => 'field_property_longitude',
-                //     'label' => 'Longitude',
-                //     'name' => 'property_longitude',
-                //     'type' => 'number',
-                //     'instructions' => 'e.g. 11.4041',
-                //     'step' => 'any',
-                //     'wrapper' => array(
-                //         'width' => '50',
-                //     ),
-                // ),
+                array(
+                    'key' => 'field_property_latitude',
+                    'label' => 'Latitude',
+                    'name' => 'property_latitude',
+                    'type' => 'number',
+                    'instructions' => 'e.g. 47.2692',
+                    'step' => 'any',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
+                array(
+                    'key' => 'field_property_longitude',
+                    'label' => 'Longitude',
+                    'name' => 'property_longitude',
+                    'type' => 'number',
+                    'instructions' => 'e.g. 11.4041',
+                    'step' => 'any',
+                    'wrapper' => array(
+                        'width' => '50',
+                    ),
+                ),
             ),
             'location' => array(
                 array(
