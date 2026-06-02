@@ -35,8 +35,6 @@ $cta_data = tailpress_blog_cta_data();
                     <div class="w-full h-full bg-dark"></div>
                 <?php endif; ?>
                 <!-- <div class="post-hero-gradient absolute inset-0"></div> -->
-                <!-- Breadcrumbs -->
-
 
             </div>
             <div class="container max-w-4xl">
@@ -106,31 +104,32 @@ $cta_data = tailpress_blog_cta_data();
                 </div>
                 <!-- Post Content -->
                 <?php get_template_part('template-parts/content-single-luxury'); ?>
-
-                <!-- related Posts -->
-                <?php
-                $related = tailpress_get_related_posts(null, 3);
-                if ($related->have_posts()):
-                ?>
-                    <section class="bg-accent/50 py-12 md:py-20 mt-12">
-                        <div class="container mx-auto px-4">
-                            <h2 class="text-2xl md:text-3xl font-bold text-dark mb-8 text-center">
-                                <?php _e('Related Articles', 'tailpress'); ?>
-                            </h2>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                                <?php while ($related->have_posts()): $related->the_post(); ?>
-                                    <?php get_template_part('template-parts/components/card-blog'); ?>
-                                <?php endwhile; ?>
-                                <?php wp_reset_postdata(); ?>
-                            </div>
-                        </div>
-                    </section>
-                <?php endif; ?>
             </div>
-       <?php endwhile; ?>
+        <?php endwhile; ?>
     <?php endif; ?>
 </div>
 
+<div class="container">
+    <!-- related Posts -->
+    <?php
+    $related = tailpress_get_related_posts(null, 3);
+    if ($related->have_posts()):
+    ?>
+        <section class="py-12 md:py-20 mt-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-dark mb-8 text-center">
+                    <?php _e('Related Articles', 'tailpress'); ?>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    <?php while ($related->have_posts()): $related->the_post(); ?>
+                        <?php get_template_part('template-parts/components/card-blog'); ?>
+                    <?php endwhile; ?>
+                    <?php wp_reset_postdata(); ?>
+                </div>
+            </div>
+        </section>
+    <?php endif; ?>
+</div>
 <!-- Booking CTA -->
 <div class="px-4">
 
@@ -158,23 +157,23 @@ $cta_data = tailpress_blog_cta_data();
             ?>
         </div>
     </div>
-    </div>
+</div>
 
 
 <!-- Comments -->
- <?php if(false): ?>
+<?php if (false): ?>
 
-<div class="container mx-auto px-4">
-    <?php if (have_posts()): rewind_posts();
-        while (have_posts()): the_post(); ?>
-            <?php if (comments_open() || get_comments_number()): ?>
-                <div class="max-w-3xl mx-auto py-12">
-                    <?php comments_template(); ?>
-                </div>
-            <?php endif; ?>
-    <?php endwhile;
-    endif; ?>
-</div>
- <?php endif; ?>
+    <div class="container mx-auto px-4">
+        <?php if (have_posts()): rewind_posts();
+            while (have_posts()): the_post(); ?>
+                <?php if (comments_open() || get_comments_number()): ?>
+                    <div class="max-w-3xl mx-auto py-12">
+                        <?php comments_template(); ?>
+                    </div>
+                <?php endif; ?>
+        <?php endwhile;
+        endif; ?>
+    </div>
+<?php endif; ?>
 <?php
 get_footer();
