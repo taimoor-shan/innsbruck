@@ -67,5 +67,115 @@ function tailpress_customize_register($wp_customize)
         'section' => 'tailpress_contact_section',
         'type' => 'email',
     ));
+
+    // Blog Settings Section
+    $wp_customize->add_section('tailpress_blog_section', array(
+        'title' => __('Blog Settings', 'tailpress'),
+        'priority' => 130,
+    ));
+
+    // Blog Hero Title
+    $wp_customize->add_setting('blog_hero_title', array(
+        'default' => 'Explore the Tirol Region',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('blog_hero_title', array(
+        'label' => __('Blog Hero Title', 'tailpress'),
+        'section' => 'tailpress_blog_section',
+        'type' => 'text',
+    ));
+
+    // Blog Hero Subtitle
+    $wp_customize->add_setting('blog_hero_subtitle', array(
+        'default' => 'Discover the best of Alpine living, from world-class skiing to cultural treasures in the heart of the Austrian Alps.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('blog_hero_subtitle', array(
+        'label' => __('Blog Hero Subtitle', 'tailpress'),
+        'section' => 'tailpress_blog_section',
+        'type' => 'textarea',
+    ));
+
+    // Blog CTA Title
+    $wp_customize->add_setting('blog_cta_title', array(
+        'default' => 'Ready to Experience the Tirol Mountains?',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('blog_cta_title', array(
+        'label' => __('CTA Title', 'tailpress'),
+        'section' => 'tailpress_blog_section',
+        'type' => 'text',
+    ));
+
+    // Blog CTA Subtitle
+    $wp_customize->add_setting('blog_cta_subtitle', array(
+        'default' => 'Book your luxury or premium apartment in Innsbruck and wake up to breathtaking Alpine views every morning.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('blog_cta_subtitle', array(
+        'label' => __('CTA Subtitle', 'tailpress'),
+        'section' => 'tailpress_blog_section',
+        'type' => 'textarea',
+    ));
+
+    // CTA Button 1 Text
+    $wp_customize->add_setting('blog_cta_button1_text', array(
+        'default' => 'View Luxury Units',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('blog_cta_button1_text', array(
+        'label' => __('CTA Button 1 Text', 'tailpress'),
+        'section' => 'tailpress_blog_section',
+        'type' => 'text',
+    ));
+
+    // CTA Button 1 URL
+    $wp_customize->add_setting('blog_cta_button1_url', array(
+        'default' => '/property_type/luxury/',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('blog_cta_button1_url', array(
+        'label' => __('CTA Button 1 URL', 'tailpress'),
+        'section' => 'tailpress_blog_section',
+        'type' => 'text',
+    ));
+
+    // CTA Button 2 Text
+    $wp_customize->add_setting('blog_cta_button2_text', array(
+        'default' => 'View Premium Units',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('blog_cta_button2_text', array(
+        'label' => __('CTA Button 2 Text', 'tailpress'),
+        'section' => 'tailpress_blog_section',
+        'type' => 'text',
+    ));
+
+    // CTA Button 2 URL
+    $wp_customize->add_setting('blog_cta_button2_url', array(
+        'default' => '/property_type/premium/',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('blog_cta_button2_url', array(
+        'label' => __('CTA Button 2 URL', 'tailpress'),
+        'section' => 'tailpress_blog_section',
+        'type' => 'text',
+    ));
 }
 add_action('customize_register', 'tailpress_customize_register');

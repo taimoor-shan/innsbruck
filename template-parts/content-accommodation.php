@@ -65,7 +65,7 @@ $carousel_id = 'property-hero-' . $post_id;
                         endif; ?>
                         <?php if (!empty($status_terms) && !is_wp_error($status_terms)):
                             foreach ($status_terms as $term): ?>
-                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                <span class="bg-dark px-3 py-1 rounded-full text-sm font-semibold text-white">
                                     <?php echo esc_html($term->name); ?>
                                 </span>
                         <?php endforeach;
@@ -177,8 +177,8 @@ $carousel_id = 'property-hero-' . $post_id;
                                     alt="<?php echo esc_attr($gallery_images[2]['alt']); ?>"
                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                                 <?php if ($total_images > 3): ?>
-                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center rounded-lg transition-colors duration-300 group-hover:bg-black/50">
-                                        <span class="text-white text-2xl font-bold drop-shadow-lg">More +<?php echo $total_images - 3; ?></span>
+                                    <div class="absolute bottom-3 right-4 rounded-full bg-dark px-4 py-1 lh-1">
+                                        <span class="text-white text-base font-medium">More +<?php echo $total_images - 3; ?></span>
                                     </div>
                                 <?php endif; ?>
                             </a>

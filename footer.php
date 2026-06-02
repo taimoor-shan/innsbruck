@@ -28,13 +28,13 @@
                 }
                 ?>
 
-                <p class="mb-[16px] text-white text-[14px] leading-[20px]">
+                <p class="mb-0 text-white text-[14px] leading-[20px]">
                     <?php bloginfo('description'); ?>
                 </p>
             </div>
             <div class="md:col-span-2"></div>
             <div class="col-span-1 md:col-span-3">
-                <h4 class="font-semibold mb-[16px] text-[18px] leading-[28px]">Quick Links</h4>
+                <h4 class="font-semibold mb-[16px] text-[18px] leading-[28px] text-primary">Quick Links</h4>
                 <?php
                 wp_nav_menu([
                     'theme_location' => 'primary',
@@ -52,7 +52,7 @@
             $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
             ?>
             <div class="col-span-1 md:col-span-3">
-                <h4 class="font-semibold mb-[16px] text-[18px] leading-[28px]">Contact Info</h4>
+                <h4 class="font-semibold mb-[16px] text-[18px] leading-[28px] text-primary">Contact Info</h4>
                 <ul>
                     <li class="items-start flex text-left">
                         <div class="w-5 h-5 mt-[2px] shrink-0">
@@ -77,7 +77,7 @@
                         <div class="text-left ml-[12px] text-[14px] leading-[20px]">
                             <?php if ($contact_whatsapp_label): ?>
                                 <span
-                                    class="block text-left text-[12px] leading-[16px]"><?php echo esc_html($contact_whatsapp_label); ?></span>
+                                    class="block text-left text-[12px] leading-[16px] text-primary mb-2"><?php echo esc_html($contact_whatsapp_label); ?></span>
                             <?php endif; ?>
                             <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_phone)); ?>"
                                 class="text-left text-inherit no-underline hover:transition-colors"><?php echo esc_html($contact_phone); ?></a>

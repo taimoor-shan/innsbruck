@@ -42,6 +42,9 @@ require_once get_template_directory() . '/inc/class-tailpress-acf.php';
 // Load Customizer Settings
 require_once get_template_directory() . '/inc/customizer.php';
 
+// Load Blog Helpers
+require_once get_template_directory() . '/inc/blog-helpers.php';
+
 tailpress();
 
 /**

@@ -16,7 +16,7 @@
     {
       "name": "Dark",
       "slug": "dark",
-      "color": "#16181D"
+      "color": "#1d2025"
     },
     {
       "name": "Gray",
@@ -31,7 +31,17 @@
     {
       "name": "Accent",
       "slug": "accent",
-      "color": "#EEF3F6"
+      "color": "#f3f4f8"
+    },
+      {
+      "name": "Body",
+      "slug": "body",
+      "color": "#4c5258"
+    },
+      {
+      "name": "Accentt",
+      "slug": "accentt",
+      "color": "#d9eefa"
     }
   ]
 },

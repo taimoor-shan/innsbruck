@@ -546,7 +546,59 @@ class TailPress_ACF
             ),
         ));
 
-        // 5. Project Post Fields
+        // 5. Blog Page Settings
+        acf_add_local_field_group(array(
+            'key' => 'group_blog_page',
+            'title' => 'Blog Page Settings',
+            'fields' => array(
+                array(
+                    'key' => 'field_blog_featured_article',
+                    'label' => 'Featured Article',
+                    'name' => 'blog_featured_article',
+                    'type' => 'post_object',
+                    'post_type' => array('post'),
+                    'allow_null' => 1,
+                    'return_format' => 'id',
+                    'instructions' => 'Select a post to feature in the hero slot. Leave empty to auto-select the most recent post.',
+                ),
+                array(
+                    'key' => 'field_blog_show_featured',
+                    'label' => 'Show Featured Section',
+                    'name' => 'blog_show_featured',
+                    'type' => 'true_false',
+                    'ui' => 1,
+                    'default_value' => 1,
+                    'instructions' => 'Toggle the featured article section on/off.',
+                ),
+                array(
+                    'key' => 'field_blog_page_title',
+                    'label' => 'Page Title Override',
+                    'name' => 'blog_page_title',
+                    'type' => 'text',
+                    'default_value' => '',
+                    'instructions' => 'Overrides the Customizer hero title for this page only.',
+                ),
+                array(
+                    'key' => 'field_blog_page_subtitle',
+                    'label' => 'Page Subtitle Override',
+                    'name' => 'blog_page_subtitle',
+                    'type' => 'textarea',
+                    'default_value' => '',
+                    'instructions' => 'Overrides the Customizer hero subtitle for this page only.',
+                ),
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'page_type',
+                        'operator' => '==',
+                        'value' => 'posts_page',
+                    ),
+                ),
+            ),
+        ));
+
+        // 6. Project Post Fields
         acf_add_local_field_group(array(
             'key' => 'group_project_details',
             'title' => 'Project Details',

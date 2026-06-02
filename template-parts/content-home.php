@@ -115,10 +115,10 @@ get_template_part('template-parts/components/hero', null, [
 
 
 <!-- Featured Properties -->
-<section class="pt-20 pr-0 pb-20 pl-0 bg-gray-50">
+<section class="py-12 lg:py-20 pr-0 pl-0 bg-accent">
     <div class="ml-auto mr-auto w-full pt-0 pr-4 pb-0 pl-4 container">
         <div class="flex flex-wrap justify-between items-end  gap-6 mb-10">
-            <div class=" left">
+            <div class="left">
                 <h2 class=" mb-[16px] text-3xl md:text-[36px] leading-[40px] max-w-sm">
                     <?php echo get_field('accommodations_title') ?: 'Featured Accomodations'; ?>
                 </h2>
@@ -126,7 +126,7 @@ get_template_part('template-parts/components/hero', null, [
                     <?php //echo get_field('accommodations_subtitle') ?: 'Choose from our Premium and Luxury apartments'; ?>
                 </p> -->
             </div>
-            <div class="">
+            <div class="hidden lg:block">
                 <?php get_template_part('template-parts/components/button', null, [
                     'href' => home_url('/all-properties'), // Placeholder for the all-properties page we will build
                     'text' => 'View All',
@@ -142,7 +142,13 @@ get_template_part('template-parts/components/hero', null, [
             'class' => 'grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
         ));
         ?>
-
+ <div class="lg:hidden mt-12 mx-auto flex justify-center">
+                <?php get_template_part('template-parts/components/button', null, [
+                    'href' => home_url('/all-properties'), // Placeholder for the all-properties page we will build
+                    'text' => 'View All',
+                    'style' => 'outline',
+                ]); ?>
+            </div>
 
     </div>
 </section>
