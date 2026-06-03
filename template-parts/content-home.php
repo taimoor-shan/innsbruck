@@ -23,7 +23,7 @@ ob_start();
 <?php get_template_part('template-parts/components/button', null, [
     'href' => home_url('/property_type/premium/'),
     'text' => 'Premium Units',
-    'style' => 'dark-solid',
+    'style' => 'white-solid',
     'class' => '' // Extra styling to match previous look
 ]); ?>
 <?php
@@ -43,13 +43,12 @@ get_template_part('template-parts/components/hero', null, [
     <div class="ml-auto mr-auto w-full pt-0 pr-4 pb-0 pl-4 container">
         <div class="text-center mb-[64px] secTitle">
             <h2 class="text-center text-3xl mb-[16px] md:text-[36px] leading-[40px]">
-                <?php //echo get_field('benefits_title') ?: 'Crafted for Every Stay'; ?>
-                Crafted for Every Stay
+                <?php echo get_field('projects_trust_title') ?: 'Crafted for Every Stay'; ?>
             </h2>
             <p class="ml-auto mr-auto text-center text-gray text-[18px] leading-[28px] max-w-2xl">
 
-            <?php //echo get_field('benefits_subtitle') ?: "Whether you're here for the slopes, the culture, or business — our apartments set the standard for Alpine accommodation."; ?>
-           Whether you're here for the slopes, the culture, or business — our apartments set the standard for Alpine accommodation.
+            <?php echo get_field('projects_trust_subtitle') ?: "Whether you're here for the slopes, the culture, or business — our apartments set the standard for Alpine accommodation."; ?>
+          
         </p>
         </div>
 
@@ -68,10 +67,10 @@ get_template_part('template-parts/components/hero', null, [
             else:
                 // Fallback for Demo if no rows exist yet
                 $demo_benefits = [
-                    ['title' => 'Prime Alpine Location', 'desc' => 'Heiliggeiststrasse 2 — walking distance from the Nordkette cable car, the old town, and the main train station.', 'icon' => ' <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>'],
-                    ['title' => 'Refined Interiors', 'desc' => 'Premium furnishings, high-end kitchen appliances, and curated decor — designed to feel like home, only better.', 'icon' => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>'],
-                    ['title' => 'Business Ready', 'desc' => 'High-speed fibre internet, dedicated workspace, and quiet surroundings — ideal for extended professional stays.', 'icon' => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>'],
-                    ['title' => 'Personal Service', 'desc' => 'Direct contact with the owner — no third-party platforms, no call centers. Just responsive, attentive hospitality.', 'icon' => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'],
+                    ['title' => 'City centre location', "desc" => "Heiliggeiststrasse 2 — a few minutes walk from Innsbruck's old town, the Nordkette cable car, and the main train station.", 'icon' => ' <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>'],
+                    ['title' => 'Fully equipped interiors', 'desc' => 'Quality furnishings, full kitchen, and thoughtful details — comfortable for a weekend stay or a month-long visit.', 'icon' => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>'],
+                    ['title' => 'Work-friendly setup', 'desc' => 'Fast fibre internet and a quiet dedicated workspace — suited for remote workers and extended professional stays.', 'icon' => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>'],
+                    ['title' => 'Direct, personal service', 'desc' => 'You deal with the owner directly — not a platform, not a call centre. Fast responses, no hidden fees.', 'icon' => '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'],
                 ];
                 foreach ($demo_benefits as $benefit) {
                     get_template_part('template-parts/components/card-benefit', null, array(

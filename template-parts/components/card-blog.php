@@ -43,7 +43,7 @@ $primary_category = !empty($categories) ? $categories[0] : null;
 ?>
 
 <article id="post-<?php echo esc_attr($post_id); ?>"
-         class="blog-card rounded-lg border border-gray/10 bg-white shadow-sm overflow-hidden hover:shadow-xl transition-all group h-full flex flex-col"
+         class="blog-card rounded-lg border border-gray/10 bg-white shadow-sm overflow-hidden hover:shadow-xl transition-all group h-full flex flex-col cursor-pointer"
          itemscope itemtype="https://schema.org/Article">
 
     <?php if ($show_image && has_post_thumbnail($post_id)): ?>

@@ -116,7 +116,7 @@ class TailPress_ACF
                     'label' => 'Section Title',
                     'name' => 'projects_trust_title',
                     'type' => 'text',
-                    'default_value' => 'Why Invest With Us',
+                    'default_value' => 'Everything You Need in Innsbruck',
                 ),
                 array(
                     'key' => 'field_projects_trust_subtitle',
@@ -124,7 +124,7 @@ class TailPress_ACF
                     'name' => 'projects_trust_subtitle',
                     'type' => 'textarea',
                     'rows' => 4,
-                    'default_value' => 'Discover our Luxury and Premium apartments',
+                    'default_value' => 'Choose from our selection of premium accommodations.',
                 ),
 
                 array(

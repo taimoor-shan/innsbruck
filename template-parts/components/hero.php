@@ -46,10 +46,8 @@ if ($video) {
     <?php endif; ?>
 
     <!-- Gradient overlay -->
-    <div class="absolute inset-y-0 left-0 w-[42rem]
-    bg-gradient-to-r from-black/55 via-black/20 to-transparent md:hidden block">
-</div>
-    <div class="hero-content relative z-[10] text-light container mx-auto px-4">
+<div class="absolute inset-0 bg-black/40"></div>
+    <div class="hero-content relative z-[10] text-white container mx-auto px-4 text-shadow">
         <div class="<?php echo esc_attr($width_class); ?>">
 
             <?php if ($content): ?>
@@ -75,8 +73,10 @@ if ($video) {
 
 <style>
     .hero-content h1 {
-        font-size: min(max(34px, 10vw), 60px);
-        line-height: 1;
+        font-size: min(max(40px, 9vw), 52px);
+        line-height: 1.2;
+		font-weight:600;
+		
     }
 
     @media (min-width: 1199px) {

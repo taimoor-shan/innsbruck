@@ -278,7 +278,7 @@ $carousel_id = 'property-hero-' . $post_id;
 
                 <!-- Description -->
                 <div class="mb-8 md:mb-10">
-                    <h2 class="text-xl md:text-2xl font-bold text-dark mb-4">About This Property</h2>
+                   
                     <div class="entry-content">
                         <?php the_content(); ?>
                     </div>

@@ -20,23 +20,18 @@ $cta_data = tailpress_blog_cta_data();
             $categories = get_the_category();
             $primary_category = !empty($categories) ? $categories[0] : null;
             ?>
-
-
-
             <!-- Post Hero with Featured Image -->
-            <div class="relative h-[30vh] sm:h-[50vh] min-h-[300px] max-h-[600px] overflow-hidden mt-4"
-                itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                <?php if (has_post_thumbnail()): ?>
-                    <?php the_post_thumbnail('full', [
-                        'class' => 'w-full h-full object-cover',
-                        'itemprop' => 'url',
-                    ]); ?>
-                <?php else: ?>
-                    <div class="w-full h-full bg-dark"></div>
-                <?php endif; ?>
-                <!-- <div class="post-hero-gradient absolute inset-0"></div> -->
-
-            </div>
+			<div class="relative h-[30vh] sm:h-[50vh] min-h-[300px] max-h-[600px] overflow-hidden mt-4"
+				 itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+				<?php if (has_post_thumbnail()): ?>
+				<?php the_post_thumbnail('full', [
+			'class' => 'absolute inset-0 w-full h-full object-cover',
+			'itemprop' => 'url',
+		]); ?>
+				<?php else: ?>
+				<div class="absolute inset-0 bg-dark"></div>
+				<?php endif; ?>
+			</div>
             <div class="container max-w-4xl">
                 <nav class="breadcrumb-nav mt-8 mb-4 text-sm !text-primary"
                     typeof="BreadcrumbList" vocab="https://schema.org/" aria-label="<?php _e('Breadcrumb', 'tailpress'); ?>">
@@ -109,7 +104,7 @@ $cta_data = tailpress_blog_cta_data();
     <?php endif; ?>
 </div>
 
-<div class="container">
+
     <!-- related Posts -->
     <?php
     $related = tailpress_get_related_posts(null, 3);
@@ -129,7 +124,7 @@ $cta_data = tailpress_blog_cta_data();
             </div>
         </section>
     <?php endif; ?>
-</div>
+
 <!-- Booking CTA -->
 <div class="px-4">
 

@@ -15,7 +15,7 @@ $hero_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 // Render Hero
 get_template_part('template-parts/components/hero', null, [
     'image' => $hero_image,
-       'content' => $content,
+    'content' => $content,
     'height' => 'h-[60vh]'
 ]);
 
@@ -32,7 +32,7 @@ $contact_email = get_theme_mod('contact_email', 'ibk.cityapartments@gmail.com');
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             <div class="lg:col-span-2">
                 <div class="rounded-lg bg-card text-card-foreground">
-                    <div class="p-4 md:p-6 lg:p-8 pb-0" style="padding-bottom: 0px;">
+                    <div class="px-4 md:px-6 lg:px-8 shadow-lg" style="padding-bottom: 0px;">
                         <h2 class="text-xl md:text-3xl lg:text-3xl font-semibold mb-6 md:mb-10">Request Information</h2>
                         <!-- <form class="space-y-4 md:space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">

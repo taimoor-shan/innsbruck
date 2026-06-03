@@ -48,7 +48,7 @@
             if ($prev_post):
             ?>
                 <span class="text-gray block mb-1"><?php _e('Previous Article', 'tailpress'); ?></span>
-                <?php previous_post_link('%link', '<span class="text-dark hover:text-primary transition-colors font-medium">%title</span>'); ?>
+                <?php previous_post_link('%link', '<span class="text-primary hover:underline transition-colors font-medium">%title</span>'); ?>
             <?php endif; ?>
         </div>
         <div class="text-sm text-right">
@@ -57,7 +57,7 @@
             if ($next_post):
             ?>
                 <span class="text-gray block mb-1"><?php _e('Next Article', 'tailpress'); ?></span>
-                <?php next_post_link('%link', '<span class="text-dark hover:text-primary transition-colors font-medium">%title</span>'); ?>
+                <?php next_post_link('%link', '<span class="text-primary hover:underline transition-colors font-medium">%title</span>'); ?>
             <?php endif; ?>
         </div>
     </div>
